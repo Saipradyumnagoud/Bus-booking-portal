@@ -6,6 +6,8 @@ import Contact from "./Components/Contact/Contact.jsx";
 import Navbar from "./Components/Navbar/Navbar.jsx";
 import Footer from "./Components/Footer/Footer.jsx";
 import Buses from "./Components/Busses/Buses.jsx";
+import Services from "./Components/Services/Services.jsx";
+import CancellationPolicies from "./Components/Cancellation/CancellationPolicies.jsx";
 
 const App = () => {
   return (
@@ -17,6 +19,8 @@ const App = () => {
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/busses" element={<Buses />} />
+          <Route path="/services" element={<Services />}/>
+          <Route path="/cancellationpolicies" element={<CancellationPolicies />} />
         </Routes>
       </main>
       <Footer />

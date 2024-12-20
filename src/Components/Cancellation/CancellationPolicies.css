@@ -1,0 +1,55 @@
+.cancellation-policies-container {
+    font-family: Arial, sans-serif;
+    color: #333;
+    padding: 40px;
+  }
+  
+  h1 {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+  }
+  
+  section {
+    margin-bottom: 40px;
+  }
+  
+  .policy-overview p {
+    font-size: 1.2rem;
+    line-height: 1.6;
+  }
+  
+  h2 {
+    font-size: 2rem;
+    color: #003580;
+    margin-bottom: 15px;
+  }
+  
+  .general-cancellation-policy p, .refund-eligibility ul, .cancellation-fees ul, .how-to-cancel ul, .special-cancellations ul {
+    font-size: 1.1rem;
+    line-height: 1.6;
+  }
+  
+  .refund-eligibility ul, .cancellation-fees ul, .how-to-cancel ul, .special-cancellations ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .refund-eligibility ul li, .cancellation-fees ul li, .how-to-cancel ul li, .special-cancellations ul li {
+    margin-bottom: 15px;
+    padding-left: 20px;
+    text-align: left;
+    display: inline-block;
+    width: 100%;
+  }
+  
+  strong {
+    font-weight: bold;
+  }
+  
+  @media screen and (max-width: 768px) {
+    section {
+      margin-bottom: 30px;
+    }
+  }
+  
