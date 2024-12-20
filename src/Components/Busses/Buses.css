@@ -1,0 +1,78 @@
+.buses-container {
+    font-family: Arial, sans-serif;
+    color: #333;
+    padding: 20px;
+  }
+  
+  h1 {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+  }
+  
+  .bus-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+  }
+  
+  .bus-card {
+    background-color: #f5f5f5;
+    padding: 20px;
+    border-radius: 8px;
+    width: 250px;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .bus-card:hover {
+    transform: translateY(-5px);
+  }
+  
+  .bus-card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+  }
+  
+  .bus-card p {
+    font-size: 1rem;
+    margin-bottom: 10px;
+  }
+  
+  .bus-details {
+    background-color: #003580;
+    color: white;
+    padding: 30px;
+    border-radius: 8px;
+    margin-top: 40px;
+    text-align: center;
+  }
+  
+  .bus-details h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+  }
+  
+  .bus-details p {
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+  }
+  
+  .cta-button {
+    background-color: #ffcc00;
+    color: #003580;
+    padding: 15px 30px;
+    font-size: 1.1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .cta-button:hover {
+    background-color: #e6b800;
+  }
+  
