@@ -1,6 +1,9 @@
+body{
+  color: black;
+}
 .buses-container {
     font-family: Arial, sans-serif;
-    color: #333;
+    color: black;
     padding: 20px;
   }
   
@@ -44,7 +47,7 @@
   
   .bus-details {
     background-color: #003580;
-    color: white;
+    color: black;
     padding: 30px;
     border-radius: 8px;
     margin-top: 40px;
@@ -53,11 +56,13 @@
   
   .bus-details h2 {
     font-size: 2rem;
+    color: black;
     margin-bottom: 20px;
   }
   
   .bus-details p {
     font-size: 1.2rem;
+    color: white;
     margin-bottom: 15px;
   }
   

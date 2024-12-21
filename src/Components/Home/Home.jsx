@@ -6,7 +6,8 @@ const Home = () => {
     <div className="home-container">
       {/* Hero Section */}
       <section className="hero">
-        <h1>Welcome to BookNow</h1>
+      <h1 className="heading">Welcome to BookNow</h1>
+
         <p>Effortless bus booking for your next adventure. Travel smart, travel easy!</p>
         <button className="cta-button">Get Started</button>
       </section>

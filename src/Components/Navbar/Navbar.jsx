@@ -7,18 +7,21 @@ const Navbar = () => {
     <header>
       <nav className="navbar">
         <div className="navbar-left">
-          <h1 className="navbar-brand">BookNow</h1>
+        <Link to="/" >
+        <h1 className="navbar-brand">BookNow</h1>
+        </Link>
+
         </div>
         <div className="navbar-center">
           <ul className="nav-links">
             <li><Link to="/">Home</Link></li>
-            <li><Link to="/busses">Buses</Link></li>
+            <li><Link to="/buses">Buses</Link></li>
             <li className="dropdown">
               <Link to="/services">Services</Link>
               <div className="dropdown-menu">
                 <Link to="/cancellationpolicies">Cancellation Policy</Link>
-                <Link to="travelinsurance">Travel Insurance</Link>
-                <Link to="offers">Offers</Link>
+                <Link to="/travelinsurance">Travel Insurance</Link>
+                <Link to="/offers">Offers</Link>
               </div>
             </li>
             <li><Link to="/contact">Contact</Link></li>
@@ -31,8 +34,11 @@ const Navbar = () => {
             <button>Search</button>
           </div>
           <div className="auth-buttons">
-            <button className="btn-login">Login</button>
+          <Link to="/login">
+              <button className="btn-login">Login</button>
+            
             <button className="btn-signup">Sign Up</button>
+            </Link>
           </div>
         </div>
       </nav>
