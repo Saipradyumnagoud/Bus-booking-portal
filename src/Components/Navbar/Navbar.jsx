@@ -16,9 +16,9 @@ const Navbar = () => {
             <li className="dropdown">
               <Link to="/services">Services</Link>
               <div className="dropdown-menu">
-                <Link to="/CancellationPolicy">Cancellation Policy</Link>
-                <Link to="/services/travel-insurance">Travel Insurance</Link>
-                <Link to="/services/offers">Offers</Link>
+                <Link to="/cancellationpolicies">Cancellation Policy</Link>
+                <Link to="travelinsurance">Travel Insurance</Link>
+                <Link to="offers">Offers</Link>
               </div>
             </li>
             <li><Link to="/contact">Contact</Link></li>

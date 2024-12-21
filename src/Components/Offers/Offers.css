@@ -1,0 +1,83 @@
+.offers-container {
+    font-family: Arial, sans-serif;
+    color: #333;
+    padding: 40px;
+    background-color: #f9f9f9;
+  }
+  
+  h1 {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    color: #003580;
+  }
+  
+  p {
+    text-align: center;
+    font-size: 1.2rem;
+    margin-bottom: 40px;
+    color: #555;
+  }
+  
+  .offer-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+  }
+  
+  .offer-card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .offer-card h2 {
+    font-size: 1.8rem;
+    color: #003580;
+    margin-bottom: 10px;
+  }
+  
+  .offer-card p {
+    font-size: 1.1rem;
+    color: #666;
+    margin-bottom: 20px;
+  }
+  
+  .claim-button {
+    background-color: #003580;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .claim-button:hover {
+    background-color: #0056b3;
+  }
+  
+  .terms-conditions {
+    margin-top: 40px;
+  }
+  
+  .terms-conditions h2 {
+    font-size: 1.8rem;
+    color: #003580;
+    margin-bottom: 15px;
+  }
+  
+  .terms-conditions ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .terms-conditions li {
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 10px;
+  }
+  

@@ -8,6 +8,8 @@ import Footer from "./Components/Footer/Footer.jsx";
 import Buses from "./Components/Busses/Buses.jsx";
 import Services from "./Components/Services/Services.jsx";
 import CancellationPolicies from "./Components/Cancellation/CancellationPolicies.jsx";
+import TravelInsurance from "./Components/Travel/TravelInsurance.jsx";
+import Offers from "./Components/Offers/Offers.jsx";
 
 const App = () => {
   return (
@@ -21,6 +23,8 @@ const App = () => {
           <Route path="/busses" element={<Buses />} />
           <Route path="/services" element={<Services />}/>
           <Route path="/cancellationpolicies" element={<CancellationPolicies />} />
+          <Route path="/travelinsurance" element={<TravelInsurance />} />
+          <Route path="/offers" element={<Offers />} />
         </Routes>
       </main>
       <Footer />

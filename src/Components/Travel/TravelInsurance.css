@@ -1,0 +1,52 @@
+.travel-insurance-container {
+    font-family: Arial, sans-serif;
+    color: #333;
+    padding: 40px;
+  }
+  
+  h1 {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+  }
+  
+  section {
+    margin-bottom: 40px;
+  }
+  
+  .insurance-overview p {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    text-align: center;
+  }
+  
+  h2 {
+    font-size: 2rem;
+    color: #003580;
+    margin-bottom: 15px;
+  }
+  
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  ul li {
+    font-size: 1.1rem;
+    margin-bottom: 15px;
+    padding-left: 20px;
+    text-align: left;
+    display: inline-block;
+    width: 100%;
+  }
+  
+  strong {
+    font-weight: bold;
+  }
+  
+  @media screen and (max-width: 768px) {
+    section {
+      margin-bottom: 30px;
+    }
+  }
+  
