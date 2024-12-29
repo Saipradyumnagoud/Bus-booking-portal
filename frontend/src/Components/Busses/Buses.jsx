@@ -1,48 +1,33 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./Buses.css";
 
 const Buses = () => {
   const [selectedBus, setSelectedBus] = useState(null);
+  const navigate = useNavigate();
 
   const buses = [
-    {
-      id: 1,
-      route: "New York to Boston",
-      time: "10:00 AM",
-      price: "$45",
-      seatsAvailable: 30,
-    },
-    {
-      id: 2,
-      route: "San Francisco to Los Angeles",
-      time: "2:00 PM",
-      price: "$55",
-      seatsAvailable: 20,
-    },
-    {
-      id: 3,
-      route: "Chicago to Miami",
-      time: "8:00 PM",
-      price: "$65",
-      seatsAvailable: 25,
-    },
-    {
-      id: 4,
-      route: "Seattle to Portland",
-      time: "6:00 AM",
-      price: "$40",
-      seatsAvailable: 40,
-    },
+    { id: 1, route: "New York to Boston", time: "10:00 AM", price: "$45", seatsAvailable: 30 },
+    { id: 2, route: "San Francisco to Los Angeles", time: "2:00 PM", price: "$55", seatsAvailable: 20 },
+    { id: 3, route: "Chicago to Miami", time: "8:00 PM", price: "$65", seatsAvailable: 25 },
+    { id: 4, route: "Seattle to Portland", time: "6:00 AM", price: "$40", seatsAvailable: 40 },
   ];
 
-  const handleSelectBus = (bus) => {
-    setSelectedBus(bus);
+  const handleSelectBus = (bus) => setSelectedBus(bus);
+
+  const handleBookNow = () => {
+    const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+    if (!isLoggedIn) {
+      alert("You must be logged in to book a bus.");
+      navigate("/login");
+      return;
+    }
+    navigate("/booknow", { state: { bus: selectedBus } });
   };
 
   return (
     <div className="buses-container">
       <h1>Available Buses</h1>
-      
       <div className="bus-list">
         {buses.map((bus) => (
           <div
@@ -57,7 +42,6 @@ const Buses = () => {
           </div>
         ))}
       </div>
-
       {selectedBus && (
         <div className="bus-details">
           <h2>Bus Details</h2>
@@ -65,7 +49,9 @@ const Buses = () => {
           <p><strong>Departure Time:</strong> {selectedBus.time}</p>
           <p><strong>Price:</strong> {selectedBus.price}</p>
           <p><strong>Seats Available:</strong> {selectedBus.seatsAvailable}</p>
-          <button className="cta-button">Book Now</button>
+          <button className="cta-button" onClick={handleBookNow}>
+            Book Now
+          </button>
         </div>
       )}
     </div>
