@@ -15,8 +15,7 @@ const Login = () => {
             .then(result => {
                 console.log(result);
                 if (result.data.message === "Success") {
-                    alert('Login successful!');
-                    navigate('/buses'); // Redirect to buses page after successful login
+                    navigate('/buses'); 
                 } else {
                     alert('Incorrect password! Please try again.');
                 }
