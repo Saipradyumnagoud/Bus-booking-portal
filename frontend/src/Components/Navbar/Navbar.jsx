@@ -7,10 +7,9 @@ const Navbar = () => {
     <header>
       <nav className="navbar">
         <div className="navbar-left">
-        <Link to="/" >
-        <h1 className="navbar-brand">BookNow</h1>
-        </Link>
-
+          <Link to="/">
+            <h1 className="navbar-brand">BookNow</h1>
+          </Link>
         </div>
         <div className="navbar-center">
           <ul className="nav-links">
@@ -34,13 +33,9 @@ const Navbar = () => {
             <button>Search</button>
           </div>
           <div className="auth-buttons">
-          <Link to="/login">
-              <button className="btn-login">Login</button>
-              </Link>
-              <Link to="/signup">
-              <button className="btn-signup">Sign Up</button>
-              </Link>
-            
+            <Link to="/myaccount">
+              <button className="btn-account">My Account</button>
+            </Link>
           </div>
         </div>
       </nav>

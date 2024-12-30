@@ -1,0 +1,51 @@
+.my-account {
+    padding: 20px;
+    max-width: 800px;
+    margin: 20px auto;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .my-account h1, .my-account h2 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .account-details p, .login-prompt p {
+    font-size: 16px;
+    margin: 10px 0;
+  }
+  
+  .account-details ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .account-details li {
+    margin: 5px 0;
+    padding: 5px;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .logout-btn, .login-btn, .signup-btn {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 14px;
+  }
+  
+  .logout-btn:hover, .login-btn:hover, .signup-btn:hover {
+    background-color: #0056b3;
+  }
+  
+  .login-prompt {
+    text-align: center;
+  }
+  

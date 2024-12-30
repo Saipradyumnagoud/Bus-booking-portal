@@ -120,4 +120,16 @@
   .btn-signup:hover {
     background-color: #e6b800;
   }
+  .btn-account {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+  }
   
+  .btn-account:hover {
+    background-color: #0056b3;
+  }
