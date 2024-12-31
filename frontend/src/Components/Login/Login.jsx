@@ -14,7 +14,7 @@ const Login = () => {
     axios
       .post("http://localhost:3000/login", { email, password })
       .then((result) => {
-        if (result.data === "Success") {
+        if (result.data.message === "Success") {
           localStorage.setItem("isLoggedIn", "true");
           alert("Login successful!");
           navigate("/buses");

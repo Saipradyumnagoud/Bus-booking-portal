@@ -15,7 +15,11 @@ const MyAccount = () => {
 
       if (loggedIn) {
         try {
-          const response = await axios.get("http://localhost:3000/userdetails");
+          // Assuming email is stored in localStorage or elsewhere
+          const email = localStorage.getItem("userEmail");
+          
+          // Send email as a query parameter to fetch user details
+          const response = await axios.get(`http://localhost:3000/userDetails?email=${email}`);
           setUserDetails(response.data);
         } catch (err) {
           console.error("Failed to fetch user details:", err);
@@ -28,6 +32,7 @@ const MyAccount = () => {
 
   const handleLogout = () => {
     localStorage.removeItem("isLoggedIn");
+    localStorage.removeItem("userEmail"); // Also remove email from localStorage if stored
     setIsLoggedIn(false);
     setUserDetails(null);
     navigate("/");
@@ -42,19 +47,7 @@ const MyAccount = () => {
             <div className="account-details">
               <p><strong>Name:</strong> {userDetails.name}</p>
               <p><strong>Email:</strong> {userDetails.email}</p>
-              <p><strong>Phone:</strong> {userDetails.phone || "N/A"}</p>
-              <p><strong>Booking History:</strong></p>
-              <ul>
-                {userDetails.bookings && userDetails.bookings.length > 0 ? (
-                  userDetails.bookings.map((booking, index) => (
-                    <li key={index}>
-                      {`Booking #${booking.id} - ${booking.details}`}
-                    </li>
-                  ))
-                ) : (
-                  <li>No bookings found.</li>
-                )}
-              </ul>
+              {/* You can add phone or any other details if you add them in the database later */}
               <button onClick={handleLogout} className="logout-btn">
                 Logout
               </button>

@@ -50,6 +50,26 @@ app.post('/login', async (req, res) => {
   }
 });
 
+// User Details Route
+app.get('/userDetails', async (req, res) => {
+  const email = req.query.email; // Email can be passed as a query parameter
+
+  try {
+    const user = await PassengerModel.findOne({ email });
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    res.json({
+      name: user.name,
+      email: user.email,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Failed to fetch user details' });
+  }
+});
+
 // Start server
 app.listen(3000, () => {
   console.log('Server is running on http://localhost:3000');

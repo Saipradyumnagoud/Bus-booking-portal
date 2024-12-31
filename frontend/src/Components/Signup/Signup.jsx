@@ -1,32 +1,32 @@
-import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import axios from 'axios';
-import './Signup.css';
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
+import "./Signup.css";
 
-function Signup() {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+const Signup = () => {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!name || !email || !password) {
-      alert('Please fill out all fields.');
+      alert("Please fill out all fields.");
       return;
     }
 
     setLoading(true);
     axios
-      .post('http://localhost:3000/signup', { name, email, password })
+      .post(`${process.env.REACT_APP_API_URL}/signup`, { name, email, password })
       .then((result) => {
-        console.log(result);
-        navigate('/login'); // Redirect to login after successful signup
+        alert("Signup successful! Please log in.");
+        navigate("/login");
       })
       .catch((err) => {
         console.error(err);
-        alert('Signup failed. Please try again.');
+        alert(err.response?.data?.error || "Signup failed. Please try again.");
       })
       .finally(() => setLoading(false));
   };
@@ -45,6 +45,7 @@ function Signup() {
               placeholder="Enter your username"
               value={name}
               onChange={(e) => setName(e.target.value)}
+              required
             />
           </div>
           <div className="input-group">
@@ -56,6 +57,7 @@ function Signup() {
               placeholder="Enter your email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              required
             />
           </div>
           <div className="input-group">
@@ -67,10 +69,11 @@ function Signup() {
               placeholder="Enter your password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              required
             />
           </div>
           <button type="submit" className="signup-btn" disabled={loading}>
-            {loading ? 'Signing Up...' : 'Sign Up'}
+            {loading ? "Signing Up..." : "Sign Up"}
           </button>
         </form>
         <div className="login-link">
@@ -79,6 +82,6 @@ function Signup() {
       </div>
     </div>
   );
-}
+};
 
 export default Signup;
