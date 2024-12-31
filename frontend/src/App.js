@@ -13,7 +13,7 @@ import Offers from "./Components/Offers/Offers.jsx";
 import Signup from "./Components/Signup/Signup.jsx";
 import Login from "./Components/Login/Login.jsx";
 import BookNow from "./Components/Booknow/Booknow.jsx";
-import MyAccount from "./Components/MyAccount/Myaccount.jsx";
+import MyAccount from "./Components/MyAccount/MyAccount.jsx";
 const App = () => {
   return (
     <Router>
