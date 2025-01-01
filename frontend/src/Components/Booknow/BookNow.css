@@ -1,43 +1,66 @@
-.book-now-container {
-    margin: 20px auto;
-    padding: 20px;
-    max-width: 600px;
-    background-color: #f9f9f9;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
-  
-  .book-now-container h1 {
-    text-align: center;
-    color: #333;
-  }
-  
-  .bus-details {
-    margin-bottom: 20px;
-  }
-  
-  .bus-details h2 {
-    color: #555;
-  }
-  
-  .bus-details p {
-    font-size: 16px;
-    margin: 10px 0;
-  }
-  
-  .confirm-btn {
-    display: block;
-    margin: 0 auto;
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    font-size: 16px;
-    cursor: pointer;
-  }
-  
-  .confirm-btn:hover {
-    background-color: #0056b3;
-  }
-  
+.booknow-container {
+  max-width: 700px;
+  margin: 20px auto;
+  padding: 20px;
+  background: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+h1, h2 {
+  text-align: center;
+  color: #333;
+}
+
+.bus-details p {
+  margin: 10px 0;
+  font-size: 16px;
+}
+
+.booking-form {
+  margin-top: 20px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 14px;
+  margin-bottom: 5px;
+  color: #555;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.total-price {
+  font-size: 18px;
+  margin: 15px 0;
+  text-align: center;
+  font-weight: bold;
+  color: #333;
+}
+
+.confirm-btn {
+  display: block;
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  color: white;
+  background: #28a745;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.confirm-btn:hover {
+  background: blue;
+}

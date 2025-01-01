@@ -1,51 +1,72 @@
-.my-account {
-    padding: 20px;
-    max-width: 800px;
-    margin: 20px auto;
-    background-color: #f9f9f9;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
-  
-  .my-account h1, .my-account h2 {
-    text-align: center;
-    margin-bottom: 20px;
-  }
-  
-  .account-details p, .login-prompt p {
-    font-size: 16px;
-    margin: 10px 0;
-  }
-  
-  .account-details ul {
-    list-style-type: none;
-    padding: 0;
-  }
-  
-  .account-details li {
-    margin: 5px 0;
-    padding: 5px;
-    border-bottom: 1px solid #ddd;
-  }
-  
-  .logout-btn, .login-btn, .signup-btn {
-    display: inline-block;
-    margin-top: 20px;
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    text-decoration: none;
-    font-size: 14px;
-  }
-  
-  .logout-btn:hover, .login-btn:hover, .signup-btn:hover {
-    background-color: #0056b3;
-  }
-  
-  .login-prompt {
-    text-align: center;
-  }
-  
+/* Account Container */
+.account-container {
+  display: flex;
+  margin: 20px;
+}
+
+/* Sidebar Styling */
+.sidebar {
+  width: 250px;
+  background-color: #f4f4f4;
+  padding: 20px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar h3 {
+  margin-bottom: 20px;
+  font-size: 18px;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar ul li {
+  margin: 15px 0;
+}
+
+.sidebar ul li a {
+  text-decoration: none;
+  color: #333;
+  font-size: 16px;
+}
+
+.sidebar ul li button {
+  background: none;
+  border: none;
+  color: #333;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+/* Main Content Styling */
+.main-content {
+  flex-grow: 1;
+  margin-left: 20px;
+}
+
+h1 {
+  font-size: 24px;
+}
+
+.account-details p {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+/* Login Prompt Styling */
+.login-prompt {
+  text-align: center;
+  margin-top: 50px;
+}
+
+.login-prompt h2 {
+  font-size: 24px;
+}
+
+.login-btn, .signup-btn {
+  text-decoration: none;
+  color: #007bff;
+  font-weight: bold;
+}

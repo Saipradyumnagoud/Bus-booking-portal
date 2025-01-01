@@ -7,10 +7,10 @@ const Buses = () => {
   const navigate = useNavigate();
 
   const buses = [
-    { id: 1, route: "New York to Boston", time: "10:00 AM", price: "$45", seatsAvailable: 30 },
-    { id: 2, route: "San Francisco to Los Angeles", time: "2:00 PM", price: "$55", seatsAvailable: 20 },
-    { id: 3, route: "Chicago to Miami", time: "8:00 PM", price: "$65", seatsAvailable: 25 },
-    { id: 4, route: "Seattle to Portland", time: "6:00 AM", price: "$40", seatsAvailable: 40 },
+    { id: 1, route: "New York to Boston", time: "10:00 AM", price: "45", seatsAvailable: 30 },
+    { id: 2, route: "San Francisco to Los Angeles", time: "2:00 PM", price: "55", seatsAvailable: 20 },
+    { id: 3, route: "Chicago to Miami", time: "8:00 PM", price: "65", seatsAvailable: 25 },
+    { id: 4, route: "Seattle to Portland", time: "6:00 AM", price: "40", seatsAvailable: 40 },
   ];
 
   const handleSelectBus = (bus) => setSelectedBus(bus);
@@ -37,7 +37,7 @@ const Buses = () => {
           >
             <h3>{bus.route}</h3>
             <p>Departure: {bus.time}</p>
-            <p>Price: {bus.price}</p>
+            <p>Price: ${bus.price}</p>
             <p>Seats Available: {bus.seatsAvailable}</p>
           </div>
         ))}
@@ -47,7 +47,7 @@ const Buses = () => {
           <h2>Bus Details</h2>
           <p><strong>Route:</strong> {selectedBus.route}</p>
           <p><strong>Departure Time:</strong> {selectedBus.time}</p>
-          <p><strong>Price:</strong> {selectedBus.price}</p>
+          <p><strong>Price:$</strong> {selectedBus.price}</p>
           <p><strong>Seats Available:</strong> {selectedBus.seatsAvailable}</p>
           <button className="cta-button" onClick={handleBookNow}>
             Book Now
