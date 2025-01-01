@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "./Home.css";
 
 const Home = () => {
@@ -52,9 +53,14 @@ const Home = () => {
 
       {/* Call to Action Section */}
       <section className="cta">
-        <h2>Ready to Book Your Next Ride?</h2>
-        <button className="cta-button">Start Your Journey</button>
+      <h2>Ready to Book Your Next Ride?</h2>
+      <Link to="/buses">
+      <button className="cta-button">
+      Start Your Journey
+      </button>
+      </Link>
       </section>
+
     </div>
   );
 };
