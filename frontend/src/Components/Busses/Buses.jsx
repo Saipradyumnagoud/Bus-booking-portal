@@ -37,7 +37,7 @@ const Buses = () => {
           >
             <h3>{bus.route}</h3>
             <p>Departure: {bus.time}</p>
-            <p>Price: ${bus.price}</p>
+            <p>Price: ₹{bus.price}</p>
             <p>Seats Available: {bus.seatsAvailable}</p>
           </div>
         ))}
@@ -47,7 +47,7 @@ const Buses = () => {
           <h2>Bus Details</h2>
           <p><strong>Route:</strong> {selectedBus.route}</p>
           <p><strong>Departure Time:</strong> {selectedBus.time}</p>
-          <p><strong>Price:$</strong> {selectedBus.price}</p>
+          <p><strong>Price:₹</strong> {selectedBus.price}</p>
           <p><strong>Seats Available:</strong> {selectedBus.seatsAvailable}</p>
           <button className="cta-button" onClick={handleBookNow}>
             Book Now

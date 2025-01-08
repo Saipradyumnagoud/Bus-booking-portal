@@ -16,7 +16,9 @@ const MyAccount = () => {
       if (loggedIn) {
         try {
           const email = localStorage.getItem("userEmail");
+          console.log("Email from localStorage:", email); // Debugging line
           const response = await axios.get(`http://localhost:3000/userDetails?email=${email}`);
+          console.log("Response from backend:", response.data); // Debugging line
           setUserDetails(response.data);
         } catch (err) {
           console.error("Failed to fetch user details:", err);
