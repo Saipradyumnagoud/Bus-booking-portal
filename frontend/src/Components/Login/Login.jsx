@@ -16,6 +16,7 @@ const Login = () => {
       .then((result) => {
         if (result.data.message === "Success") {
           localStorage.setItem("isLoggedIn", "true");
+          localStorage.setItem("userEmail", email);
           alert("Login successful!");
           navigate("/buses");
         } else {

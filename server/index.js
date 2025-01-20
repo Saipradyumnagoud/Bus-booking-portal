@@ -1,31 +1,32 @@
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
+const bcrypt = require('bcrypt');
 const PassengerModel = require('./models/Passenger');
 const app = express();
 
 // Middleware
-app.use(cors()); // Allow cross-origin requests
-app.use(express.json()); // Parse incoming JSON requests
+app.use(cors());
+app.use(express.json());
 
 // MongoDB connection
 mongoose.connect("mongodb://127.0.0.1:27017/passenger", { useNewUrlParser: true, useUnifiedTopology: true });
 
-// Routes
-
 // Signup Route
-app.post('/signup', (req, res) => {
+app.post('/signup', async (req, res) => {
   const { name, email, password } = req.body;
 
-  // Basic validation
   if (!name || !email || !password) {
     return res.status(400).json({ error: 'Please provide all fields' });
   }
 
-  // Create new user
-  PassengerModel.create({ name, email, password })
-    .then(passenger => res.json(passenger))
-    .catch(err => res.status(500).json({ error: 'Error creating user', err }));
+  try {
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const newUser = await PassengerModel.create({ name, email, password: hashedPassword });
+    res.json(newUser);
+  } catch (err) {
+    res.status(500).json({ error: 'Error creating user', err });
+  }
 });
 
 // Login Route
@@ -38,21 +39,20 @@ app.post('/login', async (req, res) => {
       return res.status(400).json({ error: 'Invalid email or password' });
     }
 
-    // Check if password matches
-    if (user.password === password) {
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (isMatch) {
       res.json({ message: 'Success' });
     } else {
       res.status(400).json({ error: 'Invalid email or password' });
     }
   } catch (error) {
-    console.error(error);
     res.status(500).json({ error: 'Server error' });
   }
 });
 
 // User Details Route
 app.get('/userDetails', async (req, res) => {
-  const email = req.query.email; // Email can be passed as a query parameter
+  const email = req.query.email;
 
   try {
     const user = await PassengerModel.findOne({ email });
@@ -65,7 +65,6 @@ app.get('/userDetails', async (req, res) => {
       email: user.email,
     });
   } catch (error) {
-    console.error(error);
     res.status(500).json({ error: 'Failed to fetch user details' });
   }
 });
