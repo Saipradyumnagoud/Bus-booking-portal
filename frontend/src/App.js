@@ -15,6 +15,7 @@ import Login from "./Components/Login/Login.jsx";
 import BookNow from "./Components/Booknow/Booknow.jsx";
 import MyAccount from "./Components/MyAccount/MyAccount.jsx";
 import ChangePassword from "./Components/ChangePassword/ChangePassword.jsx";
+import PersonalInformation from "./Components/PersonalInformation/PersonalInformation.jsx";
 const App = () => {
   return (
     <Router>
@@ -34,6 +35,7 @@ const App = () => {
           <Route path="/booknow" element={<BookNow />} />
           <Route path="/myaccount" element={<MyAccount />} />
           <Route path="/changepassword" element={<ChangePassword />} />
+          <Route path="/personalinformation" element={<PersonalInformation />} />
           <Route path="*" element={<h1>404 - Page Not Found</h1>} />
         </Routes>
       </main>

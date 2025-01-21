@@ -1,0 +1,70 @@
+body {
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    background-color: #f4f4f9;
+  }
+  
+  .personal-info-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+    background: linear-gradient(135deg, #ece9e6, #ffffff);
+  }
+  
+  .info-card {
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    padding: 40px;
+    max-width: 500px;
+    width: 100%;
+    text-align: center;
+  }
+  
+  .info-card h1 {
+    font-size: 28px;
+    color: #333333;
+    margin-bottom: 20px;
+    text-transform: capitalize;
+  }
+  
+  .info-details {
+    text-align: left;
+  }
+  
+  .info-details p {
+    font-size: 18px;
+    color: #555555;
+    margin: 10px 0;
+  }
+  
+  .info-details p strong {
+    color: #333333;
+  }
+  
+  .loading {
+    font-size: 18px;
+    color: #888888;
+  }
+  
+  .error-message {
+    font-size: 18px;
+    color: #ff6b6b;
+  }
+  
+  @media screen and (max-width: 768px) {
+    .info-card {
+      padding: 20px;
+    }
+  
+    .info-card h1 {
+      font-size: 24px;
+    }
+  
+    .info-details p {
+      font-size: 16px;
+    }
+  }
+  

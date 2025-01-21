@@ -1,135 +1,168 @@
-/* Navbar styles */
+/* General Navbar Styles */
 .navbar {
-    display: flex;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #003580;
+  color: white;
+}
+
+.navbar-brand {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #fff;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #fff;
+  font-weight: 500;
+  transition: color 0.3s;
+}
+
+.nav-links a:hover {
+  color: #ffcc00;
+}
+
+.dropdown {
+  position: relative;
+}
+
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: white;
+  color: #003580;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  padding: 10px 0;
+}
+
+.dropdown:hover .dropdown-menu {
+  display: block;
+}
+
+.dropdown-menu a {
+  padding: 10px 20px;
+  display: block;
+  text-decoration: none;
+  color: #003580;
+}
+
+.dropdown-menu a:hover {
+  background-color: #f0f0f0;
+  color: #003580;
+}
+
+.search-bar {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.search-bar input {
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.search-bar button {
+  padding: 5px 15px;
+  border: none;
+  background-color: #ffcc00;
+  color: #003580;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.search-bar button:hover {
+  background-color: #e6b800;
+}
+
+.auth-buttons {
+  display: flex;
+  gap: 10px;
+  margin-left: 20px;
+}
+
+.btn-account {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.btn-account:hover {
+  background-color: #0056b3;
+}
+
+/* Hamburger Button */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+}
+
+.hamburger .bar {
+  width: 25px;
+  height: 3px;
+  background-color: white;
+  border-radius: 2px;
+}
+
+/* Mobile Styles */
+@media (max-width: 768px) {
+  .navbar {
+    flex-wrap: wrap;
     justify-content: space-between;
-    align-items: center;
-    padding: 10px 20px;
-    background-color: #003580;
-    color: white;
   }
-  
-  .navbar-brand {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: #fff;
+
+  .navbar-left {
+    flex: 1;
   }
-  
-  .nav-links {
-    list-style: none;
+
+  .hamburger {
     display: flex;
-    gap: 20px;
   }
-  
-  .nav-links a {
-    text-decoration: none;
-    color: #fff;
-    font-weight: 500;
-    transition: color 0.3s;
-  }
-  
-  .nav-links a:hover {
-    color: #ffcc00;
-  }
-  
-  .dropdown {
-    position: relative;
-  }
-  
-  .dropdown-menu {
+
+  .navbar-center {
     display: none;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    background-color: white;
-    color: #003580;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    border-radius: 4px;
+    flex-direction: column;
+    width: 100%;
+    background-color: #003580;
     padding: 10px 0;
   }
-  
-  .dropdown:hover .dropdown-menu {
-    display: block;
-  }
-  
-  .dropdown-menu a {
-    padding: 10px 20px;
-    display: block;
-    text-decoration: none;
-    color: #003580;
-  }
-  
-  .dropdown-menu a:hover {
-    background-color: #f0f0f0;
-    color: #003580;
-  }
-  
-  .search-bar {
+
+  .navbar-center.open {
     display: flex;
-    gap: 10px;
+  }
+
+  .nav-links {
+    flex-direction: column;
+    gap: 15px;
     align-items: center;
+    padding: 0;
   }
-  
-  .search-bar input {
-    padding: 5px 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+
+  .search-bar {
+    margin: 15px 0;
   }
-  
-  .search-bar button {
-    padding: 5px 15px;
-    border: none;
-    background-color: #ffcc00;
-    color: #003580;
-    font-weight: bold;
-    cursor: pointer;
-    border-radius: 4px;
-  }
-  
-  .search-bar button:hover {
-    background-color: #e6b800;
-  }
-  
+
   .auth-buttons {
-    display: flex;
-    gap: 10px;
-    margin-left: 20px;
+    justify-content: center;
   }
-  
-  .auth-buttons button {
-    padding: 5px 10px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-weight: bold;
-  }
-  
-  .btn-login {
-    background-color: white;
-    color: #003580;
-  }
-  
-  .btn-login:hover {
-    background-color: #f0f0f0;
-  }
-  
-  .btn-signup {
-    background-color: #ffcc00;
-    color: #003580;
-  }
-  
-  .btn-signup:hover {
-    background-color: #e6b800;
-  }
-  .btn-account {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 14px;
-  }
-  
-  .btn-account:hover {
-    background-color: #0056b3;
-  }
+}

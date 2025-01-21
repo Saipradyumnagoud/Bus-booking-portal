@@ -38,12 +38,12 @@ const Contact = () => {
 
           <div className="contact-item">
             <h3>Phone</h3>
-            <p><a href="tel:+1234567890">+1-234-567-890</a></p>
+            <p><a href="tel:+1234567890">1234567890</a></p>
           </div>
 
           <div className="contact-item">
             <h3>Address</h3>
-            <p>123, Main Street, City, Country</p>
+            <p>kitsw </p>
           </div>
         </div>
       </section>
@@ -106,7 +106,9 @@ const Contact = () => {
         <div className="map-container">
           <iframe
             title="Map"
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d387190.2799082106!2d-74.2598677!3d40.6976701!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c25a23b7888e7b%3A0x928fae3b2b6e83e!2sNew+York%2C+NY%2C+USA!5e0!3m2!1sen!2sin!4v1633443293650!5m2!1sen!2sin"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d30347.314077389226!2d79.50751681241681!3d18.05236730000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a3348b658b48ac9%3A0x6af9765417f433d!2sKITS%20Warangal!5e0!3m2!1sen!2sin!4v1737464168685!5m2!1sen!2sin"
+
+
             width="600"
             height="450"
             allowFullScreen=""
