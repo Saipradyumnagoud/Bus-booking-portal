@@ -1,17 +1,42 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import Papa from "papaparse";
 import "./Buses.css";
 
 const Buses = () => {
+  const [buses, setBuses] = useState([]);
   const [selectedBus, setSelectedBus] = useState(null);
   const navigate = useNavigate();
 
-  const buses = [
-    { id: 1, route: "New York to Boston", time: "10:00 AM", price: "45", seatsAvailable: 30 },
-    { id: 2, route: "San Francisco to Los Angeles", time: "2:00 PM", price: "55", seatsAvailable: 20 },
-    { id: 3, route: "Chicago to Miami", time: "8:00 PM", price: "65", seatsAvailable: 25 },
-    { id: 4, route: "Seattle to Portland", time: "6:00 AM", price: "40", seatsAvailable: 40 },
-  ];
+  useEffect(() => {
+    // Fetch and parse the CSV file
+    fetch("/Bus_Schedule.csv") // Ensure the file is in the 'public' folder
+      .then((response) => response.text())
+      .then((data) => {
+        Papa.parse(data, {
+          header: true,
+          skipEmptyLines: true,
+          complete: (result) => {
+            const filteredBuses = result.data.filter((bus) => {
+              if (!bus["Start Time"]) return false; // Skip if Start Time is missing
+              try {
+                const currentTime = new Date();
+                const busTime = new Date(
+                  `2025-01-22T${bus["Start Time"].trim()}`
+                ); // Format the Start Time
+                return busTime > currentTime; // Only include future buses
+              } catch (error) {
+                console.error("Error parsing time:", error);
+                return false;
+              }
+            });
+            setBuses(filteredBuses);
+          },
+          error: (error) => console.error("Error parsing CSV:", error),
+        });
+      })
+      .catch((error) => console.error("Error fetching CSV:", error));
+  }, []);
 
   const handleSelectBus = (bus) => setSelectedBus(bus);
 
@@ -29,26 +54,36 @@ const Buses = () => {
     <div className="buses-container">
       <h1>Available Buses</h1>
       <div className="bus-list">
-        {buses.map((bus) => (
+        {buses.map((bus, index) => (
           <div
-            key={bus.id}
+            key={index}
             className="bus-card"
             onClick={() => handleSelectBus(bus)}
           >
-            <h3>{bus.route}</h3>
-            <p>Departure: {bus.time}</p>
-            <p>Price: ₹{bus.price}</p>
-            <p>Seats Available: {bus.seatsAvailable}</p>
+            <h3>{`${bus["Start Location"]} to ${bus["End Location"]}`}</h3>
+            <p>Departure: {bus["Start Time"]}</p>
+            <p>Price: ₹{bus.price || "N/A"}</p>
+            {/* {bus.seatsAvailable || "N/A"} */}
+            <p>Seats Available: 30 </p>
           </div>
         ))}
       </div>
       {selectedBus && (
         <div className="bus-details">
           <h2>Bus Details</h2>
-          <p><strong>Route:</strong> {selectedBus.route}</p>
-          <p><strong>Departure Time:</strong> {selectedBus.time}</p>
-          <p><strong>Price:₹</strong> {selectedBus.price}</p>
-          <p><strong>Seats Available:</strong> {selectedBus.seatsAvailable}</p>
+          <p>
+            <strong>Route:</strong>{" "}
+            {`${selectedBus["Start Location"]} to ${selectedBus["End Location"]}`}
+          </p>
+          <p>
+            <strong>Departure Time:</strong> {selectedBus["Start Time"]}
+          </p>
+          <p>
+            <strong>Price:</strong> ₹{selectedBus.price || "N/A"}
+          </p>
+          <p>
+            <strong>Seats Available:</strong> {selectedBus.seatsAvailable || "N/A"}
+          </p>
           <button className="cta-button" onClick={handleBookNow}>
             Book Now
           </button>

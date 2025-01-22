@@ -11,6 +11,7 @@ h1 {
   text-align: center;
   font-size: 3rem;
   margin-bottom: 20px;
+  color: #2c2c2c; /* Dark Charcoal */
 }
 
 section {
@@ -20,6 +21,7 @@ section {
 .about-intro p {
   font-size: 1.2rem;
   line-height: 1.6;
+  color: #2c2c2c; /* Dark Charcoal */
 }
 
 .mission,
@@ -35,7 +37,7 @@ section {
 .values h2,
 .history h2 {
   font-size: 2rem;
-  color: #003580;
+  color: #ffcc00; /* Bright Yellow */
   margin-bottom: 15px;
 }
 
@@ -44,6 +46,7 @@ section {
 .history p {
   font-size: 1.1rem;
   line-height: 1.6;
+  color: #2c2c2c; /* Dark Charcoal */
 }
 
 .values ul {
@@ -58,6 +61,7 @@ section {
   text-align: left;
   display: inline-block;
   width: 100%;
+  color: #2c2c2c; /* Dark Charcoal */
 }
 
 .team-members {
@@ -75,12 +79,13 @@ section {
 
 .team-member h3 {
   font-size: 1.5rem;
-  color: #003580;
+  color: #ffcc00; /* Bright Yellow */
   margin-bottom: 10px;
 }
 
 .team-member p {
   font-size: 1rem;
+  color: #2c2c2c; /* Dark Charcoal */
 }
 
 .team-member p strong {

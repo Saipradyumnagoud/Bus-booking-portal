@@ -1,146 +1,154 @@
-body{
-  color: #000;
+/* General Styles */
+body {
+  color: #2c2c2c; /* Muted Teal */
 }
+
 .home-container {
-    font-family: Arial, sans-serif;
-    color: black;
-    padding: 20px;
-  }
-  .heading {
-    color: black;
-  }
-  .hero {
-    text-align: center;
-    background-color: #003580;
-    padding: 60px 20px;
-    border-radius: 8px;
-    margin-bottom: 40px;
-  }
-  
-  .h1 {
-    font-size: 3rem;
-    margin-bottom: 20px;
-    color: #f5f5f5;
-  }
-  
-  .hero p {
-    font-size: 1.2rem;
-    margin-bottom: 30px;
-  }
-  
-  .cta-button {
-    background-color: #ffcc00;
-    color: #003580;
-    padding: 15px 30px;
-    font-size: 1.1rem;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-  }
-  
-  .cta-button:hover {
-    background-color: #e6b800;
-  }
-  
-  .features {
-    text-align: center;
-    margin-bottom: 60px;
-  }
-  
-  .features h2 {
-    font-size: 2.5rem;
-    margin-bottom: 30px;
-  }
-  
-  .feature-cards {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-  }
-  
-  .feature-card {
-    background-color: #f5f5f5;
-    padding: 30px;
-    border-radius: 8px;
-    width: 250px;
-    text-align: center;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  .feature-card h3 {
-    font-size: 1.5rem;
-    margin-bottom: 15px;
-  }
-  
-  .feature-card p {
-    font-size: 1rem;
-  }
-  
-  .testimonials {
-    background-color: #f9f9f9;
-    padding: 40px 20px;
-    text-align: center;
-    margin-bottom: 60px;
-  }
-  
-  .testimonials h2 {
-    font-size: 2.5rem;
-    margin-bottom: 30px;
-  }
-  
-  .testimonial-cards {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-  }
-  
-  .testimonial-card {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    width: 300px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  .testimonial-card p {
-    font-style: italic;
-    font-size: 1.1rem;
-    margin-bottom: 15px;
-  }
-  
-  .testimonial-card h4 {
-    font-size: 1rem;
-    font-weight: bold;
-    color: #003580;
-  }
-  
-  .cta {
-    text-align: center;
-    background-color: #003580;
-    
-    padding: 40px 20px;
-    border-radius: 8px;
-  }
-  
-  .cta h2 {
-    font-size: 2.5rem;
-    margin-bottom: 20px;
-    color: #000;
-  }
-  
-  .cta-button {
-    background-color: #ffcc00;
-    color: #003580;
-    padding: 15px 30px;
-    font-size: 1.1rem;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-  }
-  
-  .cta-button:hover {
-    background-color: #e6b800;
-  }
-  
+  font-family: Arial, sans-serif;
+  color: #2c2c2c; /* Muted Teal */
+  padding: 20px;
+}
+
+.heading {
+  color: #2c2c2c; /* Muted Teal */
+}
+
+.hero {
+  text-align: center;
+  background-color: #e27d60; /* Terracotta Red */
+  padding: 60px 20px;
+  border-radius: 8px;
+  margin-bottom: 40px;
+}
+
+.h1 {
+  font-size: 3rem;
+  margin-bottom: 20px;
+  color: #f1e6d6; /* Light Beige */
+}
+
+.hero p {
+  font-size: 1.2rem;
+  margin-bottom: 30px;
+  color: #f1e6d6; /* Light Beige */
+}
+
+.cta-button {
+  background-color: #4a6d7c; /* Muted Teal */
+  color: #f1e6d6; /* Light Beige */
+  padding: 15px 30px;
+  font-size: 1.1rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.cta-button:hover {
+  background-color: #3a5b66; /* Darker Muted Teal */
+}
+
+.features {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.features h2 {
+  font-size: 2.5rem;
+  margin-bottom: 30px;
+  color: #2c2c2c; /* Muted Teal */
+}
+
+.feature-cards {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.feature-card {
+  background-color: #f1e6d6; /* Light Beige */
+  padding: 30px;
+  border-radius: 8px;
+  width: 250px;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.feature-card h3 {
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+  color: #4a6d7c; /* Muted Teal */
+}
+
+.feature-card p {
+  font-size: 1rem;
+  color: #2c2c2c; /* Muted Teal */
+}
+
+.testimonials {
+  background-color: #f9f9f9; /* Light Beige */
+  padding: 40px 20px;
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.testimonials h2 {
+  font-size: 2.5rem;
+  margin-bottom: 30px;
+  color: #e27d60; /* Terracotta Red */
+}
+
+.testimonial-cards {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.testimonial-card {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  width: 300px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.testimonial-card p {
+  font-style: italic;
+  font-size: 1.1rem;
+  margin-bottom: 15px;
+  color: #2c2c2c; /* Muted Teal */
+}
+
+.testimonial-card h4 {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #4a6d7c; /* Muted Teal */
+}
+
+.cta {
+  text-align: center;
+  background-color: #4a6d7c; /* Muted Teal */
+  padding: 40px 20px;
+  border-radius: 8px;
+}
+
+.cta h2 {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+  color: #f1e6d6; /* Light Beige */
+}
+
+.cta-button {
+  background-color: #e27d60; /* Terracotta Red */
+  color: #f1e6d6; /* Light Beige */
+  padding: 15px 30px;
+  font-size: 1.1rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.cta-button:hover {
+  background-color: #c56f5e; /* Darker Terracotta Red */
+}

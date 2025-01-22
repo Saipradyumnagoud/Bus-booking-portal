@@ -1,4 +1,4 @@
-/* General Navbar Styles */
+/* General Styles */
 .navbar {
   display: flex;
   justify-content: space-between;
@@ -128,7 +128,6 @@
 @media (max-width: 768px) {
   .navbar {
     flex-wrap: wrap;
-    justify-content: space-between;
   }
 
   .navbar-left {
