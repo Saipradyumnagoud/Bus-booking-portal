@@ -10,7 +10,10 @@ app.use(cors());
 app.use(express.json());
 
 // MongoDB connection
-mongoose.connect("mongodb://127.0.0.1:27017/passenger", { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect("mongodb://127.0.0.1:27017/passenger", {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
 
 // Signup Route
 app.post('/signup', async (req, res) => {

@@ -42,6 +42,7 @@ const MyAccount = () => {
         <ul>
           <li><Link to="/personalinformation">Personal Information</Link></li>
           <li><Link to="/changepassword">Change Password</Link></li>
+          <li><Link to="/orders">Orders</Link></li>
           <li><Link to="/settings">Settings</Link></li>
           <li><button onClick={handleLogout}>Logout</button></li>
         </ul>

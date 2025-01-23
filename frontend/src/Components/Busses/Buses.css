@@ -46,25 +46,26 @@ body{
   }
   
   .bus-details {
-    background-color: #003580;
-    color: black;
+    background-color: #003580; /* Dark blue background */
+    color: white; /* Change text color to white */
     padding: 30px;
     border-radius: 8px;
     margin-top: 40px;
     text-align: center;
-  }
-  
-  .bus-details h2 {
+}
+
+.bus-details h2 {
     font-size: 2rem;
-    color: black;
+    color: white; /* Ensure heading is also white */
     margin-bottom: 20px;
-  }
-  
-  .bus-details p {
+}
+
+.bus-details p {
     font-size: 1.2rem;
-    color: white;
+    color: white; /* Explicitly set paragraph text color to white */
     margin-bottom: 15px;
-  }
+}
+
   
   .cta-button {
     background-color: #ffcc00;
