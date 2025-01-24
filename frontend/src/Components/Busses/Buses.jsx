@@ -5,54 +5,24 @@ import "./Buses.css";
 
 const Buses = () => {
   const [buses, setBuses] = useState([]);
-  const [selectedBus, setSelectedBus] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [searchTerm, setSearchTerm] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
     fetch("/Bus_Schedule.csv")
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(`Failed to fetch CSV: ${response.statusText}`);
-        }
-        return response.text();
-      })
+      .then((response) => response.text())
       .then((data) => {
         Papa.parse(data, {
           header: true,
           skipEmptyLines: true,
           complete: (result) => {
-            const filteredBuses = result.data.filter((bus) => {
-              if (!bus["Start Time"]) return false;
-              try {
-                const currentTime = new Date();
-                const busTime = new Date(
-                  `2025-01-22T${bus["Start Time"].trim()}`
-                );
-                return busTime > currentTime;
-              } catch (error) {
-                console.error("Error parsing time:", error);
-                return false;
-              }
-            });
-            setBuses(filteredBuses);
-            setLoading(false);
-          },
-          error: (error) => {
-            console.error("Error parsing CSV:", error);
-            setLoading(false);
+            setBuses(result.data);
           },
         });
-      })
-      .catch((error) => {
-        console.error("Error fetching CSV:", error);
-        setLoading(false);
       });
   }, []);
 
-  const handleSelectBus = (bus) => setSelectedBus(bus);
-
-  const handleBookNow = () => {
+  const handleBookNow = (selectedBus) => {
     const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
     if (!isLoggedIn) {
       alert("You must be logged in to book a bus.");
@@ -62,52 +32,42 @@ const Buses = () => {
     navigate("/booknow", { state: { bus: selectedBus } });
   };
 
+  const filteredBuses = buses.filter((bus) =>
+    bus.route.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
-    <div className="buses-container">
-      <h1>Available Buses</h1>
-      {loading ? (
-        <p>Loading buses...</p>
-      ) : (
-        <div className="bus-list">
-          {buses.length > 0 ? (
-            buses.map((bus, index) => (
-              <div
-                key={index}
-                className="bus-card"
-                onClick={() => handleSelectBus(bus)}
+    <div className="buses-page">
+      <h1 className="buses-title">Available Buses</h1>
+      <div className="search-container">
+        <input
+          type="text"
+          placeholder="Search by route..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          className="search-input"
+        />
+      </div>
+      <div className="buses-list">
+        {filteredBuses.length > 0 ? (
+          filteredBuses.map((bus) => (
+            <div key={bus.id} className="bus-card">
+              <h2>{bus.name}</h2>
+              <p>Route: {bus.route}</p>
+              <p>Price: {bus.price}</p>
+              <p>Departure: {bus.timing}</p>
+              <button
+                className="book-button"
+                onClick={() => handleBookNow(bus)}
               >
-                <h3>{`${bus["Start Location"]} to ${bus["End Location"]}`}</h3>
-                <p>Departure: {bus["Start Time"]}</p>
-                <p>Price: ₹{bus.price || "N/A"}</p>
-                <p>Seats Available: 30</p>
-              </div>
-            ))
-          ) : (
-            <p>No buses available at the moment.</p>
-          )}
-        </div>
-      )}
-      {selectedBus && (
-        <div className="bus-details">
-          <h2>Bus Details</h2>
-          <p>
-            <strong>Route:</strong>{" "}
-            {`${selectedBus["Start Location"]} to ${selectedBus["End Location"]}`}
-          </p>
-          <p>
-            <strong>Departure Time:</strong> {selectedBus["Start Time"]}
-          </p>
-          <p>
-            <strong>Price:</strong> ₹{selectedBus.price || "N/A"}
-          </p>
-          <p>
-            <strong>Seats Available:</strong> 30
-          </p>
-          <button className="cta-button" onClick={handleBookNow}>
-            Book Now
-          </button>
-        </div>
-      )}
+                Book Now
+              </button>
+            </div>
+          ))
+        ) : (
+          <p className="no-results">No buses found for your search.</p>
+        )}
+      </div>
     </div>
   );
 };

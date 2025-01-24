@@ -1,121 +1,101 @@
-Bus ID,Start Location,End Location,Start Time,Price
-Bus-1,Delhi,Mumbai,00:00,300
-Bus-2,Delhi,Mumbai,00:00,300
-Bus-3,Delhi,Mumbai,00:00,300
-Bus-4,Delhi,Mumbai,00:00,300
-Bus-5,Delhi,Mumbai,00:00,300
-Bus-6,Mumbai,Pune,01:00,250
-Bus-7,Mumbai,Pune,01:00,250
-Bus-8,Mumbai,Pune,01:00,250
-Bus-9,Mumbai,Pune,01:00,250
-Bus-10,Mumbai,Pune,01:00,250
-Bus-11,Pune,Bangalore,02:00,600
-Bus-12,Pune,Bangalore,02:00,600
-Bus-13,Pune,Bangalore,02:00,600
-Bus-14,Pune,Bangalore,02:00,600
-Bus-15,Pune,Bangalore,02:00,600
-Bus-16,Bangalore,Chennai,03:00,500
-Bus-17,Bangalore,Chennai,03:00,500
-Bus-18,Bangalore,Chennai,03:00,500
-Bus-19,Bangalore,Chennai,03:00,500
-Bus-20,Bangalore,Chennai,03:00,500
-Bus-21,Chennai,Hyderabad,04:00,550
-Bus-22,Chennai,Hyderabad,04:00,550
-Bus-23,Chennai,Hyderabad,04:00,550
-Bus-24,Chennai,Hyderabad,04:00,550
-Bus-25,Chennai,Hyderabad,04:00,550
-Bus-26,Hyderabad,Kolkata,05:00,800
-Bus-27,Hyderabad,Kolkata,05:00,800
-Bus-28,Hyderabad,Kolkata,05:00,800
-Bus-29,Hyderabad,Kolkata,05:00,800
-Bus-30,Hyderabad,Kolkata,05:00,800
-Bus-31,Kolkata,Delhi,06:00,850
-Bus-32,Kolkata,Delhi,06:00,850
-Bus-33,Kolkata,Delhi,06:00,850
-Bus-34,Kolkata,Delhi,06:00,850
-Bus-35,Kolkata,Delhi,06:00,850
-Bus-36,Delhi,Jaipur,07:00,300
-Bus-37,Delhi,Jaipur,07:00,300
-Bus-38,Delhi,Jaipur,07:00,300
-Bus-39,Delhi,Jaipur,07:00,300
-Bus-40,Delhi,Jaipur,07:00,300
-Bus-41,Jaipur,Lucknow,08:00,450
-Bus-42,Jaipur,Lucknow,08:00,450
-Bus-43,Jaipur,Lucknow,08:00,450
-Bus-44,Jaipur,Lucknow,08:00,450
-Bus-45,Jaipur,Lucknow,08:00,450
-Bus-46,Lucknow,Patna,09:00,350
-Bus-47,Lucknow,Patna,09:00,350
-Bus-48,Lucknow,Patna,09:00,350
-Bus-49,Lucknow,Patna,09:00,350
-Bus-50,Lucknow,Patna,09:00,350
-Bus-51,Patna,Kolkata,10:00,500
-Bus-52,Patna,Kolkata,10:00,500
-Bus-53,Patna,Kolkata,10:00,500
-Bus-54,Patna,Kolkata,10:00,500
-Bus-55,Patna,Kolkata,10:00,500
-Bus-56,Mumbai,Goa,11:00,700
-Bus-57,Mumbai,Goa,11:00,700
-Bus-58,Mumbai,Goa,11:00,700
-Bus-59,Mumbai,Goa,11:00,700
-Bus-60,Mumbai,Goa,11:00,700
-Bus-61,Goa,Mumbai,12:00,700
-Bus-62,Goa,Mumbai,12:00,700
-Bus-63,Goa,Mumbai,12:00,700
-Bus-64,Goa,Mumbai,12:00,700
-Bus-65,Goa,Mumbai,12:00,700
-Bus-66,Delhi,Amritsar,13:00,450
-Bus-67,Delhi,Amritsar,13:00,450
-Bus-68,Delhi,Amritsar,13:00,450
-Bus-69,Delhi,Amritsar,13:00,450
-Bus-70,Delhi,Amritsar,13:00,450
-Bus-71,Amritsar,Chandigarh,14:00,250
-Bus-72,Amritsar,Chandigarh,14:00,250
-Bus-73,Amritsar,Chandigarh,14:00,250
-Bus-74,Amritsar,Chandigarh,14:00,250
-Bus-75,Amritsar,Chandigarh,14:00,250
-Bus-76,Chandigarh,Shimla,15:00,200
-Bus-77,Chandigarh,Shimla,15:00,200
-Bus-78,Chandigarh,Shimla,15:00,200
-Bus-79,Chandigarh,Shimla,15:00,200
-Bus-80,Chandigarh,Shimla,15:00,200
-Bus-81,Shimla,Manali,16:00,300
-Bus-82,Shimla,Manali,16:00,300
-Bus-83,Shimla,Manali,16:00,300
-Bus-84,Shimla,Manali,16:00,300
-Bus-85,Shimla,Manali,16:00,300
-Bus-86,Manali,Leh,17:00,1200
-Bus-87,Manali,Leh,17:00,1200
-Bus-88,Manali,Leh,17:00,1200
-Bus-89,Manali,Leh,17:00,1200
-Bus-90,Manali,Leh,17:00,1200
-Bus-91,Leh,Srinagar,18:00,1000
-Bus-92,Leh,Srinagar,18:00,1000
-Bus-93,Leh,Srinagar,18:00,1000
-Bus-94,Leh,Srinagar,18:00,1000
-Bus-95,Leh,Srinagar,18:00,1000
-Bus-96,Srinagar,Jammu,19:00,400
-Bus-97,Srinagar,Jammu,19:00,400
-Bus-98,Srinagar,Jammu,19:00,400
-Bus-99,Srinagar,Jammu,19:00,400
-Bus-100,Srinagar,Jammu,19:00,400
-Bus-101,Jammu,Delhi,20:00,600
-Bus-102,Jammu,Delhi,20:00,600
-Bus-103,Jammu,Delhi,20:00,600
-Bus-104,Jammu,Delhi,20:00,600
-Bus-105,Jammu,Delhi,20:00,600
-Bus-106,Delhi,Chandigarh,21:00,350
-Bus-107,Delhi,Chandigarh,21:00,350
-Bus-108,Delhi,Chandigarh,21:00,350
-Bus-109,Delhi,Chandigarh,21:00,350
-Bus-110,Delhi,Chandigarh,21:00,350
-Bus-111,Chandigarh,Amritsar,22:00,300
-Bus-112,Chandigarh,Amritsar,22:00,300
-Bus-113,Chandigarh,Amritsar,22:00,300
-Bus-114,Chandigarh,Amritsar,22:00,300
-Bus-115,Chandigarh,Amritsar,22:00,300
-Bus-116,Bangalore,Mysore,23:00,250
-Bus-117,Bangalore,Mysore,23:00,250
-Bus-118,Bangalore,Mysore,23:00,250
-Bus-119,Bangalore,Mysore,23:00,250
-Bus-120,Bangalore,Mysore,23:00,250
+id,name,route,price,timing
+1,Luxury Express,New York - Washington,$30,08:00 AM
+2,Comfort Travels,Los Angeles - San Francisco,$40,10:00 AM
+3,CityLink,Chicago - Detroit,$25,06:30 AM
+4,RapidGo,Houston - Dallas,$20,09:15 AM
+5,SilverLine,Boston - New York,$35,07:45 AM
+6,Urban Shuttle,San Diego - Las Vegas,$50,11:00 AM
+7,SwiftRide,Seattle - Portland,$30,08:15 AM
+8,EcoTransit,Denver - Boulder,$15,05:45 AM
+9,RedTrail,Atlanta - Miami,$45,09:30 AM
+10,Blue Horizon,Phoenix - Tucson,$25,06:00 AM
+11,MetroBus,Philadelphia - Pittsburgh,$30,07:00 AM
+12,FastTrack,San Jose - Sacramento,$35,08:30 AM
+13,GreenLine,Indianapolis - Cincinnati,$20,10:15 AM
+14,CityWheels,Orlando - Tampa,$25,06:45 AM
+15,RouteRunner,Minneapolis - Milwaukee,$30,07:30 AM
+16,StarWay,Kansas City - Omaha,$20,09:00 AM
+17,CozyCoach,San Antonio - Austin,$15,11:45 AM
+18,Pioneer Express,Portland - Eugene,$30,08:50 AM
+19,HighRoad,Las Vegas - Salt Lake City,$50,12:00 PM
+20,TrailBlazer,Denver - Colorado Springs,$20,10:30 AM
+21,EagleTransit,Columbus - Cleveland,$25,07:20 AM
+22,SunshineBus,Jacksonville - Tallahassee,$30,06:10 AM
+23,JetWay,Detroit - Toronto,$50,09:40 AM
+24,AutoLink,Charlotte - Raleigh,$20,08:00 AM
+25,OceanRide,Miami - Key West,$45,06:30 AM
+26,GoldenPath,Nashville - Memphis,$25,07:10 AM
+27,SpeedLine,Dallas - Fort Worth,$10,09:20 AM
+28,QuickTrip,Austin - Houston,$20,10:40 AM
+29,GlideRide,Boston - Providence,$15,07:50 AM
+30,SkyBus,Los Angeles - Phoenix,$40,12:10 PM
+31,CloudNine,San Francisco - Reno,$35,10:50 AM
+32,GrandTour,Pittsburgh - Buffalo,$30,07:15 AM
+33,EasyMove,Atlanta - Charlotte,$35,06:20 AM
+34,JetLink,Chicago - St. Louis,$40,08:40 AM
+35,RouteExplorer,Seattle - Spokane,$50,09:30 AM
+36,FastMove,Portland - Vancouver,$20,07:40 AM
+37,SafeTravel,Houston - San Antonio,$15,08:10 AM
+38,CoastLine,New York - Boston,$40,10:00 AM
+39,MountainExpress,Denver - Aspen,$50,09:00 AM
+40,SunsetTrail,San Diego - Palm Springs,$25,11:30 AM
+41,PacificCoast,Los Angeles - Santa Barbara,$30,07:25 AM
+42,RapidLink,Dallas - Oklahoma City,$25,08:55 AM
+43,SwiftPath,Las Vegas - Los Angeles,$35,09:45 AM
+44,UrbanRide,Chicago - Milwaukee,$20,06:50 AM
+45,StarLine,Phoenix - Las Vegas,$30,07:05 AM
+46,EasyRide,Detroit - Cleveland,$25,08:15 AM
+47,BlueSky,San Francisco - San Jose,$15,05:55 AM
+48,SilverTrail,New York - Philadelphia,$25,07:35 AM
+49,GoldenRide,Boston - Hartford,$30,06:40 AM
+50,ExpressLink,Houston - New Orleans,$40,10:25 AM
+51,JetTransit,Seattle - Tacoma,$20,08:05 AM
+52,QuickPath,San Antonio - Dallas,$30,07:50 AM
+53,SpeedExpress,Los Angeles - San Diego,$25,09:25 AM
+54,TrailLink,Denver - Albuquerque,$50,11:15 AM
+55,MetroLine,Atlanta - Nashville,$35,10:50 AM
+56,ComfortExpress,Phoenix - Flagstaff,$20,07:45 AM
+57,GreenWheels,Chicago - Indianapolis,$25,06:35 AM
+58,SunTrail,Miami - Orlando,$40,07:15 AM
+59,AutoPath,Houston - Austin,$15,08:20 AM
+60,BlueWave,New York - Newark,$10,06:10 AM
+61,HighLine,Las Vegas - Phoenix,$45,11:30 AM
+62,CloudRide,San Francisco - Sacramento,$20,07:20 AM
+63,JetWay,Los Angeles - Fresno,$35,09:10 AM
+64,QuickLink,Dallas - Houston,$25,10:00 AM
+65,GoldenExpress,Denver - Salt Lake City,$50,11:50 AM
+66,UrbanPath,Portland - Seattle,$40,07:55 AM
+67,MetroRide,Detroit - Chicago,$30,08:40 AM
+68,StarTrail,Atlanta - Savannah,$35,09:15 AM
+69,CoastExpress,San Diego - Los Angeles,$20,06:00 AM
+70,PioneerWay,Boston - Albany,$30,07:30 AM
+71,RouteLine,Philadelphia - New York,$25,06:50 AM
+72,EcoLink,San Jose - San Francisco,$15,08:25 AM
+73,JetTrail,Phoenix - Tucson,$25,09:50 AM
+74,BlueTrail,Denver - Boulder,$20,07:10 AM
+75,GreenExpress,Chicago - St. Louis,$40,09:35 AM
+76,TrailExpress,Portland - Spokane,$50,10:40 AM
+77,HighWay,Houston - Dallas,$15,06:25 AM
+78,GoldenPath,Miami - Tampa,$30,08:30 AM
+79,CozyTrail,Seattle - Portland,$20,07:00 AM
+80,CloudLine,San Francisco - Reno,$35,09:00 AM
+81,StarWay,Atlanta - Charlotte,$40,08:15 AM
+82,SilverLine,Dallas - Austin,$25,06:45 AM
+83,MetroExpress,New York - Baltimore,$30,07:50 AM
+84,EcoTrail,San Diego - Phoenix,$50,10:30 AM
+85,QuickTrail,Houston - San Antonio,$15,06:55 AM
+86,EasyWay,Chicago - Milwaukee,$20,07:35 AM
+87,JetPath,Los Angeles - San Francisco,$40,09:40 AM
+88,BlueExpress,Denver - Colorado Springs,$25,08:10 AM
+89,GreenTrail,Boston - New Haven,$30,06:20 AM
+90,TrailBlazer,Seattle - Spokane,$50,08:45 AM
+91,SilverRide,San Diego - Las Vegas,$35,09:50 AM
+92,GoldenRide,Atlanta - Birmingham,$30,07:10 AM
+93,ExpressTrail,Dallas - Oklahoma City,$20,06:30 AM
+94,BlueSky,Houston - Austin,$15,07:20 AM
+95,MetroWay,San Francisco - Sacramento,$20,09:25 AM
+96,RouteTrail,New York - Washington,$30,08:35 AM
+97,StarLink,Los Angeles - Phoenix,$40,09:45 AM
+98,EcoPath,Chicago - Detroit,$25,07:05 AM
+99,GoldenLink,Miami - Orlando,$35,08:25 AM
+100,FastRide,Denver - Salt Lake City,$50,09:55 AM
