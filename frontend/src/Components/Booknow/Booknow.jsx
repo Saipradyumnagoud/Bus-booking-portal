@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import "./BookNow.css";
 
 const BookNow = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const bus = location.state?.bus;
 
   const [numPassengers, setNumPassengers] = useState(1);
@@ -14,14 +15,16 @@ const BookNow = () => {
     phone: "",
   });
 
+  // Handle changes in passenger details
   const handlePassengerChange = (index, value) => {
     const updatedPassengers = [...passengerDetails];
     updatedPassengers[index].name = value;
     setPassengerDetails(updatedPassengers);
   };
 
+  // Handle the change in the number of passengers
   const handleNumPassengersChange = (e) => {
-    const value = parseInt(e.target.value, 10) || 1; // Ensure valid input
+    const value = parseInt(e.target.value, 10) || 1;
     setNumPassengers(value);
     const updatedPassengers = Array(value)
       .fill("")
@@ -29,36 +32,51 @@ const BookNow = () => {
     setPassengerDetails(updatedPassengers);
   };
 
+  // Handle changes in the main form fields
   const handleFormChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({ ...prevData, [name]: value }));
   };
 
+  // Submit booking
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    if (!bus || !formData.name || !formData.email || !formData.phone) {
+      alert("Please fill in all required fields.");
+      return;
+    }
+
     const totalPrice = numPassengers * parseFloat(bus.price);
-    alert(`Booking confirmed! Total Price: ₹${totalPrice}. Redirecting to payment...`);
-    console.log("Booking Details:", {
+    const bookingDetails = {
       bus,
       customer: formData,
       passengers: passengerDetails,
       totalPrice,
-    });
+    };
+
+    console.log("Booking Details:", bookingDetails);
+
+    alert(`Booking confirmed! Total Price: ₹${totalPrice.toFixed(2)}. Redirecting to payment...`);
+
+    // Redirect to a payment or confirmation page
+    navigate("/payment", { state: { bookingDetails } });
   };
 
+  // If no bus is selected
   if (!bus) {
     return <p>No bus selected. Please go back and choose a bus.</p>;
   }
 
   return (
     <div className="booknow-container">
-      <h1>Confirm Booking</h1>
+      <h1>Confirm Your Booking</h1>
       <div className="bus-details">
         <p>
           <strong>Route:</strong> {bus.route}
         </p>
         <p>
-          <strong>Departure Time:</strong> {bus.time}
+          <strong>Departure Time:</strong> {bus.timing}
         </p>
         <p>
           <strong>Price per Passenger:</strong> ₹{parseFloat(bus.price).toFixed(2)}
@@ -117,7 +135,9 @@ const BookNow = () => {
         </div>
         {passengerDetails.map((passenger, index) => (
           <div className="form-group" key={index}>
-            <label htmlFor={`passenger-${index}`}>Passenger {index + 1} Name:</label>
+            <label htmlFor={`passenger-${index}`}>
+              Passenger {index + 1} Name:
+            </label>
             <input
               type="text"
               id={`passenger-${index}`}
