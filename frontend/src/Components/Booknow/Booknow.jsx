@@ -81,9 +81,9 @@ const BookNow = () => {
         <p>
           <strong>Price per Passenger:</strong> ₹{parseFloat(bus.price).toFixed(2)}
         </p>
-        <p>
+        {/* <p>
           <strong>Seats Available:</strong> {bus.seatsAvailable}
-        </p>
+        </p> */}
       </div>
       <form className="booking-form" onSubmit={handleSubmit}>
         <h2>Enter Your Details</h2>
