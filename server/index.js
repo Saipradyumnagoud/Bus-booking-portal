@@ -72,7 +72,31 @@ app.get('/userDetails', async (req, res) => {
   }
 });
 
-// Start server
+// Change Password Route
+app.post('/changePassword', async (req, res) => {
+  const { email, oldPassword, newPassword } = req.body;
+
+  try {
+    const user = await PassengerModel.findOne({ email });
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    const isMatch = await bcrypt.compare(oldPassword, user.password);
+    if (!isMatch) {
+      return res.status(400).json({ error: 'Incorrect old password' });
+    }
+
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+    user.password = hashedPassword;
+    await user.save();
+
+    res.json({ message: 'Password changed successfully' });
+  } catch (error) {
+    res.status(500).json({ error: 'Error changing password' });
+  }
+});
+
 app.listen(3000, () => {
-  console.log('Server is running on http://localhost:3000');
+  console.log("Server is running on port 3000");
 });

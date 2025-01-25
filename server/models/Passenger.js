@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const PassengerSchema = new mongoose.Schema({
   name: {
@@ -16,6 +16,4 @@ const PassengerSchema = new mongoose.Schema({
   },
 });
 
-const PassengerModel = mongoose.model('Passenger', PassengerSchema);
-
-module.exports = PassengerModel;
+module.exports = mongoose.model("Passenger", PassengerSchema);

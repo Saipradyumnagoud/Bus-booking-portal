@@ -1,47 +1,41 @@
 import React, { useState } from "react";
+import axios from "axios";
 
 const ChangePassword = () => {
-  const [password, setPassword] = useState("");
+  const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const [message, setMessage] = useState("");
 
-  const handleSubmit = (e) => {
+  const handlePasswordChange = async (e) => {
     e.preventDefault();
-    if (newPassword === confirmPassword) {
-      // Send API request to change password
-      console.log("Password changed successfully!");
-    } else {
-      console.log("Passwords do not match.");
+    try {
+      const email = localStorage.getItem("userEmail");
+      const response = await axios.post("http://localhost:3000/changePassword", {
+        email,
+        oldPassword,
+        newPassword,
+      });
+      setMessage(response.data.message);
+    } catch (err) {
+      setMessage("Error updating password.");
     }
   };
 
   return (
     <div className="change-password">
       <h1>Change Password</h1>
-      <form onSubmit={handleSubmit}>
-        <label>Current Password</label>
-        <input
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
-        <label>New Password</label>
-        <input
-          type="password"
-          value={newPassword}
-          onChange={(e) => setNewPassword(e.target.value)}
-          required
-        />
-        <label>Confirm New Password</label>
-        <input
-          type="password"
-          value={confirmPassword}
-          onChange={(e) => setConfirmPassword(e.target.value)}
-          required
-        />
-        <button type="submit">Change Password</button>
+      <form onSubmit={handlePasswordChange}>
+        <label>
+          Old Password:
+          <input type="password" value={oldPassword} onChange={(e) => setOldPassword(e.target.value)} required />
+        </label>
+        <label>
+          New Password:
+          <input type="password" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} required />
+        </label>
+        <button type="submit">Update Password</button>
       </form>
+      {message && <p>{message}</p>}
     </div>
   );
 };

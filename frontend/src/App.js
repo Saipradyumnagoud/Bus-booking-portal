@@ -14,9 +14,11 @@ import Signup from "./Components/Signup/Signup.jsx";
 import Login from "./Components/Login/Login.jsx";
 import BookNow from "./Components/Booknow/Booknow.jsx";
 import MyAccount from "./Components/MyAccount/MyAccount.jsx";
-import ChangePassword from "./Components/ChangePassword/ChangePassword.jsx";
 import PersonalInformation from "./Components/PersonalInformation/PersonalInformation.jsx";
 import Payment from "./Components/Payment/Payment.jsx";
+import ChangePassword from "./Components/ChangePassword/ChangePassword.jsx";
+import Orders from "./Components/Orders/Orders.jsx";
+import Settings from "./Components/Settings/Settings.jsx";
 const App = () => {
   return (
     <Router>
@@ -35,8 +37,10 @@ const App = () => {
           <Route path="/signup" element={<Signup />} />
           <Route path="/booknow" element={<BookNow />} />
           <Route path="/myaccount" element={<MyAccount />} />
-          <Route path="/changepassword" element={<ChangePassword />} />
           <Route path="/personalinformation" element={<PersonalInformation />} />
+          <Route path="/changepassword" element={<ChangePassword />} />
+          <Route path="/settings" element={<Settings />} />
+          <Route path="/orders" element={<Orders />} />
           <Route path="/payment" element={<Payment />} />
           <Route path="*" element={<h1>404 - Page Not Found</h1>} />
         </Routes>
