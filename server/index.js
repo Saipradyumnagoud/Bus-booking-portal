@@ -100,3 +100,49 @@ app.post('/changePassword', async (req, res) => {
 app.listen(3000, () => {
   console.log("Server is running on port 3000");
 });
+
+
+//orders route
+
+const OrderModel = require('./models/Order');
+
+// Fetch orders for a user
+app.get('/orders', async (req, res) => {
+  const email = req.query.email; // Assuming email is sent in the query
+
+  try {
+    const user = await PassengerModel.findOne({ email });
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    // Fetch orders for the found user
+    const orders = await OrderModel.find({ userId: user._id }).populate('busId');
+    res.json(orders);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to fetch orders' });
+  }
+});
+
+// Create a new order
+app.post('/orders', async (req, res) => {
+  const { email, busId, seats, totalAmount } = req.body;
+
+  try {
+    const user = await PassengerModel.findOne({ email });
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    const newOrder = await OrderModel.create({
+      userId: user._id,
+      busId,
+      seats,
+      totalAmount,
+    });
+
+    res.json(newOrder);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to create order' });
+  }
+});
