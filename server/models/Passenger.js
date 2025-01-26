@@ -1,11 +1,9 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const passengerSchema = new mongoose.Schema({
   name: { type: String, required: true },
   email: { type: String, required: true, unique: true },
-  password: { type: String, required: true },
+  password: { type: String, required: true }, // Will store hashed passwords
 });
 
-const Passenger = mongoose.model('Passenger', passengerSchema);
-
-module.exports = Passenger;
+module.exports = mongoose.model("Passenger", passengerSchema);

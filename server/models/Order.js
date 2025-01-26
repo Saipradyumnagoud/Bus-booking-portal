@@ -1,12 +1,12 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const orderSchema = new mongoose.Schema({
-  userId: { type: mongoose.Schema.Types.ObjectId, ref: 'Passenger' },
-  busId: { type: mongoose.Schema.Types.ObjectId, ref: 'Bus' },
+  userId: { type: mongoose.Schema.Types.ObjectId, ref: "Passenger", required: true },
+  busId: { type: mongoose.Schema.Types.ObjectId, ref: "Bus", required: true },
   seats: { type: Number, required: true },
   totalAmount: { type: Number, required: true },
+  orderStatus: { type: String, default: "Sucessful" },
+  createdAt: { type: Date, default: Date.now },
 });
 
-const Order = mongoose.model('Order', orderSchema);
-
-module.exports = Order;
+module.exports = mongoose.model("Order", orderSchema);

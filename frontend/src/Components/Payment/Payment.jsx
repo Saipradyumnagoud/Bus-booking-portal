@@ -1,57 +1,79 @@
 import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import "./Payment.css";
 
 const Payment = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const bookingDetails = location.state?.bookingDetails;
 
-  // If no booking details are provided
   if (!bookingDetails) {
-    return <p>No booking details found. Please go back and make a booking.</p>;
+    return <p>No booking details found. Please go back and try again.</p>;
   }
 
-  const { bus, customer, passengers, totalPrice } = bookingDetails;
+  const handlePaymentSuccess = () => {
+    alert("Payment successful!");
+    navigate("/");
+  };
 
-  const handlePayment = () => {
-    alert("Payment successful! Your booking is confirmed.");
-    navigate("/"); // Redirect to the home page or a confirmation page
+  const styles = {
+    container: {
+      padding: "20px",
+      fontFamily: "Arial, sans-serif",
+      textAlign: "center",
+      maxWidth: "600px",
+      margin: "0 auto",
+      border: "1px solid #ddd",
+      borderRadius: "8px",
+      boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+    },
+    heading: {
+      fontSize: "2rem",
+      color: "#333",
+      marginBottom: "20px",
+    },
+    paragraph: {
+      fontSize: "1.1rem",
+      color: "#555",
+      marginBottom: "15px",
+    },
+    strongText: {
+      fontWeight: "bold",
+    },
+    button: {
+      padding: "12px 20px",
+      backgroundColor: "#28a745",
+      color: "white",
+      fontSize: "1rem",
+      border: "none",
+      borderRadius: "5px",
+      cursor: "pointer",
+      transition: "background-color 0.3s ease",
+    },
+    buttonHover: {
+      backgroundColor: "#218838",
+    },
   };
 
   return (
-    <div className="payment-container">
-      <h1>Payment</h1>
-      <div className="payment-details">
-        <h2>Booking Summary</h2>
-        <p>
-          <strong>Route:</strong> {bus.route}
-        </p>
-        <p>
-          <strong>Departure Time:</strong> {bus.timing}
-        </p>
-        <p>
-          <strong>Price per Passenger:</strong> ₹{parseFloat(bus.price).toFixed(2)}
-        </p>
-        <p>
-          <strong>Number of Passengers:</strong> {passengers.length}
-        </p>
-        <p>
-          <strong>Total Price:</strong> ₹{totalPrice.toFixed(2)}
-        </p>
-      </div>
-      <h2>Customer Details</h2>
-      <p>
-        <strong>Name:</strong> {customer.name}
+    <div style={styles.container}>
+      <h1 style={styles.heading}>Payment Details</h1>
+      <p style={styles.paragraph}>
+        <span style={styles.strongText}>Email:</span> {bookingDetails.email}
       </p>
-      <p>
-        <strong>Email:</strong> {customer.email}
+      <p style={styles.paragraph}>
+        <span style={styles.strongText}>Seats:</span> {bookingDetails.seats}
       </p>
-      <p>
-        <strong>Phone:</strong> {customer.phone}
+      <p style={styles.paragraph}>
+        <span style={styles.strongText}>Total Amount:</span> ₹
+        {bookingDetails.totalAmount.toFixed(2)}
       </p>
-      <button className="pay-btn" onClick={handlePayment}>
-        Pay ₹{totalPrice.toFixed(2)}
+      <button
+        style={styles.button}
+        onClick={handlePaymentSuccess}
+        onMouseOver={(e) => e.target.style.backgroundColor = styles.buttonHover.backgroundColor}
+        onMouseOut={(e) => e.target.style.backgroundColor = styles.button.backgroundColor}
+      >
+        Simulate Payment
       </button>
     </div>
   );

@@ -35,7 +35,7 @@ const Orders = () => {
           ) : (
             orders.map((order) => (
               <div className="order-card" key={order._id}>
-                <p><strong>Bus:</strong> {order.busId?.name}</p>
+                <p><strong>Bus:</strong> {order.busId?.route}</p>
                 <p><strong>Seats:</strong> {order.seats}</p>
                 <p><strong>Total Amount:</strong> ₹{order.totalAmount}</p>
                 <p><strong>Status:</strong> {order.orderStatus}</p>

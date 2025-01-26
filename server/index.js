@@ -3,7 +3,7 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const PassengerModel = require('./models/Passenger');
-const Bus = require('./models/busModel');
+const BusModel = require('./models/busModel');
 const OrderModel = require('./models/Order');
 const app = express();
 
@@ -77,7 +77,7 @@ app.get('/userDetails', async (req, res) => {
 // Buses Route
 app.get('/api/buses', async (req, res) => {
   try {
-    const buses = await Bus.find(); // Fetch all buses from the database
+    const buses = await BusModel.find(); // Fetch all buses from the database
     res.json(buses); // Return the buses in the response
   } catch (error) {
     console.error('Error fetching buses:', error);
@@ -85,7 +85,7 @@ app.get('/api/buses', async (req, res) => {
   }
 });
 
-// Orders Route
+// Orders Route (Fetching Orders)
 app.get('/orders', async (req, res) => {
   const email = req.query.email;
 
@@ -102,6 +102,7 @@ app.get('/orders', async (req, res) => {
   }
 });
 
+// Orders Route (Creating an Order)
 app.post('/orders', async (req, res) => {
   const { email, busId, seats, totalAmount } = req.body;
 

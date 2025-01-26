@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import axios from "axios";
 import "./BookNow.css";
 
 const BookNow = () => {
@@ -15,14 +16,12 @@ const BookNow = () => {
     phone: "",
   });
 
-  // Handle changes in passenger details
   const handlePassengerChange = (index, value) => {
     const updatedPassengers = [...passengerDetails];
     updatedPassengers[index].name = value;
     setPassengerDetails(updatedPassengers);
   };
 
-  // Handle the change in the number of passengers
   const handleNumPassengersChange = (e) => {
     const value = parseInt(e.target.value, 10) || 1;
     setNumPassengers(value);
@@ -32,14 +31,12 @@ const BookNow = () => {
     setPassengerDetails(updatedPassengers);
   };
 
-  // Handle changes in the main form fields
   const handleFormChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({ ...prevData, [name]: value }));
   };
 
-  // Submit booking
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!bus || !formData.name || !formData.email || !formData.phone) {
@@ -49,21 +46,23 @@ const BookNow = () => {
 
     const totalPrice = numPassengers * parseFloat(bus.price);
     const bookingDetails = {
-      bus,
-      customer: formData,
-      passengers: passengerDetails,
-      totalPrice,
+      email: formData.email,
+      busId: bus._id,
+      seats: numPassengers,
+      totalAmount: totalPrice,
     };
 
-    console.log("Booking Details:", bookingDetails);
-
-    alert(`Booking confirmed! Total Price: ₹${totalPrice.toFixed(2)}. Redirecting to payment...`);
-
-    // Redirect to a payment or confirmation page
-    navigate("/payment", { state: { bookingDetails } });
+    try {
+      await axios.post("http://localhost:3000/orders", bookingDetails);
+      alert(`Booking confirmed! Total Price: ₹${totalPrice.toFixed(2)}.`);
+      console.log("Navigating to payment with details:", bookingDetails);
+      navigate("/payment", { state: { bookingDetails } });
+    } catch (err) {
+      console.error("Error creating order:", err);
+      alert("Error during booking.");
+    }
   };
 
-  // If no bus is selected
   if (!bus) {
     return <p>No bus selected. Please go back and choose a bus.</p>;
   }
@@ -72,18 +71,9 @@ const BookNow = () => {
     <div className="booknow-container">
       <h1>Confirm Your Booking</h1>
       <div className="bus-details">
-        <p>
-          <strong>Route:</strong> {bus.route}
-        </p>
-        <p>
-          <strong>Departure Time:</strong> {bus.timing}
-        </p>
-        <p>
-          <strong>Price per Passenger:</strong> ₹{parseFloat(bus.price).toFixed(2)}
-        </p>
-        {/* <p>
-          <strong>Seats Available:</strong> {bus.seatsAvailable}
-        </p> */}
+        <p><strong>Route:</strong> {bus.route}</p>
+        <p><strong>Departure Time:</strong> {bus.timing}</p>
+        <p><strong>Price per Passenger:</strong> ₹{parseFloat(bus.price).toFixed(2)}</p>
       </div>
       <form className="booking-form" onSubmit={handleSubmit}>
         <h2>Enter Your Details</h2>
