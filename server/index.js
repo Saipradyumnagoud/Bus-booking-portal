@@ -3,6 +3,8 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const PassengerModel = require('./models/Passenger');
+const Bus = require('./models/busModel');
+const OrderModel = require('./models/Order');
 const app = express();
 
 // Middleware
@@ -72,43 +74,20 @@ app.get('/userDetails', async (req, res) => {
   }
 });
 
-// Change Password Route
-app.post('/changePassword', async (req, res) => {
-  const { email, oldPassword, newPassword } = req.body;
-
+// Buses Route
+app.get('/api/buses', async (req, res) => {
   try {
-    const user = await PassengerModel.findOne({ email });
-    if (!user) {
-      return res.status(404).json({ error: 'User not found' });
-    }
-
-    const isMatch = await bcrypt.compare(oldPassword, user.password);
-    if (!isMatch) {
-      return res.status(400).json({ error: 'Incorrect old password' });
-    }
-
-    const hashedPassword = await bcrypt.hash(newPassword, 10);
-    user.password = hashedPassword;
-    await user.save();
-
-    res.json({ message: 'Password changed successfully' });
+    const buses = await Bus.find(); // Fetch all buses from the database
+    res.json(buses); // Return the buses in the response
   } catch (error) {
-    res.status(500).json({ error: 'Error changing password' });
+    console.error('Error fetching buses:', error);
+    res.status(500).json({ message: 'Error fetching buses data' });
   }
 });
 
-app.listen(3000, () => {
-  console.log("Server is running on port 3000");
-});
-
-
-//orders route
-
-const OrderModel = require('./models/Order');
-
-// Fetch orders for a user
+// Orders Route
 app.get('/orders', async (req, res) => {
-  const email = req.query.email; // Assuming email is sent in the query
+  const email = req.query.email;
 
   try {
     const user = await PassengerModel.findOne({ email });
@@ -116,7 +95,6 @@ app.get('/orders', async (req, res) => {
       return res.status(404).json({ error: 'User not found' });
     }
 
-    // Fetch orders for the found user
     const orders = await OrderModel.find({ userId: user._id }).populate('busId');
     res.json(orders);
   } catch (error) {
@@ -124,7 +102,6 @@ app.get('/orders', async (req, res) => {
   }
 });
 
-// Create a new order
 app.post('/orders', async (req, res) => {
   const { email, busId, seats, totalAmount } = req.body;
 
@@ -145,4 +122,8 @@ app.post('/orders', async (req, res) => {
   } catch (error) {
     res.status(500).json({ error: 'Failed to create order' });
   }
+});
+
+app.listen(3000, () => {
+  console.log("Server is running on port 3000");
 });

@@ -1,33 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import Papa from "papaparse";
 import "./Buses.css";
 
 const Buses = () => {
-  const [buses, setBuses] = useState([]); // Store bus data
-  const [searchTerm, setSearchTerm] = useState(""); // Search term input
+  const [buses, setBuses] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
   const navigate = useNavigate();
 
-  // Fetch the bus data from the CSV file
+  // Fetch bus data from backend API
   useEffect(() => {
-    fetch("/Bus_Schedule.csv")
-      .then((response) => response.text())
+    fetch("http://localhost:3000/api/buses")
+      .then((response) => response.json())
       .then((data) => {
-        Papa.parse(data, {
-          header: true,
-          skipEmptyLines: true,
-          complete: (result) => {
-            // Ensure valid data structure
-            const parsedBuses = result.data.map((bus) => ({
-              id: bus.id || "", // Fallback to empty string
-              name: bus.name || "Unknown Bus",
-              route: bus.route || "Unknown Route",
-              price: bus.price || "0",
-              timing: bus.timing || "Unknown Time",
-            }));
-            setBuses(parsedBuses);
-          },
-        });
+        setBuses(data);
       })
       .catch((err) => console.error("Error fetching bus data:", err));
   }, []);
@@ -67,7 +52,7 @@ const Buses = () => {
       <div className="buses-list">
         {filteredBuses.length > 0 ? (
           filteredBuses.map((bus) => (
-            <div key={bus.id} className="bus-card">
+            <div key={bus._id} className="bus-card">
               <h2>{bus.name}</h2>
               <p>
                 <strong>Route:</strong> {bus.route}
