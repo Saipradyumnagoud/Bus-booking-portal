@@ -40,7 +40,7 @@ This project is a simple Bus Booking Application built with React. It allows use
    ```
 5. Navigate to the server :
    ```bash
-   cd frontend
+   cd server
    ```
   
 6. Install dependencies:
