@@ -1,13 +1,22 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./Orders.css";
 
 const Orders = () => {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchOrders = async () => {
+    const checkLoginAndFetchOrders = async () => {
+      const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+
+      if (!isLoggedIn) {
+        navigate("/login");
+        return;
+      }
+
       const email = localStorage.getItem("userEmail");
 
       try {
@@ -20,8 +29,8 @@ const Orders = () => {
       }
     };
 
-    fetchOrders();
-  }, []);
+    checkLoginAndFetchOrders();
+  }, [navigate]);
 
   return (
     <div className="orders-container">
