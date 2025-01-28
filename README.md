@@ -1,6 +1,7 @@
+
 # Bus Booking Application
 
-This project is a simple Bus Booking Application built with React. It allows users to select a bus, enter their details, specify the number of passengers, and confirm the booking. The total price is dynamically calculated based on the number of passengers and the bus fare per passenger.
+This project is a simple **Bus Booking Application** built with React. It allows users to select a bus, enter their details, specify the number of passengers, and confirm the booking. The total price is dynamically calculated based on the number of passengers and the bus fare per passenger.
 
 ## Features
 
@@ -11,49 +12,57 @@ This project is a simple Bus Booking Application built with React. It allows use
 - Validates user input and ensures all required fields are completed.
 - Handles cases where no bus is selected gracefully.
 
-
-
 ## Installation
 
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/Saipradyumnagoud/Bus-booking-portal.git
-   ```
+### Clone the repository:
 
-2. Navigate to the project directory:
-   ```bash
-   cd bus-booking-app
-   ```
-3. Navigate to the frontend :
-   ```bash
-   cd frontend
-   ```
-  
-4. Install dependencies:
-   ```bash
-   npm install
-   ```
+```bash
+git clone https://github.com/Saipradyumnagoud/Bus-booking-portal.git
+```
 
-4. Start the development server:
-   ```bash
-   npm start
-   ```
-5. Navigate to the server :
-   ```bash
-   cd server
-   ```
-  
-6. Install dependencies:
-   ```bash
-   npm install
-   ```
+### Navigate to the project directory:
 
-7. Start the backend server:
-   ```bash
-   npm start
-   ```
+```bash
+cd Bus-booking-portal
+```
 
-5. Open your browser and navigate to `http://localhost:3000` to view the application.
+### Navigate to the frontend:
+
+```bash
+cd frontend
+```
+
+### Install dependencies:
+
+```bash
+npm install
+```
+
+### Start the development server:
+
+```bash
+npm start
+```
+
+### Navigate to the server:
+
+```bash
+cd ../server
+```
+
+### Install dependencies:
+
+```bash
+npm install
+```
+
+### Start the backend server:
+
+```bash
+npm start
+```
+
+Open your browser and navigate to [http://localhost:3000](http://localhost:3000) to view the application.
 
 ## Usage
 
@@ -64,6 +73,6 @@ This project is a simple Bus Booking Application built with React. It allows use
 5. Enter the names of all passengers.
 6. Review the total price and confirm the booking.
 
+## Support
 
-Feel free to reach out if you encounter any issues or have suggestions for improvement!
-
+Feel free to reach out via [GitHub Issues](https://github.com/Saipradyumnagoud/Bus-booking-portal/issues) if you encounter any issues or have suggestions for improvement!
