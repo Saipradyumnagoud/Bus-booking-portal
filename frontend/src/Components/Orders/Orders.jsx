@@ -6,19 +6,17 @@ import "./Orders.css";
 const Orders = () => {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [filter, setFilter] = useState("all");
   const navigate = useNavigate();
 
   useEffect(() => {
     const checkLoginAndFetchOrders = async () => {
       const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
-
       if (!isLoggedIn) {
         navigate("/login");
         return;
       }
-
       const email = localStorage.getItem("userEmail");
-
       try {
         const response = await axios.get(`http://localhost:3000/orders?email=${email}`);
         setOrders(response.data);
@@ -28,21 +26,49 @@ const Orders = () => {
         setLoading(false);
       }
     };
-
     checkLoginAndFetchOrders();
   }, [navigate]);
+
+  const filterOrders = (orders, filter) => {
+    const now = new Date();
+    return orders.filter((order) => {
+      const orderDate = new Date(order.createdAt);
+      switch (filter) {
+        case "6hrs":
+          return now - orderDate <= 6 * 60 * 60 * 1000;
+        case "1day":
+          return now - orderDate <= 24 * 60 * 60 * 1000;
+        case "1month":
+          return now - orderDate <= 30 * 24 * 60 * 60 * 1000;
+        case "1year":
+          return now - orderDate <= 365 * 24 * 60 * 60 * 1000;
+        default:
+          return true;
+      }
+    });
+  };
+
+  const filteredOrders = filterOrders(orders, filter);
 
   return (
     <div className="orders-container">
       <h1>Your Orders</h1>
+      <label>Filter by time:</label>
+      <select onChange={(e) => setFilter(e.target.value)} value={filter}>
+        <option value="all">All</option>
+        <option value="6hrs">Last 6 Hours</option>
+        <option value="1day">Last 1 Day</option>
+        <option value="1month">Last 1 Month</option>
+        <option value="1year">Last 1 Year</option>
+      </select>
       {loading ? (
         <p>Loading your orders...</p>
       ) : (
         <div className="orders-list">
-          {orders.length === 0 ? (
+          {filteredOrders.length === 0 ? (
             <p>No orders found.</p>
           ) : (
-            orders.map((order) => (
+            filteredOrders.map((order) => (
               <div className="order-card" key={order._id}>
                 <p><strong>Bus:</strong> {order.busId?.route}</p>
                 <p><strong>Seats:</strong> {order.seats}</p>
