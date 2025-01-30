@@ -73,6 +73,12 @@ Open your browser and navigate to [http://localhost:3000](http://localhost:3000)
 5. Enter the names of all passengers.
 6. Review the total price and confirm the booking.
 
+## Available Busses display for booking
+![alt text](image.png)
+
+## My Account page which helps you to display your booking and your information
+![alt text](image-1.png)
+
 ## Support
 
 Feel free to reach out via [GitHub Issues](https://github.com/Saipradyumnagoud/Bus-booking-portal/issues) if you encounter any issues or have suggestions for improvement!
