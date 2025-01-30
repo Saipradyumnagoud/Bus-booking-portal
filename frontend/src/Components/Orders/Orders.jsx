@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./Orders.css";
 
@@ -50,36 +50,54 @@ const Orders = () => {
 
   const filteredOrders = filterOrders(orders, filter);
 
+  const handleLogout = () => {
+    localStorage.removeItem("isLoggedIn");
+    localStorage.removeItem("userEmail");
+    navigate("/login");
+  };
+
   return (
-    <div className="orders-container">
-      <h1>Your Orders</h1>
-      <label>Filter by time:</label>
-      <select onChange={(e) => setFilter(e.target.value)} value={filter}>
-        <option value="all">All</option>
-        <option value="6hrs">Last 6 Hours</option>
-        <option value="1day">Last 1 Day</option>
-        <option value="1month">Last 1 Month</option>
-        <option value="1year">Last 1 Year</option>
-      </select>
-      {loading ? (
-        <p>Loading your orders...</p>
-      ) : (
-        <div className="orders-list">
-          {filteredOrders.length === 0 ? (
-            <p>No orders found.</p>
-          ) : (
-            filteredOrders.map((order) => (
-              <div className="order-card" key={order._id}>
-                <p><strong>Bus:</strong> {order.busId?.route}</p>
-                <p><strong>Seats:</strong> {order.seats}</p>
-                <p><strong>Total Amount:</strong> ₹{order.totalAmount}</p>
-                <p><strong>Status:</strong> {order.orderStatus}</p>
-                <p><strong>Created At:</strong> {new Date(order.createdAt).toLocaleDateString()}</p>
-              </div>
-            ))
-          )}
-        </div>
-      )}
+    <div className="account-container">
+      <div className="sidebar">
+        <h3>Account</h3>
+        <ul>
+          <li><Link to="/personalinformation">Personal Information</Link></li>
+          <li><Link to="/changepassword">Change Password</Link></li>
+          <li><Link to="/orders">Orders</Link></li>
+          <li><Link to="/settings">Settings</Link></li>
+          <li><button onClick={handleLogout}>Logout</button></li>
+        </ul>
+      </div>
+      <div className="orders-container">
+        <h1>Your Orders</h1>
+        <label>Filter by time:</label>
+        <select onChange={(e) => setFilter(e.target.value)} value={filter}>
+          <option value="all">All</option>
+          <option value="6hrs">Last 6 Hours</option>
+          <option value="1day">Last 1 Day</option>
+          <option value="1month">Last 1 Month</option>
+          <option value="1year">Last 1 Year</option>
+        </select>
+        {loading ? (
+          <p>Loading your orders...</p>
+        ) : (
+          <div className="orders-list">
+            {filteredOrders.length === 0 ? (
+              <p>No orders found.</p>
+            ) : (
+              filteredOrders.map((order) => (
+                <div className="order-card" key={order._id}>
+                  <p><strong>Bus:</strong> {order.busId?.route}</p>
+                  <p><strong>Seats:</strong> {order.seats}</p>
+                  <p><strong>Total Amount:</strong> ₹{order.totalAmount}</p>
+                  <p><strong>Status:</strong> {order.orderStatus}</p>
+                  <p><strong>Created At:</strong> {new Date(order.createdAt).toLocaleDateString()}</p>
+                </div>
+              ))
+            )}
+          </div>
+        )}
+      </div>
     </div>
   );
 };

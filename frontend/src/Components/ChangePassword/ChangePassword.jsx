@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import "./ChangePassword.css";
+
 const ChangePassword = () => {
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
@@ -38,8 +39,7 @@ const ChangePassword = () => {
       setMessage(response.data.message);
 
       if (response.data.success) {
-        // Optionally redirect after password change
-        navigate("/account"); // Redirect to account page or logout
+        navigate("/account");
       }
     } catch (err) {
       setMessage("Error updating password.");
@@ -49,32 +49,35 @@ const ChangePassword = () => {
   };
 
   return (
-    <div className="change-password">
-      <h1>Change Password</h1>
-      <form onSubmit={handlePasswordChange}>
-        <label>
-          Old Password:
-          <input
-            type="password"
-            value={oldPassword}
-            onChange={(e) => setOldPassword(e.target.value)}
-            required
-          />
-        </label>
-        <label>
-          New Password:
-          <input
-            type="password"
-            value={newPassword}
-            onChange={(e) => setNewPassword(e.target.value)}
-            required
-          />
-        </label>
-        <button type="submit" disabled={loading}>
-          {loading ? "Updating..." : "Update Password"}
-        </button>
-      </form>
-      {message && <p>{message}</p>}
+    <div className="account-container">
+      <div className="sidebar">
+        <h3>Account</h3>
+        <ul>
+          <li><Link to="/personalinformation">Personal Information</Link></li>
+          <li><Link to="/changepassword">Change Password</Link></li>
+          <li><Link to="/orders">Orders</Link></li>
+          <li><Link to="/settings">Settings</Link></li>
+          <li><button onClick={() => { localStorage.clear(); navigate("/"); }}>Logout</button></li>
+        </ul>
+      </div>
+
+      <div className="main-content">
+        <h1>Change Password</h1>
+        <form onSubmit={handlePasswordChange}>
+          <label>
+            Old Password:
+            <input type="password" value={oldPassword} onChange={(e) => setOldPassword(e.target.value)} required />
+          </label>
+          <label>
+            New Password:
+            <input type="password" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} required />
+          </label>
+          <button type="submit" disabled={loading}>
+            {loading ? "Updating..." : "Update Password"}
+          </button>
+        </form>
+        {message && <p>{message}</p>}
+      </div>
     </div>
   );
 };

@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { Link, useNavigate } from "react-router-dom";
 import "./PersonalInformation.css";
 import { FaUserCircle } from "react-icons/fa"; // User icon
 
 const PersonalInformation = () => {
   const [userDetails, setUserDetails] = useState(null);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchUserDetails = async () => {
@@ -24,8 +26,19 @@ const PersonalInformation = () => {
   }, []);
 
   return (
-    <div className="personal-info-container">
-      <div className="info-card">
+    <div className="account-container">
+      <div className="sidebar">
+        <h3>Account</h3>
+        <ul>
+          <li><Link to="/personalinformation">Personal Information</Link></li>
+          <li><Link to="/changepassword">Change Password</Link></li>
+          <li><Link to="/orders">Orders</Link></li>
+          <li><Link to="/settings">Settings</Link></li>
+          <li><button onClick={() => { localStorage.clear(); navigate("/"); }}>Logout</button></li>
+        </ul>
+      </div>
+
+      <div className="main-content">
         <h1>Personal Information</h1>
         {loading ? (
           <div className="loading-container">
