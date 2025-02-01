@@ -54,7 +54,7 @@ const BookNow = () => {
 
     try {
       await axios.post("http://localhost:3000/orders", bookingDetails);
-      alert(`Booking confirmed! Total Price: ₹${totalPrice.toFixed(2)}.`);
+      alert(`Redirecting to the payment page of : ₹${totalPrice.toFixed(2)}.`);
       console.log("Navigating to payment with details:", bookingDetails);
       navigate("/payment", { state: { bookingDetails } });
     } catch (err) {

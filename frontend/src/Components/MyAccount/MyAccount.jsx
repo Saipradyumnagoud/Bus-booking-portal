@@ -59,7 +59,7 @@ const MyAccount = () => {
               </div>
             </>
           ) : (
-            <p>Loading account details...</p>
+            <p>Wait while we are Loading your account details...</p>
           )
         ) : (
           <div className="login-prompt">

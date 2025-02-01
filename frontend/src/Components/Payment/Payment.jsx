@@ -1,17 +1,24 @@
-import React from "react";
+import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 const Payment = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const bookingDetails = location.state?.bookingDetails;
+  const [upiId, setUpiId] = useState("");
+  const [error, setError] = useState("");
 
   if (!bookingDetails) {
     return <p>No booking details found. Please go back and try again.</p>;
   }
 
-  const handlePaymentSuccess = () => {
-    alert("Payment successful!");
+  const handlePayment = () => {
+    if (!upiId.match(/^\w+@\w+$/)) {
+      setError("Invalid UPI ID. Please enter a valid one (e.g., example@upi)");
+      return;
+    }
+    setError("");
+    alert("Payment successful via UPI!");
     navigate("/");
   };
 
@@ -39,6 +46,20 @@ const Payment = () => {
     strongText: {
       fontWeight: "bold",
     },
+    input: {
+      padding: "10px",
+      width: "80%",
+      fontSize: "1rem",
+      marginBottom: "10px",
+      border: "1px solid #ccc",
+      borderRadius: "5px",
+      textAlign: "center",
+    },
+    error: {
+      color: "red",
+      fontSize: "0.9rem",
+      marginBottom: "10px",
+    },
     button: {
       padding: "12px 20px",
       backgroundColor: "#28a745",
@@ -64,16 +85,23 @@ const Payment = () => {
         <span style={styles.strongText}>Seats:</span> {bookingDetails.seats}
       </p>
       <p style={styles.paragraph}>
-        <span style={styles.strongText}>Total Amount:</span> ₹
-        {bookingDetails.totalAmount.toFixed(2)}
+        <span style={styles.strongText}>Total Amount:</span> ₹{bookingDetails.totalAmount.toFixed(2)}
       </p>
+      <input
+        type="text"
+        placeholder="Enter UPI ID (e.g., example@upi)"
+        value={upiId}
+        onChange={(e) => setUpiId(e.target.value)}
+        style={styles.input}
+      />
+      {error && <p style={styles.error}>{error}</p>}
       <button
         style={styles.button}
-        onClick={handlePaymentSuccess}
-        onMouseOver={(e) => e.target.style.backgroundColor = styles.buttonHover.backgroundColor}
-        onMouseOut={(e) => e.target.style.backgroundColor = styles.button.backgroundColor}
+        onClick={handlePayment}
+        onMouseOver={(e) => (e.target.style.backgroundColor = styles.buttonHover.backgroundColor)}
+        onMouseOut={(e) => (e.target.style.backgroundColor = styles.button.backgroundColor)}
       >
-        Simulate Payment
+        Pay Now
       </button>
     </div>
   );
