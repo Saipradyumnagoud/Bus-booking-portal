@@ -1,49 +1,145 @@
-/* Payment.css */
+/* Payment Page Container */
 .payment-container {
-  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f4f4f4;
   padding: 20px;
-  max-width: 600px;
-  margin: 0 auto;
-  background-color: #f4f4f9;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-h1 {
-  font-size: 28px;
-  color: #333;
+/* Card Style */
+.payment-card {
+  width: 400px;
+  background: #fff;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  padding: 20px;
   text-align: center;
+}
+
+/* Title */
+.payment-title {
+  font-size: 22px;
+  font-weight: bold;
+  color: #333;
   margin-bottom: 20px;
 }
 
-p {
-  font-size: 16px;
-  color: #555;
-  margin-bottom: 10px;
+/* Payment Details */
+.payment-details {
+  text-align: left;
+  margin-bottom: 20px;
 }
 
-strong {
+/* Detail Row */
+.detail-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid #ddd;
+}
+
+.detail-row span {
   font-weight: bold;
   color: #333;
 }
 
-button {
+.detail-row p {
+  color: #555;
+  margin: 0;
+}
+
+/* Payment Method Selection */
+.payment-method {
+  margin: 20px 0;
+  text-align: left;
+}
+
+.payment-method label {
+  font-size: 14px;
+  font-weight: bold;
   display: block;
+  margin-bottom: 5px;
+}
+
+/* Input Fields */
+.input-field {
   width: 100%;
-  padding: 12px;
-  background-color: #4caf50;
+  padding: 8px;
+  border: 1px solid #aaa;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+/* promo sectio */ 
+
+.promo-section {
+  display: flex;
+  gap: 10px;
+  margin: 10px 0;
+}
+
+.apply-btn {
+  padding: 8px 12px;
+  background-color: green;
   color: white;
   border: none;
-  border-radius: 4px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.apply-btn:hover {
+  background-color: green;
+}
+
+.success-message {
+  color: green;
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+
+/* Card Details */
+.card-details {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.small-input {
+  width: 80px;
+}
+
+/* UPI Section */
+.qr-code {
+  width: 120px;
+  margin-top: 10px;
+}
+
+/* Error Message */
+.error-message {
+  color: red;
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+/* Payment Button */
+.payment-footer {
+  margin-top: 20px;
+}
+
+.pay-btn {
+  width: 100%;
+  padding: 12px;
+  background-color: #105652;
+  color: white;
+  border: none;
+  border-radius: 5px;
   font-size: 16px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
 }
 
-button:hover {
-  background-color: #45a049;
-}
-
-button:focus {
-  outline: none;
+.pay-btn:hover {
+  background-color: #0e4b47;
 }
