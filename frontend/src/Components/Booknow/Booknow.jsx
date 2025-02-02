@@ -54,8 +54,7 @@ const BookNow = () => {
 
     try {
       await axios.post("http://localhost:3000/orders", bookingDetails);
-      alert(`Redirecting to the payment page of : ₹${totalPrice.toFixed(2)}.`);
-      console.log("Navigating to payment with details:", bookingDetails);
+      alert(`Redirecting to the payment page of ₹${totalPrice.toFixed(2)}.`);
       navigate("/payment", { state: { bookingDetails } });
     } catch (err) {
       console.error("Error creating order:", err);

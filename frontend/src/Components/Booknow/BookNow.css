@@ -1,66 +1,113 @@
+/* General Styles */
 .booknow-container {
   max-width: 700px;
-  margin: 20px auto;
-  padding: 20px;
-  background: #f9f9f9;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin: 30px auto;
+  padding: 25px;
+  background: linear-gradient(135deg, #ffffff, #f3f3f3);
+  border-radius: 12px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+  font-family: 'Arial', sans-serif;
 }
 
+/* Headings */
 h1, h2 {
   text-align: center;
-  color: #333;
+  color: #222;
+  font-weight: bold;
+}
+
+/* Bus Details */
+.bus-details {
+  background: #eef5ff;
+  padding: 15px;
+  border-radius: 10px;
+  margin-bottom: 20px;
 }
 
 .bus-details p {
-  margin: 10px 0;
+  margin: 8px 0;
   font-size: 16px;
+  font-weight: 500;
+  color: #333;
 }
 
+/* Form Styling */
 .booking-form {
-  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
 }
 
 .form-group {
-  margin-bottom: 15px;
+  margin-bottom: 20px;
 }
 
 .form-group label {
   display: block;
-  font-size: 14px;
+  font-size: 15px;
+  font-weight: bold;
   margin-bottom: 5px;
-  color: #555;
+  color: #444;
 }
 
 .form-group input {
   width: 100%;
-  padding: 10px;
+  padding: 12px;
   font-size: 14px;
   border: 1px solid #ccc;
-  border-radius: 5px;
+  border-radius: 6px;
+  transition: all 0.3s ease-in-out;
 }
 
+.form-group input:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.4);
+  outline: none;
+}
+
+/* Passenger Details */
 .total-price {
   font-size: 18px;
-  margin: 15px 0;
-  text-align: center;
   font-weight: bold;
-  color: #333;
+  text-align: center;
+  color: #222;
+  margin-top: 10px;
+  padding: 10px;
+  background: #e3ffe9;
+  border-radius: 8px;
 }
 
+/* Buttons */
 .confirm-btn {
-  display: block;
   width: 100%;
-  padding: 12px;
+  padding: 14px;
   font-size: 16px;
   color: white;
-  background: #28a745;
+  background: linear-gradient(135deg, #28a745, #218838);
   border: none;
-  border-radius: 5px;
+  border-radius: 6px;
   cursor: pointer;
-  transition: background 0.3s ease;
+  transition: 0.3s ease-in-out;
+  font-weight: bold;
 }
 
 .confirm-btn:hover {
-  background: blue;
+  background: linear-gradient(135deg, #218838, #1e7e34);
+  transform: scale(1.02);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .booknow-container {
+    width: 90%;
+    padding: 20px;
+  }
+  
+  .bus-details p {
+    font-size: 14px;
+  }
+
+  .form-group input {
+    font-size: 13px;
+    padding: 10px;
+  }
 }
