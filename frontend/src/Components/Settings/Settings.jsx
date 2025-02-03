@@ -1,9 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./Settings.css";
 
 const Settings = () => {
   const navigate = useNavigate();
+  const [darkMode, setDarkMode] = useState(false);
+
+  // Function to toggle dark mode
+  const handleToggleDarkMode = () => {
+    setDarkMode((prev) => !prev);
+    document.body.classList.toggle("dark-mode", !darkMode);
+  };
 
   return (
     <div className="account-container">
@@ -20,7 +27,25 @@ const Settings = () => {
 
       <div className="main-content">
         <h1>Settings</h1>
-        <p>Settings functionality can be implemented as needed.</p>
+        <div className="settings-section">
+          <h2>Account Settings</h2>
+          <p>Manage your account preferences here.</p>
+          <button onClick={handleToggleDarkMode}>
+            {darkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
+          </button>
+        </div>
+
+        <div className="settings-section">
+          <h2>Privacy Settings</h2>
+          <p>Manage privacy and security settings.</p>
+          <button>Enable Two-Factor Authentication</button>
+        </div>
+
+        <div className="settings-section">
+          <h2>Notification Settings</h2>
+          <p>Set your notification preferences.</p>
+          <button>Enable Email Notifications</button>
+        </div>
       </div>
     </div>
   );
