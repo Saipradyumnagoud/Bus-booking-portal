@@ -107,3 +107,45 @@ body.dark-mode .settings-section button {
 body.dark-mode .settings-section button:hover {
   background-color: #333;
 }
+/* Dark mode styles */
+body.dark-mode {
+  background-color: #121212;
+  color: #ffffff;
+}
+
+body.dark-mode .account-container {
+  background-color: #2c2c2c;
+}
+
+body.dark-mode .sidebar {
+  background-color: #333; /* Darker background for sidebar */
+  color: #ffffff; /* Light text color for better contrast */
+}
+
+body.dark-mode .sidebar h3 {
+  color: #ffffff; /* Ensures the heading is visible */
+}
+
+body.dark-mode .sidebar ul li a {
+  color: #ffffff; /* Makes links visible in dark mode */
+}
+
+body.dark-mode .sidebar ul li a:hover {
+  color: #4caf50; /* Highlights the link on hover */
+}
+
+body.dark-mode .sidebar ul li button {
+  color: #ffffff; /* Ensures buttons are visible */
+}
+
+body.dark-mode .main-content {
+  background-color: #424242; /* Darker content background */
+}
+
+body.dark-mode .settings-section button {
+  background-color: #1e1e1e; /* Dark button background */
+}
+
+body.dark-mode .settings-section button:hover {
+  background-color: #333; /* Button hover effect */
+}
