@@ -82,7 +82,7 @@
 
 .apply-btn {
   padding: 8px 12px;
-  background-color: green;
+  background-color: #003580;
   color: white;
   border: none;
   cursor: pointer;
@@ -132,7 +132,7 @@
 .pay-btn {
   width: 100%;
   padding: 12px;
-  background-color: #105652;
+  background-color: #003580;
   color: white;
   border: none;
   border-radius: 5px;

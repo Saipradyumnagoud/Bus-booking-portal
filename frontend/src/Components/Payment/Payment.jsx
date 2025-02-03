@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import "./Payment.css"; // Importing CSS
-
+import "./Payment.css"; 
+import qrCode from "./qr-code.png";
 const Payment = () => {
   const location = useLocation();
   const navigate = useNavigate();
@@ -93,6 +93,8 @@ const Payment = () => {
             <option value="upi">UPI</option>
             <option value="card">Credit/Debit Card</option>
             <option value="netbanking">Net Banking</option>
+            <option value="wallet">Wallet</option>
+            <option value="other">Buy Now pay Later</option>
           </select>
         </div>
 
@@ -106,7 +108,7 @@ const Payment = () => {
               onChange={(e) => setUpiId(e.target.value)}
               className="input-field"
             />
-            <img src="/qr-code.png" alt="Scan QR" className="qr-code" />
+            <img src={qrCode} alt="Scan QR" className="qr-code" />
           </div>
         )}
 
