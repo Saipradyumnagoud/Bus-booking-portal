@@ -8,7 +8,12 @@ const PersonalInformation = () => {
   const [userDetails, setUserDetails] = useState(null);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
-
+  useEffect(() => {
+      const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+      if (!isLoggedIn) {
+        navigate("/login"); // Redirect to login page if not logged in
+      }
+    }, [navigate]);
   useEffect(() => {
     const fetchUserDetails = async () => {
       try {
