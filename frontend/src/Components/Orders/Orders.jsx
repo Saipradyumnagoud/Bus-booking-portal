@@ -7,6 +7,7 @@ const Orders = () => {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState("all");
+  const [search, setSearch] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -48,7 +49,9 @@ const Orders = () => {
     });
   };
 
-  const filteredOrders = filterOrders(orders, filter);
+  const filteredOrders = filterOrders(orders, filter).filter((order) =>
+    order.busId?.route.toLowerCase().includes(search.toLowerCase())
+  );
 
   const handleLogout = () => {
     localStorage.removeItem("isLoggedIn");
@@ -68,35 +71,51 @@ const Orders = () => {
           <li><button onClick={handleLogout}>Logout</button></li>
         </ul>
       </div>
-      <div className="orders-container">
-        <h1>Your Orders</h1>
-        <label>Filter by time:</label>
-        <select onChange={(e) => setFilter(e.target.value)} value={filter}>
-          <option value="all">All</option>
-          <option value="6hrs">Last 6 Hours</option>
-          <option value="1day">Last 1 Day</option>
-          <option value="1month">Last 1 Month</option>
-          <option value="1year">Last 1 Year</option>
-        </select>
-        {loading ? (
-          <p>Loading your orders...</p>
-        ) : (
-          <div className="orders-list">
-            {filteredOrders.length === 0 ? (
-              <p>No orders found.</p>
-            ) : (
-              filteredOrders.map((order) => (
-                <div className="order-card" key={order._id}>
-                  <p><strong>Bus:</strong> {order.busId?.route}</p>
-                  <p><strong>Seats:</strong> {order.seats}</p>
-                  <p><strong>Total Amount:</strong> ₹{order.totalAmount}</p>
-                  <p><strong>Status:</strong> {order.orderStatus}</p>
-                  <p><strong>Created At:</strong> {new Date(order.createdAt).toLocaleDateString()}</p>
-                </div>
-              ))
-            )}
-          </div>
-        )}
+      
+      <div className="orders-wrapper">
+        <div className="orders-container">
+          <h1>Your Orders</h1>
+          <input
+            type="text"
+            placeholder="Search orders..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            className="orders-search-bar"
+          />
+          {loading ? (
+            <p>Loading your orders...</p>
+          ) : (
+            <div className="orders-list">
+              {filteredOrders.length === 0 ? (
+                <p>No orders found.</p>
+              ) : (
+                filteredOrders.map((order) => (
+                  <div className="order-card" key={order._id}>
+                    <p><strong>Bus:</strong> {order.busId?.route}</p>
+                    <p><strong>Seats:</strong> {order.seats}</p>
+                    <p><strong>Total Amount:</strong> ₹{order.totalAmount}</p>
+                    <p><strong>Status:</strong> {order.orderStatus}</p>
+                    <p><strong>Created At:</strong> {new Date(order.createdAt).toLocaleDateString()}</p>
+                  </div>
+                ))
+              )}
+            </div>
+          )}
+        </div>
+
+        {/* Filters Section on the Right */}
+        <div className="filters">
+          <h3>Filters</h3>
+          <label>Status</label>
+          <button onClick={() => setFilter("successful")}>Successful</button>
+          <button onClick={() => setFilter("pending")}>Pending</button>
+
+          <h3>Order Time</h3>
+          <button onClick={() => setFilter("6hrs")}>Last 6 Hours</button>
+          <button onClick={() => setFilter("1month")}>Last 30 Days</button>
+          <button onClick={() => setFilter("1year")}>2024</button>
+          <button onClick={() => setFilter("older")}>Older</button>
+        </div>
       </div>
     </div>
   );

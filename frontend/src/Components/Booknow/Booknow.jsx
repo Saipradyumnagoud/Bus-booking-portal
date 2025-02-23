@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./BookNow.css";
@@ -15,6 +15,14 @@ const BookNow = () => {
     email: "",
     phone: "",
   });
+
+  // Fetch stored email from localStorage (assuming it is stored after login)
+  useEffect(() => {
+    const storedEmail = localStorage.getItem("userEmail"); // Change key if needed
+    if (storedEmail) {
+      setFormData((prev) => ({ ...prev, email: storedEmail }));
+    }
+  }, []);
 
   const handlePassengerChange = (index, value) => {
     const updatedPassengers = [...passengerDetails];
@@ -94,8 +102,7 @@ const BookNow = () => {
             id="email"
             name="email"
             value={formData.email}
-            onChange={handleFormChange}
-            required
+            disabled // Prevents users from editing the auto-filled email
           />
         </div>
         <div className="form-group">
