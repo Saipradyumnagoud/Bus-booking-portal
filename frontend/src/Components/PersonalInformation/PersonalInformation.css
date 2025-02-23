@@ -1,107 +1,75 @@
-
-
-.sidebar {
-  width: 250px;
-  background-color: #f4f4f4;
-  padding: 20px;
-  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+/* Overall Layout */
+.account-container {
+  display: flex;
+  height: 100vh;
+  background: #f2f5f8;
+  font-family: 'Poppins', sans-serif;
 }
 
-.sidebar h3 {
+/* Main Content */
+.profile-content {
+  flex-grow: 1;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.profile-content h1 {
+  font-size: 28px;
+  font-weight: 700;
+  color: #1e293b;
   margin-bottom: 20px;
-  font-size: 18px;
 }
 
-.sidebar ul {
-  list-style: none;
-  padding: 0;
+/* Profile Section */
+.profile-icon {
+  text-align: center;
+  margin-bottom: 20px;
 }
 
-.sidebar ul li {
-  margin: 15px 0;
+.profile-details {
+  background: white;
+  padding: 25px;
+  border-radius: 10px;
+  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.08);
+  width: 400px;
 }
 
-.sidebar ul li a {
-  text-decoration: none;
+.profile-details label {
+  display: block;
+  margin-top: 15px;
+  font-size: 14px;
+  font-weight: 600;
   color: #333;
-  font-size: 16px;
 }
 
-.sidebar ul li button {
-  background: none;
-  border: none;
-  color: #333;
+.profile-details input {
+  width: 100%;
+  padding: 12px;
+  margin-top: 5px;
+  border: 1.5px solid #e5e7eb;
+  border-radius: 8px;
   font-size: 16px;
-  cursor: pointer;
+  transition: 0.3s;
 }
 
-body {
-    margin: 0;
-    font-family: 'Roboto', sans-serif;
-    background-color: #f4f4f9;
-  }
-  
-  .personal-info-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    padding: 20px;
-    background: linear-gradient(135deg, #ece9e6, #ffffff);
-  }
-  
-  .info-card {
-    background-color: #ffffff;
-    border-radius: 12px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-    padding: 40px;
-    max-width: 500px;
-    width: 100%;
-    text-align: center;
-  }
-  
-  .info-card h1 {
-    font-size: 28px;
-    color: #333333;
-    margin-bottom: 20px;
-    text-transform: capitalize;
-  }
-  
-  .info-details {
-    text-align: left;
-  }
-  
-  .info-details p {
-    font-size: 18px;
-    color: #555555;
-    margin: 10px 0;
-  }
-  
-  .info-details p strong {
-    color: #333333;
-  }
-  
-  .loading {
-    font-size: 18px;
-    color: #888888;
-  }
-  
-  .error-message {
-    font-size: 18px;
-    color: #ff6b6b;
-  }
-  
-  @media screen and (max-width: 768px) {
-    .info-card {
-      padding: 20px;
-    }
-  
-    .info-card h1 {
-      font-size: 24px;
-    }
-  
-    .info-details p {
-      font-size: 16px;
-    }
-  }
-  
+.gender-options {
+  display: flex;
+  gap: 15px;
+  margin-top: 5px;
+}
+
+/* Buttons */
+.button-group {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+  gap: 10px;
+}
+
+.save-button { background-color: #3b82f6; color: white; }
+.edit-button { background-color: #10b981; color: white; }
+.deactivate-button { background-color: #facc15; color: black; }
+.delete-button { background-color: #ef4444; color: white; }

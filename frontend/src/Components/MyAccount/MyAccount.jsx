@@ -54,8 +54,8 @@ const MyAccount = () => {
             <>
               <h1>My Account</h1>
               <div className="account-details">
-                <p><strong>Name:</strong> {userDetails.name}</p>
-                <p><strong>Email:</strong> {userDetails.email}</p>
+                <p><strong> Welcome </strong> {userDetails.name}</p>
+                {/* <p><strong>Email:</strong> {userDetails.email}</p> */}
               </div>
             </>
           ) : (
