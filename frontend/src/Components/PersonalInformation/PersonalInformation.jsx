@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import "./PersonalInformation.css";
-import { FaUserCircle } from "react-icons/fa"; // User icon
+import { FaUserCircle } from "react-icons/fa";
 
 const PersonalInformation = () => {
   const [userDetails, setUserDetails] = useState({
@@ -62,23 +62,10 @@ const PersonalInformation = () => {
     }
   };
 
-  const handleDeactivateAccount = () => {
-    if (window.confirm("Are you sure you want to deactivate your account?")) {
-      console.log("Account Deactivated (API call placeholder)");
-      alert("Your account has been deactivated.");
-    }
-  };
-
   const handleDeleteAccount = async () => {
-    if (
-      window.confirm(
-        "Are you sure you want to permanently delete your account? This action cannot be undone."
-      )
-    ) {
+    if (window.confirm("Are you sure you want to permanently delete your account?")) {
       try {
-        await axios.delete(
-          `http://localhost:3000/userDetails/${userDetails.email}`
-        );
+        await axios.delete(`http://localhost:3000/userDetails/${userDetails.email}`);
         alert("Your account has been deleted.");
         localStorage.clear();
         navigate("/");
@@ -107,14 +94,7 @@ const PersonalInformation = () => {
             <Link to="/settings">Settings</Link>
           </li>
           <li>
-            <button
-              onClick={() => {
-                localStorage.clear();
-                navigate("/");
-              }}
-            >
-              Logout
-            </button>
+            <button onClick={() => { localStorage.clear(); navigate("/"); }}> Logout </button>
           </li>
         </ul>
       </div>
@@ -131,77 +111,28 @@ const PersonalInformation = () => {
             <div className="profile-icon">
               <FaUserCircle size={80} color="#007bff" />
             </div>
-            <label>
-              <strong>Name:</strong>
-            </label>
-            <input
-              type="text"
-              name="name"
-              value={userDetails.name}
-              onChange={handleChange}
-              disabled={!isEditing}
-            />
+            <label><strong>Name:</strong></label>
+            <input type="text" name="name" value={userDetails.name} onChange={handleChange} disabled={!isEditing} />
 
-            <label>
-              <strong>Gender:</strong>
-            </label>
+            <label><strong>Gender:</strong></label>
             <div className="gender-options">
-              <label>
-                <input
-                  type="radio"
-                  name="gender"
-                  value="Male"
-                  checked={userDetails.gender === "Male"}
-                  onChange={handleChange}
-                  disabled={!isEditing}
-                />
-                Male
-              </label>
-              <label>
-                <input
-                  type="radio"
-                  name="gender"
-                  value="Female"
-                  checked={userDetails.gender === "Female"}
-                  onChange={handleChange}
-                  disabled={!isEditing}
-                />
-                Female
-              </label>
+              <label><input type="radio" name="gender" value="Male" checked={userDetails.gender === "Male"} onChange={handleChange} disabled={!isEditing} /> Male </label>
+              <label><input type="radio" name="gender" value="Female" checked={userDetails.gender === "Female"} onChange={handleChange} disabled={!isEditing} /> Female </label>
             </div>
 
-            <label>
-              <strong>Email:</strong>
-            </label>
+            <label><strong>Email:</strong></label>
             <input type="email" name="email" value={userDetails.email} disabled />
 
-            <label>
-              <strong>Mobile Number:</strong>
-            </label>
-            <input
-              type="text"
-              name="mobile"
-              value={userDetails.mobile}
-              onChange={handleChange}
-              disabled={!isEditing}
-            />
+            <label><strong>Mobile Number:</strong></label>
+            <input type="text" name="mobile" value={userDetails.mobile} onChange={handleChange} disabled={!isEditing} />
 
             <div className="button-group">
               {isEditing ? (
-                <button className="save-button" onClick={handleSaveChanges}>
-                  Save Changes
-                </button>
+                <button className="save-button" onClick={handleSaveChanges}> Save Changes </button>
               ) : (
-                <button className="edit-button" onClick={() => setIsEditing(true)}>
-                  Edit
-                </button>
+                <button className="edit-button" onClick={() => setIsEditing(true)}> Edit </button>
               )}
-              <button className="deactivate-button" onClick={handleDeactivateAccount}>
-                Deactivate
-              </button>
-              <button className="delete-button" onClick={handleDeleteAccount}>
-                Delete
-              </button>
+              <button className="delete-button" onClick={handleDeleteAccount}> Delete </button>
             </div>
           </div>
         )}

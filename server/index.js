@@ -18,24 +18,26 @@ mongoose.connect("mongodb://127.0.0.1:27017/passenger", {
   useUnifiedTopology: true,
 });
 
-// Signup Route
+// ✅ Signup Route
 app.post('/signup', async (req, res) => {
-  const { name, email, password } = req.body;
+  const { name, email, password, gender, mobile } = req.body;
 
-  if (!name || !email || !password) {
+  if (!name || !email || !password || !gender || !mobile) {
     return res.status(400).json({ error: 'Please provide all fields' });
   }
 
   try {
     const hashedPassword = await bcrypt.hash(password, 10);
-    const newUser = await PassengerModel.create({ name, email, password: hashedPassword });
+    const newUser = await PassengerModel.create({ 
+      name, email, password: hashedPassword, gender, mobile 
+    });
     res.json(newUser);
   } catch (err) {
     res.status(500).json({ error: 'Error creating user', err });
   }
 });
 
-// Login Route
+// ✅ Login Route
 app.post('/login', async (req, res) => {
   const { email, password } = req.body;
 
@@ -56,7 +58,7 @@ app.post('/login', async (req, res) => {
   }
 });
 
-// User Details Route
+// ✅ Get User Details Route
 app.get('/userDetails', async (req, res) => {
   const email = req.query.email;
 
@@ -69,24 +71,59 @@ app.get('/userDetails', async (req, res) => {
     res.json({
       name: user.name,
       email: user.email,
+      gender: user.gender,
+      mobile: user.mobile
     });
   } catch (error) {
     res.status(500).json({ error: 'Failed to fetch user details' });
   }
 });
 
-// Buses Route
+// ✅ Update User Details Route
+app.put('/userDetails/:email', async (req, res) => {
+  const { email } = req.params;
+  const { name, gender, mobile } = req.body;
+
+  try {
+    const updatedUser = await PassengerModel.findOneAndUpdate(
+      { email },
+      { name, gender, mobile },
+      { new: true }
+    );
+    if (!updatedUser) {
+      return res.status(404).json({ error: "User not found" });
+    }
+    res.json({ message: "User details updated successfully" });
+  } catch (error) {
+    res.status(500).json({ error: "Failed to update user details" });
+  }
+});
+
+// ✅ Delete User Route
+app.delete('/userDetails/:email', async (req, res) => {
+  try {
+    const deletedUser = await PassengerModel.findOneAndDelete({ email: req.params.email });
+    if (!deletedUser) {
+      return res.status(404).json({ error: "User not found" });
+    }
+    res.json({ message: "User deleted successfully" });
+  } catch (error) {
+    res.status(500).json({ error: "Error deleting user" });
+  }
+});
+
+// ✅ Buses Route (Fetch all buses)
 app.get('/api/buses', async (req, res) => {
   try {
-    const buses = await BusModel.find(); // Fetch all buses from the database
-    res.json(buses); // Return the buses in the response
+    const buses = await BusModel.find();
+    res.json(buses);
   } catch (error) {
     console.error('Error fetching buses:', error);
     res.status(500).json({ message: 'Error fetching buses data' });
   }
 });
 
-// Orders Route (Fetching Orders)
+// ✅ Orders Route (Fetch orders for a user)
 app.get('/orders', async (req, res) => {
   const email = req.query.email;
 
@@ -103,7 +140,7 @@ app.get('/orders', async (req, res) => {
   }
 });
 
-// Orders Route (Creating an Order)
+// ✅ Orders Route (Create an order)
 app.post('/orders', async (req, res) => {
   const { email, busId, seats, totalAmount } = req.body;
 
@@ -127,5 +164,5 @@ app.post('/orders', async (req, res) => {
 });
 
 app.listen(3000, () => {
-  console.log("Server is running on port 3000");
+  console.log("🚀 Server is running on port 3000");
 });
