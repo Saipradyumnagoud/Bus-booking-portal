@@ -6,12 +6,23 @@
   padding: 10px 20px;
   background-color: #003580;
   color: white;
+  text-decoration: none;
 }
-
+a {
+  text-decoration: none !important;
+}
 .navbar-brand {
   font-size: 1.5rem;
   font-weight: bold;
   color: #fff;
+  text-decoration: none;
+}
+.navbar-brand,
+.navbar-brand:link,
+.navbar-brand:visited,
+.navbar-brand:hover,
+.navbar-brand:active {
+  text-decoration: none;
 }
 
 .nav-links {
