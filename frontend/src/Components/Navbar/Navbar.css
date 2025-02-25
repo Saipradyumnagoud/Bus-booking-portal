@@ -3,10 +3,22 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 20px;
-  background-color: #003580;
+  padding: 10px;
+  background-color: hsl(215, 100%, 25%);
   color: white;
+  /* Full viewport width */
+  max-width: 100%; /* Ensures it never shrinks */
+  margin: 0; /* Remove any extra margin */
+  left: 0;
+  right: 0;
+  position: relative; /* Ensures no unwanted spacing */
   text-decoration: none;
+}
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  overflow-x: hidden; /* Prevents horizontal scrolling */
 }
 a {
   text-decoration: none !important;

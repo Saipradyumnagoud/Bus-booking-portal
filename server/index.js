@@ -18,7 +18,7 @@ mongoose.connect("mongodb://127.0.0.1:27017/passenger", {
   useUnifiedTopology: true,
 });
 
-// ✅ Signup Route
+//  Signup Route
 app.post('/signup', async (req, res) => {
   const { name, email, password, gender, mobile } = req.body;
 

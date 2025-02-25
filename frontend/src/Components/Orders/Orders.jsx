@@ -103,7 +103,6 @@ const Orders = () => {
           )}
         </div>
 
-        {/* Filters Section on the Right */}
         <div className="filters">
           <h3>Filters</h3>
           <label>Status</label>
