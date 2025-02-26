@@ -16,18 +16,17 @@ const ChangePassword = () => {
       navigate("/login"); // Redirect to login page if not logged in
     }
   }, [navigate]);
-
   const handlePasswordChange = async (e) => {
     e.preventDefault();
     setLoading(true);
     setMessage("");
-
+  
     if (newPassword.length < 6) {
       setMessage("New password should be at least 6 characters long.");
       setLoading(false);
       return;
     }
-
+  
     try {
       const email = localStorage.getItem("userEmail");
       const response = await axios.post("http://localhost:3000/changePassword", {
@@ -35,11 +34,14 @@ const ChangePassword = () => {
         oldPassword,
         newPassword,
       });
-
-      setMessage(response.data.message);
-
+  
       if (response.data.success) {
-        navigate("/account");
+        alert("Password updated successfully!");
+        setOldPassword("");
+        setNewPassword("");
+        setMessage("");
+      } else {
+        setMessage(response.data.message || "Error updating password.");
       }
     } catch (err) {
       setMessage("Error updating password.");
@@ -47,7 +49,7 @@ const ChangePassword = () => {
       setLoading(false);
     }
   };
-
+  
   return (
     <div className="account-container">
       <div className="sidebar">

@@ -141,6 +141,38 @@ app.get('/orders', async (req, res) => {
   }
 });
 
+//Change Password Route 
+app.post('/changePassword', async (req, res) => {
+  const { email, oldPassword, newPassword } = req.body;
+
+  if (!email || !oldPassword || !newPassword) {
+    return res.status(400).json({ error: 'All fields are required' });
+  }
+
+  try {
+    const user = await PassengerModel.findOne({ email });
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    // Check if old password matches
+    const isMatch = await bcrypt.compare(oldPassword, user.password);
+    if (!isMatch) {
+      return res.status(400).json({ error: 'Incorrect old password' });
+    }
+
+    // Hash the new password and update
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+    user.password = hashedPassword;
+    await user.save();
+
+    res.json({ success: true, message: 'Password updated successfully' });
+  } catch (error) {
+    res.status(500).json({ error: 'Error updating password' });
+  }
+});
+
+
 // ✅ Orders Route (Create an order)
 app.post('/orders', async (req, res) => {
   const { email, busId, seats, totalAmount } = req.body;

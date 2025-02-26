@@ -12,7 +12,7 @@ const Login = () => {
     event.preventDefault();
 
     axios
-      .post("http://192.168.0.102:3000/login", { email, password })
+      .post("http://localhost:3000/login", { email, password })
       .then((result) => {
         if (result.data.message === "Success") {
           localStorage.setItem("isLoggedIn", "true");
