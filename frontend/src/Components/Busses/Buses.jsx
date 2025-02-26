@@ -9,7 +9,7 @@ const Buses = () => {
 
   // Fetch bus data from backend API
   useEffect(() => {
-    fetch("http://localhost:3000/api/buses")
+    fetch("http://192.168.0.102:3000/api/buses")
       .then((response) => response.json())
       .then((data) => {
         setBuses(data);

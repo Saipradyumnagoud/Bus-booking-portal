@@ -16,7 +16,7 @@ const MyAccount = () => {
       if (loggedIn) {
         try {
           const email = localStorage.getItem("userEmail");
-          const response = await axios.get(`http://localhost:3000/userDetails?email=${email}`);
+          const response = await axios.get(`http://192.168.0.102:3000/userDetails?email=${email}`);
           setUserDetails(response.data);
         } catch (err) {
           console.error("Failed to fetch user details:", err);
