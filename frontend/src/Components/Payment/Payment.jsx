@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { jsPDF } from "jspdf"; // Import jsPDF for PDF generation
 import "./Payment.css"; 
 import qrCode from "./qr-code.png";
+
 const Payment = () => {
   const location = useLocation();
   const navigate = useNavigate();
@@ -17,14 +19,17 @@ const Payment = () => {
   const [error, setError] = useState("");
 
   const validPromoCodes = {
-    "SAVE10": 10,  // 10% discount
-    "BUS20": 20,   // 20% discount
-    "WELCOME50": 50 // 50% discount (first-time users)
+    "SAVE10": 10,  
+    "BUS20": 20,   
+    "WELCOME50": 50 
   };
 
   if (!bookingDetails) {
     return <p className="error-message">No booking details found. Please go back and try again.</p>;
   }
+
+  // ✅ Debugging: Show booking details on the screen
+  console.log("Booking Details:", bookingDetails);
 
   const handleApplyPromo = () => {
     if (validPromoCodes[promoCode.toUpperCase()]) {
@@ -36,6 +41,52 @@ const Payment = () => {
   };
 
   const finalAmount = (bookingDetails.totalAmount * (1 - discount / 100)).toFixed(2);
+
+  const generatePDF = () => {
+    const doc = new jsPDF();
+    const currentTime = new Date().toLocaleString();
+
+    doc.setFontSize(18);
+    doc.text("Ticket Details", 80, 20);
+
+    doc.setFontSize(12);
+    doc.text(`Email: ${bookingDetails.email || "N/A"}`, 20, 40);
+    doc.text(`Seats: ${bookingDetails.seats || "N/A"}`, 20, 50);
+    doc.text(`Total Amount: ₹${finalAmount || "N/A"}`, 20, 60);
+    doc.text(`Payment Method: ${paymentMethod.toUpperCase() || "N/A"}`, 20, 70);
+    doc.text(`Payment Done Time: ${currentTime}`, 20, 80);
+
+    // ✅ Bus Details
+    doc.setFontSize(14);
+    doc.text("Bus Details:", 20, 100);
+    doc.setFontSize(12);
+    doc.text(`Bus Name: ${bookingDetails.busName || "N/A"}`, 20, 110);
+    doc.text(`Route: ${bookingDetails.route || "N/A"}`, 20, 120);
+    doc.text(`Departure Time: ${bookingDetails.timing || "N/A"}`, 20, 130);
+    doc.text(`Price Per Passenger: ₹${bookingDetails.pricePerPassenger || "N/A"}`, 20, 140);
+
+    // ✅ Traveler Details Debug Log
+    console.log("Traveler Details:", bookingDetails.travelers);
+
+    if (Array.isArray(bookingDetails.travelers) && bookingDetails.travelers.length > 0) {
+        doc.setFontSize(14);
+        doc.text("Traveler Details:", 20, 160);
+        doc.setFontSize(12);
+        
+        bookingDetails.travelers.forEach((traveler, index) => {
+            console.log(`Traveler ${index + 1}:`, traveler);
+            const travelerInfo = `${index + 1}. ${traveler.name || "Unknown"}, Age: ${traveler.age || "N/A"}, Gender: ${traveler.gender || "N/A"}`;
+            doc.text(travelerInfo, 20, 170 + index * 10);
+        });
+    } else {
+        doc.text("No traveler details available.", 20, 160);
+    }
+
+    doc.text("Thank you for booking with us!", 20, 200);
+
+    doc.save("payment_receipt.pdf");
+};
+
 
   const handlePayment = () => {
     if (paymentMethod === "upi" && !upiId.match(/^\w+@\w+$/)) {
@@ -52,6 +103,9 @@ const Payment = () => {
 
     setError("");
     alert(`Payment successful via ${paymentMethod.toUpperCase()}!`);
+    
+    generatePDF(); // Generate PDF receipt
+
     navigate("/");
   };
 
@@ -94,7 +148,7 @@ const Payment = () => {
             <option value="card">Credit/Debit Card</option>
             <option value="netbanking">Net Banking</option>
             <option value="wallet">Wallet</option>
-            <option value="other">Buy Now pay Later</option>
+            <option value="other">Buy Now Pay Later</option>
           </select>
         </div>
 
@@ -144,12 +198,6 @@ const Payment = () => {
                 />
               </div>
             </div>
-          </div>
-        )}
-
-        {paymentMethod === "netbanking" && (
-          <div className="payment-input">
-            <p>Redirecting to your bank's portal...</p>
           </div>
         )}
 

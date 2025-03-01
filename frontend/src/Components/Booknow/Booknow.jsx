@@ -9,24 +9,24 @@ const BookNow = () => {
   const bus = location.state?.bus;
 
   const [numPassengers, setNumPassengers] = useState(1);
-  const [passengerDetails, setPassengerDetails] = useState([{ name: "" }]);
+  const [passengerDetails, setPassengerDetails] = useState([{ name: "", age: "", gender: "" }]);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     phone: "",
   });
 
-  // Fetch stored email from localStorage (assuming it is stored after login)
+  // Fetch stored email from localStorage
   useEffect(() => {
-    const storedEmail = localStorage.getItem("userEmail"); // Change key if needed
+    const storedEmail = localStorage.getItem("userEmail");
     if (storedEmail) {
       setFormData((prev) => ({ ...prev, email: storedEmail }));
     }
   }, []);
 
-  const handlePassengerChange = (index, value) => {
+  const handlePassengerChange = (index, field, value) => {
     const updatedPassengers = [...passengerDetails];
-    updatedPassengers[index].name = value;
+    updatedPassengers[index][field] = value;
     setPassengerDetails(updatedPassengers);
   };
 
@@ -35,7 +35,7 @@ const BookNow = () => {
     setNumPassengers(value);
     const updatedPassengers = Array(value)
       .fill("")
-      .map((_, i) => passengerDetails[i] || { name: "" });
+      .map((_, i) => passengerDetails[i] || { name: "", age: "", gender: "" });
     setPassengerDetails(updatedPassengers);
   };
 
@@ -56,8 +56,13 @@ const BookNow = () => {
     const bookingDetails = {
       email: formData.email,
       busId: bus._id,
+      busName: bus.name, // ✅ Bus details added
+      route: bus.route,
+      timing: bus.timing,
+      pricePerPassenger: bus.price,
       seats: numPassengers,
       totalAmount: totalPrice,
+      travelers: passengerDetails,
     };
 
     try {
@@ -78,6 +83,7 @@ const BookNow = () => {
     <div className="booknow-container">
       <h1>Confirm Your Booking</h1>
       <div className="bus-details">
+        <p><strong>Bus Name:</strong> {bus.name}</p>
         <p><strong>Route:</strong> {bus.route}</p>
         <p><strong>Departure Time:</strong> {bus.timing}</p>
         <p><strong>Price per Passenger:</strong> ₹{parseFloat(bus.price).toFixed(2)}</p>
@@ -102,7 +108,7 @@ const BookNow = () => {
             id="email"
             name="email"
             value={formData.email}
-            disabled // Prevents users from editing the auto-filled email
+            disabled
           />
         </div>
         <div className="form-group">
@@ -129,20 +135,38 @@ const BookNow = () => {
             required
           />
         </div>
+        
         {passengerDetails.map((passenger, index) => (
           <div className="form-group" key={index}>
-            <label htmlFor={`passenger-${index}`}>
-              Passenger {index + 1} Name:
-            </label>
+            <label>Passenger {index + 1} Details:</label>
             <input
               type="text"
-              id={`passenger-${index}`}
+              placeholder="Full Name"
               value={passenger.name}
-              onChange={(e) => handlePassengerChange(index, e.target.value)}
+              onChange={(e) => handlePassengerChange(index, "name", e.target.value)}
               required
             />
+            <input
+              type="number"
+              placeholder="Age"
+              value={passenger.age}
+              onChange={(e) => handlePassengerChange(index, "age", e.target.value)}
+              required
+            />
+            <select
+            style={{ width: "200px", padding: "5px", fontSize: "16px", borderRadius: "5px" }}
+              value={passenger.gender}
+              onChange={(e) => handlePassengerChange(index, "gender", e.target.value)}
+              required
+            >
+              <option value="">Select Gender</option>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+              <option value="Other">Other</option>
+            </select>
           </div>
         ))}
+
         <div className="total-price">
           <strong>Total Price: ₹{(numPassengers * parseFloat(bus.price)).toFixed(2)}</strong>
         </div>
