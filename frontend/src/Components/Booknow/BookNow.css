@@ -95,6 +95,78 @@ h1, h2 {
   transform: scale(1.02);
 }
 
+/* Bus Layout */
+.bus-layout {
+  display: grid;
+  grid-template-columns: 50px repeat(2, 40px) 50px repeat(2, 40px);
+  gap: 10px;
+  justify-content: center;
+  margin: 20px auto;
+  max-width: 300px;
+  position: relative;
+}
+
+/* Driver Seat */
+.driver-seat {
+  width: 50px; /* Match regular seat size */
+  height: 40px;
+  display: flex;
+  align-items: center;  /* Center vertically */
+  justify-content: center; /* Center horizontally */
+  font-weight: bold;
+  background: #333;
+  color: white;
+  border-radius: 5px;
+  grid-column: 6/7; /* Keep it like other seats */
+}
+.luggage-space {
+  width: 230px; /* Adjust based on design */
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  background: #666; /* Darker shade to differentiate */
+  color: white;
+  border-radius: 5px;
+  grid-column: 1 / 3; /* Adjust position in the layout */
+  text-align: center;
+}
+
+
+/* Entrance */
+.entrance {
+  grid-column: span 2;
+  text-align: center;
+  font-weight: bold;
+  background: #aaa;
+  color: white;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+/* Seats */
+.seat {
+  width: 40px;
+  height: 40px;
+  background-color: #ddd;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.seat.selected {
+  background-color: green;
+  color: white;
+}
+
+.seat:hover {
+  background-color: lightgray;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
   .booknow-container {

@@ -8,35 +8,35 @@ const BookNow = () => {
   const navigate = useNavigate();
   const bus = location.state?.bus;
 
-  const [numPassengers, setNumPassengers] = useState(1);
-  const [passengerDetails, setPassengerDetails] = useState([{ name: "" }]);
+  const [selectedSeats, setSelectedSeats] = useState([]);
+  const [passengerDetails, setPassengerDetails] = useState({});
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     phone: "",
   });
 
-  // Fetch stored email from localStorage (assuming it is stored after login)
   useEffect(() => {
-    const storedEmail = localStorage.getItem("userEmail"); // Change key if needed
+    const storedEmail = localStorage.getItem("userEmail");
     if (storedEmail) {
       setFormData((prev) => ({ ...prev, email: storedEmail }));
     }
   }, []);
 
-  const handlePassengerChange = (index, value) => {
-    const updatedPassengers = [...passengerDetails];
-    updatedPassengers[index].name = value;
-    setPassengerDetails(updatedPassengers);
+  const handleSeatClick = (seatNumber) => {
+    setSelectedSeats((prev) => {
+      if (prev.includes(seatNumber)) {
+        const updatedPassengers = { ...passengerDetails };
+        delete updatedPassengers[seatNumber];
+        setPassengerDetails(updatedPassengers);
+        return prev.filter((seat) => seat !== seatNumber);
+      }
+      return [...prev, seatNumber];
+    });
   };
 
-  const handleNumPassengersChange = (e) => {
-    const value = parseInt(e.target.value, 10) || 1;
-    setNumPassengers(value);
-    const updatedPassengers = Array(value)
-      .fill("")
-      .map((_, i) => passengerDetails[i] || { name: "" });
-    setPassengerDetails(updatedPassengers);
+  const handlePassengerNameChange = (seatNumber, value) => {
+    setPassengerDetails((prev) => ({ ...prev, [seatNumber]: value }));
   };
 
   const handleFormChange = (e) => {
@@ -46,17 +46,25 @@ const BookNow = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    if (!bus || !formData.name || !formData.email || !formData.phone) {
-      alert("Please fill in all required fields.");
+    if (
+      !bus ||
+      !formData.name ||
+      !formData.email ||
+      !formData.phone ||
+      selectedSeats.length === 0
+    ) {
+      alert("Please fill in all required fields and select at least one seat.");
       return;
     }
 
-    const totalPrice = numPassengers * parseFloat(bus.price);
+    const totalPrice = selectedSeats.length * parseFloat(bus.price);
     const bookingDetails = {
       email: formData.email,
       busId: bus._id,
-      seats: numPassengers,
+      seats: selectedSeats.map((seat) => ({
+        seatNumber: seat,
+        passengerName: passengerDetails[seat] || "",
+      })),
       totalAmount: totalPrice,
     };
 
@@ -78,9 +86,16 @@ const BookNow = () => {
     <div className="booknow-container">
       <h1>Confirm Your Booking</h1>
       <div className="bus-details">
-        <p><strong>Route:</strong> {bus.route}</p>
-        <p><strong>Departure Time:</strong> {bus.timing}</p>
-        <p><strong>Price per Passenger:</strong> ₹{parseFloat(bus.price).toFixed(2)}</p>
+        <p>
+          <strong>Route:</strong> {bus.route}
+        </p>
+        <p>
+          <strong>Departure Time:</strong> {bus.timing}
+        </p>
+        <p>
+          <strong>Price per Passenger:</strong> ₹
+          {parseFloat(bus.price).toFixed(2)}
+        </p>
       </div>
       <form className="booking-form" onSubmit={handleSubmit}>
         <h2>Enter Your Details</h2>
@@ -102,7 +117,7 @@ const BookNow = () => {
             id="email"
             name="email"
             value={formData.email}
-            disabled // Prevents users from editing the auto-filled email
+            disabled
           />
         </div>
         <div className="form-group">
@@ -116,40 +131,57 @@ const BookNow = () => {
             required
           />
         </div>
-        <div className="form-group">
-          <label htmlFor="numPassengers">Number of Passengers:</label>
-          <input
-            type="number"
-            id="numPassengers"
-            name="numPassengers"
-            min="1"
-            max={bus.seatsAvailable}
-            value={numPassengers}
-            onChange={handleNumPassengersChange}
-            required
-          />
-        </div>
-        {passengerDetails.map((passenger, index) => (
-          <div className="form-group" key={index}>
-            <label htmlFor={`passenger-${index}`}>
-              Passenger {index + 1} Name:
-            </label>
-            <input
-              type="text"
-              id={`passenger-${index}`}
-              value={passenger.name}
-              onChange={(e) => handlePassengerChange(index, e.target.value)}
-              required
-            />
-          </div>
-        ))}
         <div className="total-price">
-          <strong>Total Price: ₹{(numPassengers * parseFloat(bus.price)).toFixed(2)}</strong>
+          <strong>
+            Total Price: ₹
+            {(selectedSeats.length * parseFloat(bus.price)).toFixed(2)}
+          </strong>
         </div>
         <button type="submit" className="confirm-btn">
           Confirm Booking
         </button>
       </form>
+      <div className="seat-selection">
+        <h2>Select Your Seats</h2>
+        <div className="bus-layout">
+        <div className="luggage-space">Luggage Space</div>
+          <div className="driver-seat">Driver</div>
+          <div className="entrance">Entrance /Exit</div>
+          {[...Array(20)].map((_, index) => {
+            const seatNumber = index + 1;
+            return (
+              <div
+                key={seatNumber}
+                className={`seat ${
+                  selectedSeats.includes(seatNumber) ? "selected" : ""
+                }`}
+                onClick={() => handleSeatClick(seatNumber)}
+              >
+                {seatNumber}
+              </div>
+            );
+          })}
+        </div>
+      </div>
+      {selectedSeats.length > 0 && (
+        <div className="passenger-details">
+          <h2>Enter Passenger Names</h2>
+          {selectedSeats.map((seat) => (
+            <div className="form-group" key={seat}>
+              <label htmlFor={`passenger-${seat}`}>Seat {seat} Name:</label>
+              <input
+                type="text"
+                id={`passenger-${seat}`}
+                value={passengerDetails[seat] || ""}
+                onChange={(e) =>
+                  handlePassengerNameChange(seat, e.target.value)
+                }
+                required
+              />
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 };
