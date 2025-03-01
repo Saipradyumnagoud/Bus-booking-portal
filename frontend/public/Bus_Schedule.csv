@@ -1,101 +1,150 @@
 id,name,route,price,timing
-1,Luxury Express,New York - Washington,30,08:00 AM
-2,Comfort Travels,Los Angeles - San Francisco,40,10:00 AM
-3,CityLink,Chicago - Detroit,25,06:30 AM
-4,RapidGo,Houston - Dallas,20,09:15 AM
-5,SilverLine,Boston - New York,35,07:45 AM
-6,Urban Shuttle,San Diego - Las Vegas,50,11:00 AM
-7,SwiftRide,Seattle - Portland,30,08:15 AM
-8,EcoTransit,Denver - Boulder,15,05:45 AM
-9,RedTrail,Atlanta - Miami,45,09:30 AM
-10,Blue Horizon,Phoenix - Tucson,25,06:00 AM
-11,MetroBus,Philadelphia - Pittsburgh,30,07:00 AM
-12,FastTrack,San Jose - Sacramento,35,08:30 AM
-13,GreenLine,Indianapolis - Cincinnati,20,10:15 AM
-14,CityWheels,Orlando - Tampa,25,06:45 AM
-15,RouteRunner,Minneapolis - Milwaukee,30,07:30 AM
-16,StarWay,Kansas City - Omaha,20,09:00 AM
-17,CozyCoach,San Antonio - Austin,15,11:45 AM
-18,Pioneer Express,Portland - Eugene,30,08:50 AM
-19,HighRoad,Las Vegas - Salt Lake City,50,12:00 PM
-20,TrailBlazer,Denver - Colorado Springs,20,10:30 AM
-21,EagleTransit,Columbus - Cleveland,25,07:20 AM
-22,SunshineBus,Jacksonville - Tallahassee,30,06:10 AM
-23,JetWay,Detroit - Toronto,50,09:40 AM
-24,AutoLink,Charlotte - Raleigh,20,08:00 AM
-25,OceanRide,Miami - Key West,45,06:30 AM
-26,GoldenPath,Nashville - Memphis,25,07:10 AM
-27,SpeedLine,Dallas - Fort Worth,10,09:20 AM
-28,QuickTrip,Austin - Houston,20,10:40 AM
-29,GlideRide,Boston - Providence,15,07:50 AM
-30,SkyBus,Los Angeles - Phoenix,40,12:10 PM
-31,CloudNine,San Francisco - Reno,35,10:50 AM
-32,GrandTour,Pittsburgh - Buffalo,30,07:15 AM
-33,EasyMove,Atlanta - Charlotte,35,06:20 AM
-34,JetLink,Chicago - St. Louis,40,08:40 AM
-35,RouteExplorer,Seattle - Spokane,50,09:30 AM
-36,FastMove,Portland - Vancouver,20,07:40 AM
-37,SafeTravel,Houston - San Antonio,15,08:10 AM
-38,CoastLine,New York - Boston,40,10:00 AM
-39,MountainExpress,Denver - Aspen,50,09:00 AM
-40,SunsetTrail,San Diego - Palm Springs,25,11:30 AM
-41,PacificCoast,Los Angeles - Santa Barbara,30,07:25 AM
-42,RapidLink,Dallas - Oklahoma City,25,08:55 AM
-43,SwiftPath,Las Vegas - Los Angeles,35,09:45 AM
-44,UrbanRide,Chicago - Milwaukee,20,06:50 AM
-45,StarLine,Phoenix - Las Vegas,30,07:05 AM
-46,EasyRide,Detroit - Cleveland,25,08:15 AM
-47,BlueSky,San Francisco - San Jose,15,05:55 AM
-48,SilverTrail,New York - Philadelphia,25,07:35 AM
-49,GoldenRide,Boston - Hartford,30,06:40 AM
-50,ExpressLink,Houston - New Orleans,40,10:25 AM
-51,JetTransit,Seattle - Tacoma,20,08:05 AM
-52,QuickPath,San Antonio - Dallas,30,07:50 AM
-53,SpeedExpress,Los Angeles - San Diego,25,09:25 AM
-54,TrailLink,Denver - Albuquerque,50,11:15 AM
-55,MetroLine,Atlanta - Nashville,35,10:50 AM
-56,ComfortExpress,Phoenix - Flagstaff,20,07:45 AM
-57,GreenWheels,Chicago - Indianapolis,25,06:35 AM
-58,SunTrail,Miami - Orlando,40,07:15 AM
-59,AutoPath,Houston - Austin,15,08:20 AM
-60,BlueWave,New York - Newark,10,06:10 AM
-61,HighLine,Las Vegas - Phoenix,45,11:30 AM
-62,CloudRide,San Francisco - Sacramento,20,07:20 AM
-63,JetWay,Los Angeles - Fresno,35,09:10 AM
-64,QuickLink,Dallas - Houston,25,10:00 AM
-65,GoldenExpress,Denver - Salt Lake City,50,11:50 AM
-66,UrbanPath,Portland - Seattle,40,07:55 AM
-67,MetroRide,Detroit - Chicago,30,08:40 AM
-68,StarTrail,Atlanta - Savannah,35,09:15 AM
-69,CoastExpress,San Diego - Los Angeles,20,06:00 AM
-70,PioneerWay,Boston - Albany,30,07:30 AM
-71,RouteLine,Philadelphia - New York,25,06:50 AM
-72,EcoLink,San Jose - San Francisco,15,08:25 AM
-73,JetTrail,Phoenix - Tucson,25,09:50 AM
-74,BlueTrail,Denver - Boulder,20,07:10 AM
-75,GreenExpress,Chicago - St. Louis,40,09:35 AM
-76,TrailExpress,Portland - Spokane,50,10:40 AM
-77,HighWay,Houston - Dallas,15,06:25 AM
-78,GoldenPath,Miami - Tampa,30,08:30 AM
-79,CozyTrail,Seattle - Portland,20,07:00 AM
-80,CloudLine,San Francisco - Reno,35,09:00 AM
-81,StarWay,Atlanta - Charlotte,40,08:15 AM
-82,SilverLine,Dallas - Austin,25,06:45 AM
-83,MetroExpress,New York - Baltimore,30,07:50 AM
-84,EcoTrail,San Diego - Phoenix,50,10:30 AM
-85,QuickTrail,Houston - San Antonio,15,06:55 AM
-86,EasyWay,Chicago - Milwaukee,20,07:35 AM
-87,JetPath,Los Angeles - San Francisco,40,09:40 AM
-88,BlueExpress,Denver - Colorado Springs,25,08:10 AM
-89,GreenTrail,Boston - New Haven,30,06:20 AM
-90,TrailBlazer,Seattle - Spokane,50,08:45 AM
-91,SilverRide,San Diego - Las Vegas,35,09:50 AM
-92,GoldenRide,Atlanta - Birmingham,30,07:10 AM
-93,ExpressTrail,Dallas - Oklahoma City,20,06:30 AM
-94,BlueSky,Houston - Austin,15,07:20 AM
-95,MetroWay,San Francisco - Sacramento,20,09:25 AM
-96,RouteTrail,New York - Washington,30,08:35 AM
-97,StarLink,Los Angeles - Phoenix,40,09:45 AM
-98,EcoPath,Chicago - Detroit,25,07:05 AM
-99,GoldenLink,Miami - Orlando,35,08:25 AM
-100,FastRide,Denver - Salt Lake City,50,09:55 AM
+1,Luxury Express,Mumbai - Pune,1200,08:00 AM
+2,Comfort Travels,Delhi - Jaipur,1300,10:00 AM
+3,CityLink,Bangalore - Mysore,1250,06:30 AM
+4,RapidGo,Hyderabad - Vijayawada,1200,09:15 AM
+5,SilverLine,Chennai - Coimbatore,1350,07:45 AM
+6,Urban Shuttle,Kolkata - Digha,1500,11:00 AM
+7,SwiftRide,Ahmedabad - Surat,1300,08:15 AM
+8,EcoTransit,Dehradun - Rishikesh,1150,05:45 AM
+9,RedTrail,Kochi - Trivandrum,1450,09:30 AM
+10,Blue Horizon,Pune - Nashik,1250,06:00 AM
+11,MetroBus,Bhopal - Indore,1300,07:00 AM
+12,FastTrack,Lucknow - Kanpur,1350,08:30 AM
+13,GreenLine,Patna - Gaya,1200,10:15 AM
+14,CityWheels,Guwahati - Shillong,1250,06:45 AM
+15,RouteRunner,Chandigarh - Amritsar,1300,07:30 AM
+16,StarWay,Nagpur - Jabalpur,1200,09:00 AM
+17,CozyCoach,Visakhapatnam - Rajahmundry,1150,11:45 AM
+18,Pioneer Express,Coimbatore - Madurai,1300,08:50 AM
+19,HighRoad,Jaipur - Udaipur,1500,12:00 PM
+20,TrailBlazer,Raipur - Bhilai,1200,10:30 AM
+21,EagleTransit,Agra - Mathura,1250,07:20 AM
+22,SunshineBus,Varanasi - Allahabad,1300,06:10 AM
+23,JetWay,Ranchi - Jamshedpur,1500,09:40 AM
+24,AutoLink,Bhubaneswar - Puri,1200,08:00 AM
+25,OceanRide,Goa - Belgaum,1450,06:30 AM
+26,GoldenPath,Ludhiana - Jalandhar,1250,07:10 AM
+27,SpeedLine,Meerut - Ghaziabad,1100,09:20 AM
+28,QuickTrip,Madurai - Tiruchirapalli,1200,10:40 AM
+29,GlideRide,Chennai - Pondicherry,1150,07:50 AM
+30,SkyBus,Hyderabad - Bangalore,1400,12:10 PM
+31,CloudNine,Surat - Vadodara,1350,10:50 AM
+32,GrandTour,Shimla - Manali,1300,07:15 AM
+33,EasyMove,Nashik - Shirdi,1350,06:20 AM
+34,JetLink,Kolkata - Siliguri,1400,08:40 AM
+35,RouteExplorer,Gandhinagar - Udaipur,1500,09:30 AM
+36,FastMove,Pondicherry - Thanjavur,1200,07:40 AM
+37,SafeTravel,Ahmedabad - Bhavnagar,1150,08:10 AM
+38,CoastLine,Delhi - Chandigarh,1400,10:00 AM
+39,MountainExpress,Dehradun - Mussoorie,1500,09:00 AM
+40,SunsetTrail,Mumbai - Goa,1250,11:30 AM
+41,PacificCoast,Chennai - Vellore,1300,07:25 AM
+42,RapidLink,Nagpur - Raipur,1250,08:55 AM
+43,SwiftPath,Hyderabad - Chennai,1350,09:45 AM
+44,UrbanRide,Varanasi - Gorakhpur,1200,06:50 AM
+45,StarLine,Pune - Kolhapur,1300,07:05 AM
+46,EasyRide,Indore - Ujjain,1250,08:15 AM
+47,BlueSky,Coimbatore - Salem,1150,05:55 AM
+48,SilverTrail,Delhi - Agra,1250,07:35 AM
+49,GoldenRide,Mumbai - Ahmedabad,1300,06:40 AM
+50,ExpressLink,Hyderabad - Visakhapatnam,1400,10:25 AM
+51,JetTransit,Bangalore - Hyderabad,1200,08:05 AM
+52,QuickPath,Trichy - Madurai,1300,07:50 AM
+53,SpeedExpress,Patna - Darbhanga,1250,09:25 AM
+54,TrailLink,Shimla - Kullu,1500,11:15 AM
+55,MetroLine,Puri - Cuttack,1350,10:50 AM
+56,ComfortExpress,Gaya - Ranchi,1200,07:45 AM
+57,GreenWheels,Bangalore - Hubli,1250,06:35 AM
+58,SunTrail,Kolkata - Bhubaneswar,1400,07:15 AM
+59,AutoPath,Delhi - Meerut,1150,08:20 AM
+60,BlueWave,Mumbai - Surat,1100,06:10 AM
+61,HighLine,Mysore - Coorg,1450,11:30 AM
+62,CloudRide,Chennai - Tirupati,1200,07:20 AM
+63,JetWay,Ahmedabad - Rajkot,1350,09:10 AM
+64,QuickLink,Nagpur - Aurangabad,1250,10:00 AM
+65,GoldenExpress,Bangalore - Chennai,1500,11:50 AM
+66,UrbanPath,Jaipur - Bikaner,1400,07:55 AM
+67,MetroRide,Dehradun - Haridwar,1300,08:40 AM
+68,StarTrail,Patna - Muzaffarpur,1350,09:15 AM
+69,CoastExpress,Goa - Mangalore,1200,06:00 AM
+70,PioneerWay,Agra - Lucknow,1300,07:30 AM
+71,RouteLine,Delhi - Shimla,1250,06:50 AM
+72,EcoLink,Kolkata - Dhanbad,1150,08:25 AM
+73,JetTrail,Pune - Aurangabad,1250,09:50 AM
+74,BlueTrail,Bangalore - Mangalore,1200,07:10 AM
+75,GreenExpress,Trivandrum - Kanyakumari,1400,09:35 AM
+76,TrailExpress,Mumbai - Indore,1500,10:40 AM
+77,HighWay,Jammu - Srinagar,1150,06:25 AM
+78,GoldenPath,Chandigarh - Ludhiana,1300,08:30 AM
+79,CozyTrail,Bangalore - Coorg,1200,07:00 AM
+80,CloudLine,Bhopal - Jabalpur,1350,09:00 AM
+81,StarWay,Delhi - Dehradun,1400,08:15 AM
+82,SilverLine,Jaipur - Ajmer,1250,06:45 AM
+83,MetroExpress,Nagpur - Bhopal,1300,07:50 AM
+84,EcoTrail,Varanasi - Patna,1500,10:30 AM
+85,QuickTrail,Mysore - Ooty,1150,06:55 AM
+86,EasyWay,Surat - Navsari,1200,07:35 AM
+87,JetPath,Mumbai - Udaipur,1400,09:40 AM
+88,BlueExpress,Ahmedabad - Bhuj,1250,08:10 AM
+89,GreenTrail,Kolkata - Asansol,1300,06:20 AM
+90,TrailBlazer,Lucknow - Varanasi,1500,08:45 AM
+91,SilverRide,Indore - Gwalior,1350,09:50 AM
+92,GoldenRide,Hyderabad - Nagpur,1300,07:10 AM
+93,ExpressTrail,Chennai - Kanyakumari,1200,06:30 AM
+94,BlueSky,Pune - Solapur,1150,07:20 AM
+95,MetroWay,Delhi - Aligarh,1200,09:25 AM
+96,RouteTrail,Jaipur - Kota,1300,08:35 AM
+97,StarLink,Agra - Kanpur,1400,09:45 AM
+98,EcoPath,Ranchi - Bhagalpur,1250,07:05 AM
+99,GoldenLink,Bangalore - Tirupati,1350,08:25 AM
+100,Telangana Express,Hyderabad - Bangalore,1200,08:00 AM
+101,Deccan Travels,Hyderabad - Chennai,1300,09:00 AM
+102,Southern Star,Hyderabad - Mumbai,1500,07:30 AM
+103,CityLink,Hyderabad - Pune,1100,06:45 AM
+104,GreenLine,Hyderabad - Delhi,2500,05:00 PM
+105,Urban Shuttle,Hyderabad - Kolkata,2200,04:30 PM
+106,SpeedExpress,Hyderabad - Jaipur,1800,10:00 AM
+107,GoldenPath,Hyderabad - Ahmedabad,1700,07:15 AM
+108,RouteRunner,Hyderabad - Bhopal,1400,06:50 AM
+109,StarWay,Hyderabad - Indore,1350,08:10 AM
+110,MetroRide,Hyderabad - Chandigarh,2700,05:30 PM
+111,FastMove,Hyderabad - Lucknow,2100,04:00 PM
+112,JetWay,Hyderabad - Patna,2400,06:00 PM
+113,BlueHorizon,Hyderabad - Bhubaneswar,1900,09:20 AM
+114,TrailBlazer,Hyderabad - Raipur,1600,07:55 AM
+115,SwiftRide,Hyderabad - Dehradun,2600,05:15 PM
+116,EcoTransit,Hyderabad - Shimla,2800,04:45 PM
+117,SilverLine,Hyderabad - Guwahati,3500,07:00 PM
+118,RapidGo,Hyderabad - Ranchi,2000,08:50 AM
+119,HighWay,Hyderabad - Visakhapatnam,1000,07:25 AM
+120,EasyMove,Hyderabad - Vijayawada,800,06:00 AM
+121,JetTrail,Hyderabad - Coimbatore,1400,09:35 AM
+122,BlueTrail,Hyderabad - Madurai,1500,10:15 AM
+123,GreenExpress,Hyderabad - Surat,1600,08:20 AM
+124,TrailExpress,Hyderabad - Vadodara,1650,07:40 AM
+125,HighRoad,Hyderabad - Trivandrum,2000,11:30 AM
+126,CloudRide,Hyderabad - Kochi,1950,12:00 PM
+127,GrandTour,Hyderabad - Mysore,1350,10:40 AM
+128,EasyWay,Hyderabad - Nagpur,1100,07:10 AM
+129,MetroBus,Hyderabad - Aurangabad,1300,08:30 AM
+130,SilverTrail,Hyderabad - Nashik,1400,06:50 AM
+131,SunshineBus,Hyderabad - Kanpur,1900,07:20 AM
+132,JetPath,Hyderabad - Varanasi,2300,06:30 PM
+133,QuickTrail,Hyderabad - Allahabad,2250,05:45 PM
+134,StarLine,Hyderabad - Meerut,2100,07:00 PM
+135,BlueWave,Hyderabad - Agra,2200,05:30 PM
+136,CloudNine,Hyderabad - Amritsar,2800,06:00 PM
+137,UrbanPath,Hyderabad - Ludhiana,2700,05:15 PM
+138,StarTrail,Hyderabad - Jodhpur,1850,07:45 AM
+139,CozyTrail,Hyderabad - Udaipur,1950,06:15 AM
+140,SilverRide,Hyderabad - Gwalior,1750,08:25 AM
+141,MetroWay,Hyderabad - Kota,1650,09:50 AM
+142,GoldenRide,Hyderabad - Siliguri,2900,06:45 PM
+143,ExpressTrail,Hyderabad - Imphal,3500,07:30 PM
+144,GoldenLink,Hyderabad - Aizawl,3300,07:45 PM
+145,GreenWheels,Hyderabad - Gangtok,3100,06:00 PM
+146,SunTrail,Hyderabad - Panaji,1400,06:50 AM
+147,QuickPath,Hyderabad - Dharwad,1300,07:20 AM
+148,MetroExpress,Hyderabad - Hubli,1350,08:40 AM
+149,RouteTrail,Hyderabad - Belgaum,1250,08:55 AM

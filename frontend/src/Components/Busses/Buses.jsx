@@ -4,16 +4,19 @@ import "./Buses.css";
 
 const Buses = () => {
   const [buses, setBuses] = useState([]);
-  const [searchTerm, setSearchTerm] = useState("");
+  const [fromStation, setFromStation] = useState("");
+  const [toStation, setToStation] = useState("");
+  const [date, setDate] = useState(""); // Date selection
+  const [filteredBuses, setFilteredBuses] = useState([]);
+  const [showSearchResults, setShowSearchResults] = useState(false);
+
   const navigate = useNavigate();
 
   // Fetch bus data from backend API
   useEffect(() => {
     fetch("http://localhost:3000/api/buses")
       .then((response) => response.json())
-      .then((data) => {
-        setBuses(data);
-      })
+      .then((data) => setBuses(data))
       .catch((err) => console.error("Error fetching bus data:", err));
   }, []);
 
@@ -28,56 +31,89 @@ const Buses = () => {
     navigate("/booknow", { state: { bus: selectedBus } });
   };
 
-  // Filter buses based on the search term
-  const filteredBuses = buses.filter((bus) =>
-    (bus.route || "").toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  // Handle Search
+  const handleSearch = () => {
+    if (!fromStation  || !date) {
+      alert("Please select From, To stations, and Date.");
+      return;
+    }
+
+    const results = buses.filter((bus) => {
+      const routeMatch =
+        bus.route.toLowerCase().includes(fromStation.toLowerCase()) &&
+        bus.route.toLowerCase().includes(toStation.toLowerCase());
+
+      const dateMatch = true; // Adjust based on backend date filtering if needed
+
+      return routeMatch && dateMatch;
+    });
+
+    setFilteredBuses(results);
+    setShowSearchResults(true);
+  };
 
   return (
     <div className="buses-page">
-      <h1 className="buses-title">Available Buses</h1>
+      <h1 className="buses-title">Search Available Buses</h1>
 
-      {/* Search bar */}
+      {/* Search Filters */}
       <div className="search-container">
-        <input
-          type="text"
-          placeholder="Search by route..."
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          className="search-input"
-        />
+        <div className="search-field">
+          <label>From Station</label>
+          <input
+            type="text"
+            placeholder="Enter starting station..."
+            value={fromStation}
+            onChange={(e) => setFromStation(e.target.value)}
+          />
+        </div>
+
+        <div className="search-field">
+          <label>To Station</label>
+          <input
+            type="text"
+            placeholder="Enter destination..."
+            value={toStation}
+            onChange={(e) => setToStation(e.target.value)}
+          />
+        </div>
+
+        <div className="search-field">
+          <label>Date</label>
+          <input
+            type="date"
+            value={date}
+            onChange={(e) => setDate(e.target.value)}
+            min={new Date().toISOString().split("T")[0]} // Prevent past dates
+          />
+        </div>
+
+        <button className="search-button" onClick={handleSearch}>
+          Search
+        </button>
       </div>
 
-      {/* Bus list */}
-      <div className="buses-list">
-        {filteredBuses.length > 0 ? (
-          filteredBuses.map((bus) => (
-            <div key={bus._id} className="bus-card">
-              <h2>{bus.name}</h2>
-              <p>
-                <strong>Route:</strong> {bus.route}
-              </p>
-              <p>
-                <strong>Price:</strong> ₹{bus.price}
-              </p>
-              <p>
-                <strong>Departure:</strong> {bus.timing}
-              </p>
-              <p>
-                <strong>Seats Available:</strong> 20
-              </p>
-              <button
-                className="book-button"
-                onClick={() => handleBookNow(bus)}
-              >
-                Book Now
-              </button>
-            </div>
-          ))
-        ) : (
-          <p className="no-results">No buses found for your search.</p>
-        )}
-      </div>
+      {/* Bus List */}
+      {showSearchResults && (
+        <div className="buses-list">
+          {filteredBuses.length > 0 ? (
+            filteredBuses.map((bus) => (
+              <div key={bus._id} className="bus-card">
+                <h2>{bus.name}</h2>
+                <p><strong>Route:</strong> {bus.route}</p>
+                <p><strong>Price:</strong> ₹{bus.price}</p>
+                <p><strong>Departure:</strong> {bus.timing}</p>
+                <p><strong>Seats Available:</strong> 20</p>
+                <button className="book-button" onClick={() => handleBookNow(bus)}>
+                  Book Now
+                </button>
+              </div>
+            ))
+          ) : (
+            <p className="no-results">No buses found for the selected route and date.</p>
+          )}
+        </div>
+      )}
     </div>
   );
 };
