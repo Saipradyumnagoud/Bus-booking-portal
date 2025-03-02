@@ -14,6 +14,7 @@ const BookNow = () => {
     name: "",
     email: "",
     phone: "",
+    bookingDate: ""
   });
 
   useEffect(() => {
@@ -80,9 +81,19 @@ const BookNow = () => {
       totalAmount: totalPrice,
       selectedSeats,
       travelers,
+      bookingDate: formData.bookingDate,
     };
 
     try {
+      const isConfirmed = window.confirm(
+        `Proceed with the booking? Total amount: ₹${totalPrice.toFixed(2)}`
+      );
+    
+      if (!isConfirmed) {
+        alert("Booking canceled.");
+        return;
+      }
+    
       await axios.post("http://localhost:3000/orders", bookingDetails);
       alert(`Redirecting to the payment page of ₹${totalPrice.toFixed(2)}.`);
       navigate("/payment", { state: { bookingDetails } });
@@ -90,6 +101,7 @@ const BookNow = () => {
       console.error("Error creating order:", err);
       alert("Error during booking.");
     }
+    
   };
 
   if (!bus) {
@@ -119,7 +131,10 @@ const BookNow = () => {
           <label htmlFor="phone">Phone Number:</label>
           <input type="tel" id="phone" name="phone" value={formData.phone} onChange={handleFormChange} required />
         </div>
-
+        <div className="form-group">
+          <label htmlFor="bookingDate">Booking Date:</label>
+          <input type="date" id="bookingDate" name="bookingDate" value={formData.bookingDate} onChange={handleFormChange} required />
+        </div>
         {/* Seat Selection */}
         <div className="seat-selection">
           <h2>Select Your Seats</h2>

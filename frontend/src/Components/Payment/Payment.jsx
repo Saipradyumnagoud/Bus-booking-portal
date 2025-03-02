@@ -55,6 +55,7 @@ const Payment = () => {
     doc.text(`Total Amount: ₹${finalAmount || "N/A"}`, 20, 60);
     doc.text(`Payment Method: ${paymentMethod.toUpperCase() || "N/A"}`, 20, 70);
     doc.text(`Payment Done Time: ${currentTime}`, 20, 80);
+    doc.text(`Travel Date: ${bookingDetails.bookingDate || "N/A"}`, 20, 90)
 
     // ✅ Bus Details
     doc.setFontSize(14);
@@ -63,7 +64,7 @@ const Payment = () => {
     doc.text(`Bus Name: ${bookingDetails.busName || "N/A"}`, 20, 110);
     doc.text(`Route: ${bookingDetails.route || "N/A"}`, 20, 120);
     doc.text(`Departure Time: ${bookingDetails.timing || "N/A"}`, 20, 130);
-    doc.text(`Price Per Passenger: ₹${bookingDetails.pricePerPassenger || "N/A"}`, 20, 140);
+    //doc.text(`Price Per Passenger: ₹${bookingDetails.pricePerPassenger || "N/A"}`, 20, 140);
 
     // ✅ Traveler Details Debug Log
     console.log("Traveler Details:", bookingDetails.travelers);
