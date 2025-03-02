@@ -58,8 +58,22 @@ const Orders = () => {
 
   const filterOrders = (orders, filter) => {
     const now = new Date();
+  
     return orders.filter((order) => {
       const orderDate = new Date(order.createdAt);
+  
+      // Status filtering
+      if (filter === "successful" && order.orderStatus !== "Successful") {
+        return false;
+      }
+      if (filter === "pending" && order.orderStatus !== "Pending") {
+        return false;
+      }
+      if (filter === "cancelled" && order.orderStatus !== "Cancelled") {
+        return false;
+      }
+  
+      // Time-based filtering
       switch (filter) {
         case "6hrs":
           return now - orderDate <= 6 * 60 * 60 * 1000;
@@ -68,7 +82,9 @@ const Orders = () => {
         case "1month":
           return now - orderDate <= 30 * 24 * 60 * 60 * 1000;
         case "1year":
-          return now - orderDate <= 365 * 24 * 60 * 60 * 1000;
+          return now.getFullYear() === orderDate.getFullYear();
+        case "older":
+          return now.getFullYear() > orderDate.getFullYear();
         default:
           return true;
       }
@@ -185,6 +201,7 @@ const Orders = () => {
           <label>Status</label>
           <button onClick={() => setFilter("successful")}>Successful</button>
           <button onClick={() => setFilter("pending")}>Pending</button>
+          <button onClick={() => setFilter("cancelled")}>Cancelled</button>
 
           <h3>Order Time</h3>
           <button onClick={() => setFilter("6hrs")}>Last 6 Hours</button>

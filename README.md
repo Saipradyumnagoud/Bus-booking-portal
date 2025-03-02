@@ -14,6 +14,13 @@ This project is a simple **Bus Booking Application** built with React. It allows
 
 ## Installation
 
+### Adding buses Routes
+
+```bash
+Take the buses routes from the frontend/public folder and add them to your routes in mongodb.
+```
+
+
 ### Clone the repository:
 
 ```bash
