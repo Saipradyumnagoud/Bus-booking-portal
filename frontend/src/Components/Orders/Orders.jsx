@@ -33,28 +33,38 @@ const Orders = () => {
     checkLoginAndFetchOrders();
   }, [navigate]);
 
-  const handleCancelOrder = async (orderId) => {
+  const handleCancelOrder = async (orderId, orderCreatedAt) => {
+    const now = new Date();
+    const orderTime = new Date(orderCreatedAt);
+    const timeDifference = now - orderTime;
+  
+    if (timeDifference > 6 * 60 * 60 * 1000) {
+      alert("Order can only be canceled within 6 hours of booking.");
+      return;
+    }
+  
     const confirmCancel = window.confirm(
       "Are you sure you want to cancel your order?"
     );
     if (!confirmCancel) return;
-
+  
     try {
-      await axios.patch(`http://localhost:3000/orders/${orderId}/cancel`); // Removed unused 'response'
-
-      setSuccessMessage("Order canceled successfully!"); // ✅ Success message
+      await axios.patch(`http://localhost:3000/orders/${orderId}/cancel`);
+  
+      setSuccessMessage("Order canceled successfully!");
       setOrders((prevOrders) =>
         prevOrders.map((order) =>
           order._id === orderId ? { ...order, orderStatus: "Cancelled" } : order
         )
       );
-
-      setTimeout(() => setSuccessMessage(""), 3000); // ✅ Auto-clear message after 3s
+  
+      setTimeout(() => setSuccessMessage(""), 3000);
     } catch (error) {
       console.error("Error cancelling order:", error);
       alert("Failed to cancel order");
     }
   };
+  
 
   const filterOrders = (orders, filter) => {
     const now = new Date();
@@ -175,17 +185,18 @@ const Orders = () => {
                     </p>
                     {order.orderStatus !== "Cancelled" ? (
                       <button
-                        style={{
-                          backgroundColor: "red",
-                          color: "white",
-                          padding: "10px",
-                          border: "none",
-                          cursor: "pointer",
-                        }}
-                        onClick={() => handleCancelOrder(order._id)}
-                      >
-                        Cancel Order
-                      </button>
+                      style={{
+                        backgroundColor: "red",
+                        color: "white",
+                        padding: "10px",
+                        border: "none",
+                        cursor: "pointer",
+                      }}
+                      onClick={() => handleCancelOrder(order._id, order.createdAt)}
+                    >
+                      Cancel Order
+                    </button>
+                    
                     ) : (
                       <p className="cancelled-text">Order Cancelled</p>
                     )}
