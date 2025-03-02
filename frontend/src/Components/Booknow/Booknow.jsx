@@ -81,8 +81,9 @@ const BookNow = () => {
       totalAmount: totalPrice,
       selectedSeats,
       travelers,
-      bookingDate: formData.bookingDate,
+      bookingDate: formData.bookingDate,  // ✅ Booking date is included
     };
+    
 
     try {
       const isConfirmed = window.confirm(

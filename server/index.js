@@ -149,24 +149,35 @@ app.get("/orders", async (req, res) => {
 
 // ✅ Create an order
 app.post("/orders", async (req, res) => {
-  const { email, busId, seats, totalAmount } = req.body;
+  const { email, busId, seats, totalAmount, selectedSeats, travelers, bookingDate } = req.body;
 
   try {
+    // Validate required fields
+    if (!email || !busId || !seats || !totalAmount || !selectedSeats.length || !travelers.length || !bookingDate) {
+      return res.status(400).json({ error: "Missing required fields" });
+    }
+
+    // Find the user by email
     const user = await PassengerModel.findOne({ email });
     if (!user) {
       return res.status(404).json({ error: "User not found" });
     }
 
+    // Create new order
     const newOrder = await OrderModel.create({
       userId: user._id,
       busId,
       seats,
       totalAmount,
+      selectedSeats,
+      travelers,
+      bookingDate,
       orderStatus: "Successful",
     });
 
-    res.json(newOrder);
+    res.status(201).json({ message: "Order created successfully", order: newOrder });
   } catch (error) {
+    console.error("Error creating order:", error);
     res.status(500).json({ error: "Failed to create order" });
   }
 });

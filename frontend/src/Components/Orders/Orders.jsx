@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { jsPDF } from "jspdf";
+
 import "./Orders.css";
 
 const Orders = () => {
@@ -32,46 +34,66 @@ const Orders = () => {
     };
     checkLoginAndFetchOrders();
   }, [navigate]);
-
+  const handleDownloadTicket = (order) => {
+    const doc = new jsPDF();
+  
+    // Title
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(18);
+    doc.text("Bus Ticket", 80, 20);
+  
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(12);
+    doc.text(`Bus Route: ${order.busId?.route}`, 20, 40);
+    doc.text(`Seats: ${order.seats}`, 20, 50);
+    doc.text(`Number of Passengers: ${order.travelers?.length || order.seats}`, 20, 60);
+    doc.text(`Total Amount: ₹${order.totalAmount}`, 20, 70);
+    doc.text(`Travel Date: ${new Date(order.bookingDate).toLocaleDateString("en-IN")}`, 20, 80);
+    doc.text(`Status: ${order.orderStatus}`, 20, 90);
+    doc.text(`Created At: ${new Date(order.createdAt).toLocaleString("en-IN")}`, 20, 100);
+  
+    // Save PDF
+    doc.save(`Ticket_${order._id}.pdf`);
+  };
+  
   const handleCancelOrder = async (orderId, orderCreatedAt) => {
     const now = new Date();
     const orderTime = new Date(orderCreatedAt);
     const timeDifference = now - orderTime;
-  
+
     if (timeDifference > 6 * 60 * 60 * 1000) {
       alert("Order can only be canceled within 6 hours of booking.");
       return;
     }
-  
+
     const confirmCancel = window.confirm(
       "Are you sure you want to cancel your order?"
     );
     if (!confirmCancel) return;
-  
+
     try {
       await axios.patch(`http://localhost:3000/orders/${orderId}/cancel`);
-  
+
       setSuccessMessage("Order canceled successfully!");
       setOrders((prevOrders) =>
         prevOrders.map((order) =>
           order._id === orderId ? { ...order, orderStatus: "Cancelled" } : order
         )
       );
-  
+
       setTimeout(() => setSuccessMessage(""), 3000);
     } catch (error) {
       console.error("Error cancelling order:", error);
       alert("Failed to cancel order");
     }
   };
-  
 
   const filterOrders = (orders, filter) => {
     const now = new Date();
-  
+
     return orders.filter((order) => {
       const orderDate = new Date(order.createdAt);
-  
+
       // Status filtering
       if (filter === "successful" && order.orderStatus !== "Successful") {
         return false;
@@ -82,7 +104,7 @@ const Orders = () => {
       if (filter === "cancelled" && order.orderStatus !== "Cancelled") {
         return false;
       }
-  
+
       // Time-based filtering
       switch (filter) {
         case "6hrs":
@@ -166,7 +188,19 @@ const Orders = () => {
                       <strong>Seats:</strong> {order.seats}
                     </p>
                     <p>
+                      <strong>Number of Passengers:</strong>{" "}
+                      {order.travelers?.length || order.seats}
+                    </p>
+                    <p>
                       <strong>Total Amount:</strong> ₹{order.totalAmount}
+                    </p>
+                    <p>
+                      <strong>Travel Date:</strong>{" "}
+                      {new Date(order.bookingDate).toLocaleDateString("en-IN", {
+                        day: "2-digit",
+                        month: "2-digit",
+                        year: "numeric",
+                      })}
                     </p>
                     <p>
                       <strong>Status:</strong> {order.orderStatus}
@@ -184,19 +218,35 @@ const Orders = () => {
                       })}
                     </p>
                     {order.orderStatus !== "Cancelled" ? (
-                      <button
-                      style={{
-                        backgroundColor: "red",
-                        color: "white",
-                        padding: "10px",
-                        border: "none",
-                        cursor: "pointer",
-                      }}
-                      onClick={() => handleCancelOrder(order._id, order.createdAt)}
-                    >
-                      Cancel Order
-                    </button>
-                    
+                      <>
+                        <button
+                          style={{
+                            backgroundColor: "red",
+                            color: "white",
+                            padding: "10px",
+                            border: "none",
+                            cursor: "pointer",
+                          }}
+                          onClick={() =>
+                            handleCancelOrder(order._id, order.createdAt)
+                          }
+                        >
+                          Cancel Order
+                        </button>
+                        <button
+                          style={{
+                            backgroundColor: "blue",
+                            color: "white",
+                            padding: "10px",
+                            border: "none",
+                            cursor: "pointer",
+                            marginLeft: "10px",
+                          }}
+                          onClick={() => handleDownloadTicket(order)}
+                        >
+                          Download Ticket
+                        </button>
+                      </>
                     ) : (
                       <p className="cancelled-text">Order Cancelled</p>
                     )}
@@ -213,7 +263,9 @@ const Orders = () => {
           <button onClick={() => setFilter("successful")}>Successful</button>
           <button onClick={() => setFilter("pending")}>Pending</button>
           <button onClick={() => setFilter("cancelled")}>Cancelled</button>
-          <button onClick={() => setFilter("showallorders")}>Show all orders</button>
+          <button onClick={() => setFilter("showallorders")}>
+            Show all orders
+          </button>
 
           <h3>Order Time</h3>
           <button onClick={() => setFilter("6hrs")}>Last 6 Hours</button>
