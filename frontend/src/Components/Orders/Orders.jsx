@@ -6,7 +6,7 @@ import "./Orders.css";
 const Orders = () => {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [filter, setFilter] = useState("all");
+  const [filter, setFilter] = useState("successful");
   const [search, setSearch] = useState("");
   const [successMessage, setSuccessMessage] = useState(""); // ✅ Success message state
   const navigate = useNavigate();
@@ -213,6 +213,7 @@ const Orders = () => {
           <button onClick={() => setFilter("successful")}>Successful</button>
           <button onClick={() => setFilter("pending")}>Pending</button>
           <button onClick={() => setFilter("cancelled")}>Cancelled</button>
+          <button onClick={() => setFilter("showallorders")}>Show all orders</button>
 
           <h3>Order Time</h3>
           <button onClick={() => setFilter("6hrs")}>Last 6 Hours</button>
