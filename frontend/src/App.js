@@ -19,6 +19,7 @@ import Payment from "./Components/Payment/Payment.jsx";
 import ChangePassword from "./Components/ChangePassword/ChangePassword.jsx";
 import Orders from "./Components/Orders/Orders.jsx";
 import Settings from "./Components/Settings/Settings.jsx";
+import ChatbaseWidget from "./Components/ChatbaseWidget/ChatbaseWidget.js";
 const App = () => {
   return (
     <Router>
@@ -44,8 +45,11 @@ const App = () => {
           <Route path="/payment" element={<Payment />} />
           <Route path="*" element={<h1>404 - Page Not Found</h1>} />
         </Routes>
+        
       </main>
       <Footer />
+
+      <ChatbaseWidget/>
     </Router>
   );
 };
