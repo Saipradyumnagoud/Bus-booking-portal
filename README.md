@@ -17,7 +17,7 @@ This project is a simple **Bus Booking Application** built with React. It allows
 ### Adding buses Routes
 
 ```bash
-Take the buses routes from the frontend/public folder and add them to your routes in mongodb.
+Take the buses routes from the frontend/public folder and add them to your create a busesroutes in mongodb and import this csv into it.
 ```
 
 
