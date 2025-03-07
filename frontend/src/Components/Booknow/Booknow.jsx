@@ -14,7 +14,8 @@ const BookNow = () => {
     name: "",
     email: "",
     phone: "",
-    bookingDate: ""
+    bookingDate: "",
+    incognito: false,
   });
 
   useEffect(() => {
@@ -33,7 +34,11 @@ const BookNow = () => {
 
     setPassengerDetails((prevDetails) => ({
       ...prevDetails,
-      [seatNumber]: prevDetails[seatNumber] || { name: "", age: "", gender: "" },
+      [seatNumber]: prevDetails[seatNumber] || {
+        name: "",
+        age: "",
+        gender: "",
+      },
     }));
   };
 
@@ -52,7 +57,13 @@ const BookNow = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!bus || !formData.name || !formData.email || !formData.phone || selectedSeats.length === 0) {
+    if (
+      !bus ||
+      !formData.name ||
+      !formData.email ||
+      !formData.phone ||
+      selectedSeats.length === 0
+    ) {
       alert("Please fill in all required fields and select seats.");
       return;
     }
@@ -81,9 +92,8 @@ const BookNow = () => {
       totalAmount: totalPrice,
       selectedSeats,
       travelers,
-      bookingDate: formData.bookingDate,  // ✅ Booking date is included
+      bookingDate: formData.bookingDate, // ✅ Booking date is included
     };
-    
 
     try {
       const isConfirmed = window.confirm(
@@ -95,9 +105,14 @@ const BookNow = () => {
         return;
       }
     
-      await axios.post("http://localhost:3000/orders", bookingDetails);
+      if (!formData.incognito) {
+        // Save order only if NOT incognito
+        await axios.post("http://localhost:3000/orders", bookingDetails);
+      }
+    
       alert(`Redirecting to the payment page of ₹${totalPrice.toFixed(2)}.`);
       navigate("/payment", { state: { bookingDetails } });
+    
     } catch (err) {
       console.error("Error creating order:", err);
       alert("Error during booking.");
@@ -113,28 +128,76 @@ const BookNow = () => {
     <div className="booknow-container">
       <h1>Confirm Your Booking</h1>
       <div className="bus-details">
-        <p><strong>Bus Name:</strong> {bus.name}</p>
-        <p><strong>Route:</strong> {bus.route}</p>
-        <p><strong>Departure Time:</strong> {bus.timing}</p>
-        <p><strong>Price per Passenger:</strong> ₹{parseFloat(bus.price).toFixed(2)}</p>
+        <p>
+          <strong>Bus Name:</strong> {bus.name}
+        </p>
+        <p>
+          <strong>Route:</strong> {bus.route}
+        </p>
+        <p>
+          <strong>Departure Time:</strong> {bus.timing}
+        </p>
+        <p>
+          <strong>Price per Passenger:</strong> ₹
+          {parseFloat(bus.price).toFixed(2)}
+        </p>
       </div>
       <form className="booking-form" onSubmit={handleSubmit}>
         <h2>Enter Your Details</h2>
         <div className="form-group">
           <label htmlFor="name">Full Name:</label>
-          <input type="text" id="name" name="name" value={formData.name} onChange={handleFormChange} required />
+          <input
+            type="text"
+            id="name"
+            name="name"
+            value={formData.name}
+            onChange={handleFormChange}
+            required
+          />
         </div>
         <div className="form-group">
           <label htmlFor="email">Email:</label>
-          <input type="email" id="email" name="email" value={formData.email} disabled />
+          <input
+            type="email"
+            id="email"
+            name="email"
+            value={formData.email}
+            disabled
+          />
         </div>
         <div className="form-group">
           <label htmlFor="phone">Phone Number:</label>
-          <input type="tel" id="phone" name="phone" value={formData.phone} onChange={handleFormChange} required />
+          <input
+            type="tel"
+            id="phone"
+            name="phone"
+            value={formData.phone}
+            onChange={handleFormChange}
+            required
+          />
         </div>
         <div className="form-group">
           <label htmlFor="bookingDate">Booking Date:</label>
-          <input type="date" id="bookingDate" name="bookingDate" value={formData.bookingDate} onChange={handleFormChange} required />
+          <input
+            type="date"
+            id="bookingDate"
+            name="bookingDate"
+            value={formData.bookingDate}
+            onChange={handleFormChange}
+            required
+          />
+        </div>
+        <div className="form-group">
+          <input
+            type="checkbox"
+            id="incognito"
+            name="incognito"
+            checked={formData.incognito}
+            onChange={handleFormChange}
+          />
+          <label htmlFor="incognito">
+            Book Incognito Order (Not saved in orders)
+          </label>
         </div>
         {/* Seat Selection */}
         <div className="seat-selection">
@@ -148,7 +211,9 @@ const BookNow = () => {
               return (
                 <div
                   key={seatNumber}
-                  className={`seat ${selectedSeats.includes(seatNumber) ? "selected" : ""}`}
+                  className={`seat ${
+                    selectedSeats.includes(seatNumber) ? "selected" : ""
+                  }`}
                   onClick={() => handleSeatClick(seatNumber)}
                 >
                   {seatNumber}
@@ -169,20 +234,31 @@ const BookNow = () => {
                   type="text"
                   placeholder="Full Name"
                   value={passengerDetails[seat]?.name || ""}
-                  onChange={(e) => handlePassengerChange(seat, "name", e.target.value)}
+                  onChange={(e) =>
+                    handlePassengerChange(seat, "name", e.target.value)
+                  }
                   required
                 />
                 <input
                   type="number"
                   placeholder="Age"
                   value={passengerDetails[seat]?.age || ""}
-                  onChange={(e) => handlePassengerChange(seat, "age", e.target.value)}
+                  onChange={(e) =>
+                    handlePassengerChange(seat, "age", e.target.value)
+                  }
                   required
                 />
                 <select
-                  style={{ width: "200px", padding: "5px", fontSize: "16px", borderRadius: "5px" }}
+                  style={{
+                    width: "200px",
+                    padding: "5px",
+                    fontSize: "16px",
+                    borderRadius: "5px",
+                  }}
                   value={passengerDetails[seat]?.gender || ""}
-                  onChange={(e) => handlePassengerChange(seat, "gender", e.target.value)}
+                  onChange={(e) =>
+                    handlePassengerChange(seat, "gender", e.target.value)
+                  }
                   required
                 >
                   <option value="">Select Gender</option>
@@ -196,9 +272,14 @@ const BookNow = () => {
         )}
 
         <div className="total-price">
-          <strong>Total Price: ₹{(selectedSeats.length * parseFloat(bus.price)).toFixed(2)}</strong>
+          <strong>
+            Total Price: ₹
+            {(selectedSeats.length * parseFloat(bus.price)).toFixed(2)}
+          </strong>
         </div>
-        <button type="submit" className="confirm-btn">Confirm Booking</button>
+        <button type="submit" className="confirm-btn">
+          Confirm Booking
+        </button>
       </form>
     </div>
   );
