@@ -1,106 +1,405 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Buses.css";
 
+const BUS_API =
+  process.env.REACT_APP_BUS_API_URL || "http://localhost:3000/api/buses";
+
+const ML_API =
+  process.env.REACT_APP_ML_API_URL || "http://localhost:8000";
+
+const SEARCH_HISTORY_API =
+  process.env.REACT_APP_SEARCH_HISTORY_API_URL ||
+  "http://localhost:3000/api/search-history";
+
+const getPassengerId = () => {
+  const id =
+    localStorage.getItem("passengerId") ||
+    localStorage.getItem("userId");
+
+  if (id) return id;
+
+  try {
+    const user = JSON.parse(
+      localStorage.getItem("user") ||
+      localStorage.getItem("passenger") ||
+      "null"
+    );
+    return user?._id || user?.id || null;
+  } catch {
+    return null;
+  }
+};
+
+const normalize = (value) => String(value || "").trim().toLowerCase();
+
+const getRouteParts = (route = "") => {
+  const parts = String(route).split(/\s+(?:to|→|->)\s+|\s*[-|]\s*/i);
+  return {
+    source: (parts[0] || "").trim(),
+    destination: parts.slice(1).join(" - ").trim(),
+  };
+};
+
+const matchesRoute = (route, from, to) => {
+  const { source, destination } = getRouteParts(route);
+  if (source && destination) {
+    return (
+      normalize(source) === normalize(from) &&
+      normalize(destination) === normalize(to)
+    );
+  }
+
+  const normalizedRoute = normalize(route);
+  return (
+    normalizedRoute.includes(normalize(from)) &&
+    normalizedRoute.includes(normalize(to))
+  );
+};
+
 const Buses = () => {
+  const navigate = useNavigate();
+
   const [buses, setBuses] = useState([]);
+  const [loadingBuses, setLoadingBuses] = useState(true);
   const [fromStation, setFromStation] = useState("");
   const [toStation, setToStation] = useState("");
   const [date, setDate] = useState("");
   const [filteredBuses, setFilteredBuses] = useState([]);
   const [showSearchResults, setShowSearchResults] = useState(false);
-  const [priceRange, setPriceRange] = useState(1000);
+  const [priceRange, setPriceRange] = useState(5000);
   const [busType, setBusType] = useState("All");
-  const [showCancellationPolicies, setShowCancellationPolicies] = useState(true);
+  const [recommendations, setRecommendations] = useState([]);
+  const [loadingRecommendations, setLoadingRecommendations] = useState(false);
+  const [recommendationError, setRecommendationError] = useState("");
+  const [recommendationContext, setRecommendationContext] = useState(null);
+  const [busError, setBusError] = useState("");
+  const [searchHistoryError, setSearchHistoryError] = useState("");
 
-  const navigate = useNavigate();
-
+  // Load bus records from the Express backend.
   useEffect(() => {
-    fetch("http://localhost:3000/api/buses")
-      .then((response) => response.json())
-      .then((data) => setBuses(data))
-      .catch((err) => console.error("Error fetching bus data:", err));
+    const fetchBuses = async () => {
+      try {
+        setLoadingBuses(true);
+        setBusError("");
+
+        const response = await fetch(BUS_API);
+        if (!response.ok) {
+          throw new Error(`Bus API returned ${response.status}`);
+        }
+
+        const data = await response.json();
+        const busList = Array.isArray(data)
+          ? data
+          : data.buses || data.data || [];
+
+        setBuses(busList);
+      } catch (error) {
+        console.error("Bus API error:", error);
+        setBusError(
+          "Unable to load buses. Check that your Node.js server is running."
+        );
+      } finally {
+        setLoadingBuses(false);
+      }
+    };
+
+    fetchBuses();
   }, []);
 
+  // Ask the Python ML service for personalized recommendations.
+  const fetchRecommendations = useCallback(async (source = "", destination = "") => {
+    const passengerId = getPassengerId();
+
+    if (!passengerId) {
+      setRecommendations([]);
+      setRecommendationError(
+        "Log in to see your personalized recommendations."
+      );
+      return;
+    }
+
+    try {
+      setLoadingRecommendations(true);
+      setRecommendationError("");
+      setRecommendationContext(
+        source && destination ? { source, destination } : null
+      );
+
+      const response = await fetch(`${ML_API}/recommendations`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          passenger_id: passengerId,
+          source: source || null,
+          destination: destination || null,
+          top_n: 5,
+        }),
+      });
+
+      const data = await response.json().catch(() => ({}));
+
+      if (!response.ok) {
+        throw new Error(
+          data.detail || data.error || `Recommendation API returned ${response.status}`
+        );
+      }
+
+      setRecommendations(
+        Array.isArray(data.recommendations) ? data.recommendations : []
+      );
+    } catch (error) {
+      console.error("ML recommendation error:", error);
+      setRecommendations([]);
+      setRecommendationError(
+        error.message ||
+        "Unable to load recommendations. Check that the Python ML service is running."
+      );
+    } finally {
+      setLoadingRecommendations(false);
+    }
+  }, []);
+
+  // Load general recommendations when the page opens.
+  useEffect(() => {
+    fetchRecommendations();
+  }, [fetchRecommendations]);
+
   const handleBookNow = (selectedBus) => {
-    const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
-    if (!isLoggedIn) {
+    if (localStorage.getItem("isLoggedIn") !== "true") {
       alert("You must be logged in to book a bus.");
       navigate("/login");
       return;
     }
+
     navigate("/booknow", { state: { bus: selectedBus } });
   };
 
-  const handleSearch = () => {
-    if (!fromStation || !date) {
-      alert("Please select From, To stations, and Date.");
+  // Save search history through Express, not the Python ML service.
+  const saveSearchHistory = async (source, destination, searchDate) => {
+    const passengerId = getPassengerId();
+
+    if (!passengerId) {
+      setSearchHistoryError("Log in to save your search history.");
+      return false;
+    }
+
+    try {
+      const response = await fetch(SEARCH_HISTORY_API, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          passengerId,
+          source,
+          destination,
+          searchDate,
+        }),
+      });
+
+      const data = await response.json().catch(() => ({}));
+
+      if (!response.ok) {
+        throw new Error(
+          data.error || `Search history API returned ${response.status}`
+        );
+      }
+
+      setSearchHistoryError("");
+      console.log("Search history saved:", data.history || data);
+      return true;
+    } catch (error) {
+      console.error("Search history save failed:", error);
+      setSearchHistoryError(
+        `Search history could not be saved: ${error.message}`
+      );
+      return false;
+    }
+  };
+
+  const filterBuses = useCallback(() => {
+    return buses.filter((bus) => {
+      const routeMatch = matchesRoute(bus.route, fromStation, toStation);
+      const priceMatch = Number(bus.price) <= Number(priceRange);
+      const typeMatch =
+        busType === "All" || normalize(bus.type) === normalize(busType);
+      const seatsMatch =
+        bus.seatsAvailable == null || Number(bus.seatsAvailable) > 0;
+
+      return routeMatch && priceMatch && typeMatch && seatsMatch;
+    });
+  }, [buses, fromStation, toStation, priceRange, busType]);
+
+  const handleSearch = async () => {
+    const source = fromStation.trim();
+    const destination = toStation.trim();
+    const searchDate = date;
+
+    if (!source || !destination || !searchDate) {
+      alert("Please enter From, To and Date.");
       return;
     }
 
-    const results = buses.filter((bus) => {
-      const routeMatch =
-        bus.route.toLowerCase().includes(fromStation.toLowerCase()) &&
-        bus.route.toLowerCase().includes(toStation.toLowerCase());
-      const priceMatch = bus.price <= priceRange;
-      const typeMatch = busType === "All" || bus.type === busType;
+    if (normalize(source) === normalize(destination)) {
+      alert("Starting location and destination cannot be the same.");
+      return;
+    }
 
-      return routeMatch && priceMatch && typeMatch;
-    });
-
-    setFilteredBuses(results);
+    setFilteredBuses(filterBuses());
     setShowSearchResults(true);
-    setShowCancellationPolicies(false);
+    setSearchHistoryError("");
+
+    // These are independent operations; a history failure should not block ML.
+    await Promise.all([
+      saveSearchHistory(source, destination, searchDate),
+      fetchRecommendations(source, destination),
+    ]);
   };
-  
+
   useEffect(() => {
-    if (!showSearchResults) return; // Only filter after search
+    if (showSearchResults) {
+      setFilteredBuses(filterBuses());
+    }
+  }, [filterBuses, showSearchResults]);
 
-    const results = buses.filter((bus) => {
-      const routeMatch =
-        bus.route.toLowerCase().includes(fromStation.toLowerCase()) &&
-        bus.route.toLowerCase().includes(toStation.toLowerCase());
-      const priceMatch = bus.price <= priceRange;
-      const typeMatch = busType === "All" || bus.type === busType;
+  const getRecommendedBus = (item) => {
+    const recommendationBusId = item.bus_id || item._id || item.id;
+    if (!recommendationBusId) return null;
 
-      return routeMatch && priceMatch && typeMatch;
-    });
-    
-    setFilteredBuses(results);
-  }, [priceRange, busType, showSearchResults, buses, fromStation, toStation]);
+    return (
+      buses.find(
+        (bus) => String(bus._id) === String(recommendationBusId)
+      ) || null
+    );
+  };
+
+  const renderRecommendations = () => (
+    <section className="recommendations-section">
+      <div className="recommendations-header">
+        <div>
+          <h2>
+            {recommendationContext
+              ? `Suggestions for ${recommendationContext.source} → ${recommendationContext.destination}`
+              : "Recommended Buses For You"}
+          </h2>
+          <p>
+            {recommendationContext
+              ? "Personalized suggestions based on your selected route and travel history."
+              : "Discover routes based on your previous searches and bookings."}
+          </p>
+        </div>
+        <span className="ml-badge">ML Powered</span>
+      </div>
+
+      {loadingRecommendations && (
+        <div className="recommendation-status">
+          Finding the best buses for you...
+        </div>
+      )}
+
+      {!loadingRecommendations && recommendationError && (
+        <div className="recommendation-status">{recommendationError}</div>
+      )}
+
+      {!loadingRecommendations &&
+        !recommendationError &&
+        recommendations.length === 0 && (
+          <div className="recommendation-status">
+            No personalized recommendations found yet. Your search and booking
+            history can help improve future suggestions.
+          </div>
+        )}
+
+      <div className="recommendations-grid">
+        {recommendations.map((item, index) => {
+          const selectedBus = getRecommendedBus(item);
+          const routeLabel =
+            item.source && item.destination
+              ? `${item.source} → ${item.destination}`
+              : item.route || "Suggested route";
+
+          return (
+            <div
+              className="recommendation-card"
+              key={
+                item.bus_id ||
+                item._id ||
+                item.id ||
+                `${routeLabel}-${index}`
+              }
+            >
+              <span className="recommendation-number">
+                Recommended #{index + 1}
+              </span>
+              <h3>{routeLabel}</h3>
+              <p>
+                <strong>Bus:</strong>{" "}
+                {selectedBus?.name || item.name || "Available Bus"}
+              </p>
+              <p>
+                <strong>Departure:</strong>{" "}
+                {selectedBus?.timing || item.departure || "N/A"}
+              </p>
+              <p>
+                <strong>Price:</strong> ₹
+                {selectedBus?.price ?? item.fare ?? "N/A"}
+              </p>
+              <p>
+                <strong>Seats:</strong>{" "}
+                {selectedBus?.seatsAvailable ?? "Check availability"}
+              </p>
+              <p className="recommendation-reason">
+                {item.reason ||
+                  "Suggested based on your travel history and selected route."}
+              </p>
+              <button
+                className="book-button"
+                disabled={!selectedBus}
+                onClick={() => selectedBus && handleBookNow(selectedBus)}
+              >
+                {selectedBus ? "Book Now" : "Bus Unavailable"}
+              </button>
+            </div>
+          );
+        })}
+      </div>
+    </section>
+  );
+
   return (
     <div className="buses-container">
       <h1 className="buses-title">Search Available Buses</h1>
 
-      {/* Search Section */}
       <div className="search-container">
         <div className="search-field">
-          <label>From Station</label>
+          <label htmlFor="from-station">From Station</label>
           <input
+            id="from-station"
             type="text"
             placeholder="Enter starting station..."
             value={fromStation}
-            onChange={(e) => setFromStation(e.target.value)}
+            onChange={(event) => setFromStation(event.target.value)}
           />
         </div>
 
         <div className="search-field">
-          <label>To Station</label>
+          <label htmlFor="to-station">To Station</label>
           <input
+            id="to-station"
             type="text"
             placeholder="Enter destination..."
             value={toStation}
-            onChange={(e) => setToStation(e.target.value)}
+            onChange={(event) => setToStation(event.target.value)}
           />
         </div>
 
         <div className="search-field">
-          <label>Date</label>
+          <label htmlFor="travel-date">Date</label>
           <input
+            id="travel-date"
             type="date"
             value={date}
-            onChange={(e) => setDate(e.target.value)}
             min={new Date().toISOString().split("T")[0]}
+            onChange={(event) => setDate(event.target.value)}
           />
         </div>
 
@@ -109,12 +408,17 @@ const Buses = () => {
         </button>
       </div>
 
-      {/* Show Filters and Results Only After Search */}
+      {searchHistoryError && (
+        <p className="no-results">{searchHistoryError}</p>
+      )}
+
+      {!showSearchResults && renderRecommendations()}
+
       {showSearchResults && (
         <div className="buses-content">
-          {/* Left-side Filters Section */}
           <div className="filters-container">
             <h2>Filters</h2>
+
             <div className="filter-group">
               <label>Max Price: ₹{priceRange}</label>
               <input
@@ -123,102 +427,80 @@ const Buses = () => {
                 max="5000"
                 step="100"
                 value={priceRange}
-                onChange={(e) => setPriceRange(e.target.value)}
+                onChange={(event) =>
+                  setPriceRange(Number(event.target.value))
+                }
               />
             </div>
 
             <div className="filter-group">
-              <label>Bus Type</label>
-              <select value={busType} onChange={(e) => setBusType(e.target.value)}>
+              <label htmlFor="bus-type">Bus Type</label>
+              <select
+                id="bus-type"
+                value={busType}
+                onChange={(event) => setBusType(event.target.value)}
+              >
                 <option value="All">All</option>
                 <option value="AC">AC</option>
                 <option value="Non-AC">Non-AC</option>
                 <option value="Sleeper">Sleeper</option>
               </select>
             </div>
+
+            <button
+              className="search-button"
+              onClick={() => {
+                setShowSearchResults(false);
+                setFilteredBuses([]);
+              }}
+            >
+              Back to Recommendations
+            </button>
           </div>
 
-          {/* Bus List */}
           <div className="buses-list">
-            {filteredBuses.length > 0 ? (
+            <h2>Available Buses</h2>
+
+            {loadingBuses && <p>Loading buses...</p>}
+            {busError && <p className="no-results">{busError}</p>}
+
+            {!loadingBuses &&
               filteredBuses.map((bus) => (
                 <div key={bus._id} className="bus-card">
-                  <h2>{bus.name}</h2>
-                  <p><strong>Route:</strong> {bus.route}</p>
-                  <p><strong>Price:</strong> ₹{bus.price}</p>
-                  <p><strong>Departure:</strong> {bus.timing}</p>
-                  <p><strong>Seats Available:</strong> 20</p>
-                  {/* <p><strong>Type:</strong> {bus.type}</p> */}
-                  <button className="book-button" onClick={() => handleBookNow(bus)}>
+                  <h2>{bus.name || "Available Bus"}</h2>
+                  <p>
+                    <strong>Route:</strong> {bus.route}
+                  </p>
+                  <p>
+                    <strong>Price:</strong> ₹{bus.price}
+                  </p>
+                  <p>
+                    <strong>Departure:</strong> {bus.timing}
+                  </p>
+                  <p>
+                    <strong>Seats Available:</strong>{" "}
+                    {bus.seatsAvailable ?? "Check availability"}
+                  </p>
+                  <button
+                    className="book-button"
+                    onClick={() => handleBookNow(bus)}
+                  >
                     Book Now
                   </button>
                 </div>
-              ))
-            ) : (
-              <p className="no-results">No buses found for the selected route and date.</p>
-            )}
+              ))}
+
+            {!loadingBuses &&
+              !busError &&
+              filteredBuses.length === 0 && (
+                <p className="no-results">
+                  No buses found for the selected route and filters.
+                </p>
+              )}
           </div>
+
+          {renderRecommendations()}
         </div>
-      )}
-
-      {showCancellationPolicies && (
-      <div className="cancellation-policies-container">
-      <h1>Bus booking FAQ'S</h1>
-      
-      <section className="policy-overview">
-        <p>
-          At <strong>BookNow</strong>, we strive to provide flexibility and ease when it comes to canceling your bus tickets. Please review the following cancellation policies to understand the terms and conditions that apply.
-        </p>
-      </section>
-
-      <section className="general-cancellation-policy">
-        <h2>General Cancellation Policy</h2>
-        <p>
-          If you wish to cancel your booking, please do so at least 24 hours before the scheduled departure to receive a full refund. Cancellations made less than 24 hours before the departure will incur a cancellation fee based on the type of service booked.
-        </p>
-      </section>
-
-      <section className="refund-eligibility">
-        <h2>Refund Eligibility</h2>
-        <ul>
-          <li><strong>Full Refund:</strong> If the cancellation is made at least 24 hours before the departure time, you are eligible for a full refund.</li>
-          <li><strong>Partial Refund:</strong> Cancellations made within 24 hours of the departure may be eligible for a partial refund, depending on the type of ticket purchased and the specific service.</li>
-          <li><strong>No Refund:</strong> If the cancellation occurs after the bus has already departed, no refund will be issued.</li>
-        </ul>
-      </section>
-
-      <section className="cancellation-fees">
-        <h2>Cancellation Fees</h2>
-        <p>The following cancellation fees apply based on the time of cancellation:</p>
-        <ul>
-          <li><strong>More than 24 hours before departure:</strong> No cancellation fee.</li>
-          <li><strong>12-24 hours before departure:</strong> 20% of the ticket price.</li>
-          <li><strong>Less than 12 hours before departure:</strong> 50% of the ticket price.</li>
-          <li><strong>After departure:</strong> No refund issued.</li>
-        </ul>
-      </section>
-
-      <section className="how-to-cancel">
-        <h2>How to Cancel Your Booking</h2>
-        <p>You can easily cancel your booking through the following methods:</p>
-        <ul>
-          <li><strong>Online Cancellation:</strong> Log in to your account on our website or app, navigate to your booking history, and select the booking you wish to cancel.</li>
-          <li><strong>Customer Support:</strong> You can also reach out to our customer support team via email or phone to assist with your cancellation request.</li>
-        </ul>
-      </section>
-
-      <section className="special-cancellations">
-        <h2>Special Cancellation Cases</h2>
-        <p>
-          We understand that there may be special circumstances where the standard cancellation policy does not apply. Please refer to the following cases:
-        </p>
-        <ul>
-          <li><strong>Travel Disruptions:</strong> In the event of a natural disaster or travel disruption, we will provide full refunds or allow free rescheduling, depending on the situation.</li>
-          <li><strong>Health Issues:</strong> In the case of illness or medical emergencies, we may provide a full or partial refund upon the submission of relevant documentation.</li>
-          <li><strong>Government Regulations:</strong> In cases where cancellations are required by local government regulations (e.g., lockdowns or restrictions), we will offer full refunds to affected passengers.</li>
-        </ul>
-      </section>
-    </div>
       )}
     </div>
   );

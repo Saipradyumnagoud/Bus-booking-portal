@@ -5,7 +5,7 @@ const bcrypt = require("bcrypt");
 const PassengerModel = require("./models/Passenger");
 const BusModel = require("./models/busModel");
 const OrderModel = require("./models/Order");
-
+const SearchHistoryModel = require("./models/SearchHistory");
 const app = express();
 
 // Middleware
@@ -43,25 +43,207 @@ app.post("/signup", async (req, res) => {
 });
 
 // ✅ Login Route
+
+
 app.post("/login", async (req, res) => {
   const { email, password } = req.body;
 
   try {
     const user = await PassengerModel.findOne({ email });
+
     if (!user) {
-      return res.status(400).json({ error: "Invalid email or password" });
+      return res.status(400).json({
+        error: "Invalid email or password",
+      });
     }
 
-    const isMatch = await bcrypt.compare(password, user.password);
-    if (isMatch) {
-      res.json({ message: "Success" });
-    } else {
-      res.status(400).json({ error: "Invalid email or password" });
+    const isMatch = await bcrypt.compare(
+      password,
+      user.password
+    );
+
+    if (!isMatch) {
+      return res.status(400).json({
+        error: "Invalid email or password",
+      });
     }
+
+    res.json({
+      message: "Success",
+      passengerId: user._id,
+      name: user.name,
+      email: user.email,
+    });
+
   } catch (error) {
-    res.status(500).json({ error: "Server error" });
+    console.error("Login error:", error);
+
+    res.status(500).json({
+      error: "Server error",
+    });
   }
 });
+
+
+// SAVE PASSENGER SEARCH HISTORY
+
+// SAVE EVERY PASSENGER SEARCH
+app.post("/api/search-history", async (req, res) => {
+  try {
+    const {
+      passengerId,
+      source,
+      destination,
+      searchDate
+    } = req.body;
+
+    if (!passengerId || !source?.trim() || !destination?.trim()) {
+      return res.status(400).json({
+        error: "Passenger ID, source and destination are required"
+      });
+    }
+
+    if (!mongoose.Types.ObjectId.isValid(passengerId)) {
+      return res.status(400).json({
+        error: "Invalid passenger ID"
+      });
+    }
+
+    const passenger = await PassengerModel.findById(passengerId);
+
+    if (!passenger) {
+      return res.status(404).json({
+        error: "Passenger not found"
+      });
+    }
+
+    const travelDate = searchDate ? new Date(searchDate) : new Date();
+
+    if (Number.isNaN(travelDate.getTime())) {
+      return res.status(400).json({
+        error: "Invalid search date"
+      });
+    }
+
+    // Every search creates a NEW document.
+    const history = await SearchHistoryModel.create({
+      passengerId,
+      source: source.trim(),
+      destination: destination.trim(),
+      searchDate: travelDate
+    });
+
+    res.status(201).json({
+      message: "Search history saved successfully",
+      history
+    });
+
+  } catch (error) {
+    console.error("Search history error:", error);
+
+    res.status(500).json({
+      error: "Failed to save search history"
+    });
+  }
+});
+
+// SAVE EVERY PASSENGER SEARCH
+app.post("/api/search-history", async (req, res) => {
+  try {
+    const {
+      passengerId,
+      source,
+      destination,
+      searchDate
+    } = req.body;
+
+    if (!passengerId || !source?.trim() || !destination?.trim()) {
+      return res.status(400).json({
+        error: "Passenger ID, source and destination are required"
+      });
+    }
+
+    if (!mongoose.Types.ObjectId.isValid(passengerId)) {
+      return res.status(400).json({
+        error: "Invalid passenger ID"
+      });
+    }
+
+    const passenger = await PassengerModel.findById(passengerId);
+
+    if (!passenger) {
+      return res.status(404).json({
+        error: "Passenger not found"
+      });
+    }
+
+    const travelDate = searchDate ? new Date(searchDate) : new Date();
+
+    if (Number.isNaN(travelDate.getTime())) {
+      return res.status(400).json({
+        error: "Invalid search date"
+      });
+    }
+
+    // Every search creates a NEW document.
+    const history = await SearchHistoryModel.create({
+      passengerId,
+      source: source.trim(),
+      destination: destination.trim(),
+      searchDate: travelDate
+    });
+
+    res.status(201).json({
+      message: "Search history saved successfully",
+      history
+    });
+
+  } catch (error) {
+    console.error("Search history error:", error);
+
+    res.status(500).json({
+      error: "Failed to save search history"
+    });
+  }
+});
+
+
+
+// FETCH PASSENGER SEARCH HISTORY
+
+
+// FETCH ALL SEARCH HISTORIES FOR A PASSENGER
+app.get("/api/search-history/:passengerId", async (req, res) => {
+  try {
+    const { passengerId } = req.params;
+
+    if (!mongoose.Types.ObjectId.isValid(passengerId)) {
+      return res.status(400).json({
+        error: "Invalid passenger ID"
+      });
+    }
+
+    const history = await SearchHistoryModel.find({
+      passengerId
+    })
+      .sort({ createdAt: 1 })
+      .lean();
+
+    res.json({
+      passengerId,
+      totalSearches: history.length,
+      history
+    });
+
+  } catch (error) {
+    console.error("History fetch error:", error);
+
+    res.status(500).json({
+      error: "Failed to fetch search history"
+    });
+  }
+});
+
 
 // ✅ Get User Details
 app.get("/userDetails", async (req, res) => {
